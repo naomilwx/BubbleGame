@@ -121,6 +121,7 @@
 }
 
 - (CGPoint)getStartingBubbleCenter{
+    //TODO:
     CGFloat xPos = self.gameBackground.center.x;
     CGFloat yPos = self.gameBackground.frame.size.height - self.defaultBubbleRadius;
     return CGPointMake(xPos, yPos);

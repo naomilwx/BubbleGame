@@ -138,7 +138,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <imageView autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999403953552" tag="1" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vBK-j5-2Rw">
-                                                <rect key="frame" x="117" y="8" width="60" height="60"/>
+                                                <rect key="frame" x="85" y="8" width="60" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <gestureRecognizers/>
                                                 <connections>
@@ -146,7 +146,7 @@
                                                 </connections>
                                             </imageView>
                                             <imageView autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999403953552" tag="2" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tUg-qu-Lml">
-                                                <rect key="frame" x="217" y="8" width="60" height="60"/>
+                                                <rect key="frame" x="163" y="8" width="60" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <gestureRecognizers/>
                                                 <connections>
@@ -154,7 +154,7 @@
                                                 </connections>
                                             </imageView>
                                             <imageView autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999403953552" tag="3" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SBB-Kv-jTK">
-                                                <rect key="frame" x="314" y="8" width="60" height="60"/>
+                                                <rect key="frame" x="243" y="8" width="60" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <gestureRecognizers/>
                                                 <connections>
@@ -162,7 +162,7 @@
                                                 </connections>
                                             </imageView>
                                             <imageView autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999403953552" tag="4" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qMw-cU-G5J">
-                                                <rect key="frame" x="428" y="9" width="93" height="56"/>
+                                                <rect key="frame" x="565" y="8" width="93" height="56"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <gestureRecognizers/>
                                                 <connections>
@@ -170,7 +170,7 @@
                                                 </connections>
                                             </imageView>
                                             <imageView autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999403953552" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mzJ-Yp-R55">
-                                                <rect key="frame" x="14" y="8" width="60" height="60"/>
+                                                <rect key="frame" x="9" y="8" width="60" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <gestureRecognizers/>
                                                 <connections>
