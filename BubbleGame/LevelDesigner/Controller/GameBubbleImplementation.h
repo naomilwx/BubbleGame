@@ -16,5 +16,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *redButton;
 @property (strong, nonatomic) IBOutlet UIImageView *eraser;
 @property (strong, nonatomic) IBOutlet UIImageView *indestructibleButton;
+@property (strong, nonatomic) IBOutlet UIImageView *lightningButton;
+@property (strong, nonatomic) IBOutlet UIImageView *starButton;
+@property (strong, nonatomic) IBOutlet UIImageView *bombButton;
 
 @end

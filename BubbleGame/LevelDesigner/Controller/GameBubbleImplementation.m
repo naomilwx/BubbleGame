@@ -18,6 +18,9 @@ typedef enum GamePalette{
     RED = 3,
     ERASER = 4,
     INDESTRUCTIBLE = 5,
+    LIGHTNING = 6,
+    STAR = 7,
+    BOMB = 8
 } GamePaletteSelection; //Order must be as set in storyboard
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
@@ -38,6 +41,9 @@ typedef enum GamePalette{
 @synthesize eraser;
 @synthesize selectedType;
 @synthesize indestructibleButton;
+@synthesize lightningButton;
+@synthesize starButton;
+@synthesize bombButton;
 
 - (void)viewDidLoad
 {
@@ -57,6 +63,9 @@ typedef enum GamePalette{
                                [NSNumber numberWithInt:RED]: [UIImage imageNamed:@"bubble-red"],
                                [NSNumber numberWithInt:ERASER]: [UIImage imageNamed:@"eraser-1"],
                                [NSNumber numberWithInt:INDESTRUCTIBLE]: [UIImage imageNamed:@"bubble-indestructible"],
+                               [NSNumber numberWithInt:LIGHTNING]: [UIImage imageNamed:@"bubble-lightning"],
+                               [NSNumber numberWithInt:STAR]: [UIImage imageNamed:@"bubble-star"],
+                               [NSNumber numberWithInt:BOMB]: [UIImage imageNamed:@"bubble-bomb"],
                                };
     }
 }
@@ -69,6 +78,9 @@ typedef enum GamePalette{
                                 [NSNumber numberWithInt:RED]: redButton,
                                 [NSNumber numberWithInt:ERASER]: eraser,
                                 [NSNumber numberWithInt:INDESTRUCTIBLE]:indestructibleButton,
+                                [NSNumber numberWithInt:LIGHTNING]: lightningButton,
+                                [NSNumber numberWithInt:STAR]: starButton,
+                                [NSNumber numberWithInt:BOMB]: bombButton,
                                 };
     }
 }
@@ -83,7 +95,7 @@ typedef enum GamePalette{
 }
 
 - (NSInteger)getNextBubbleTypeFromType:(NSInteger)type{
-    return (type + 1)%NUM_OF_PALETTE_BUBBLE_TYPES;
+    return (type + 1)%NUM_OF_BUBBLE_COLORS;
 }
 
 #pragma mark - gesture handling
