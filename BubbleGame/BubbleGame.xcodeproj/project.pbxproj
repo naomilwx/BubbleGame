@@ -76,11 +76,11 @@
 		C20589C118B67B9E003AC20C /* BubbleGameTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BubbleGameTests-Info.plist"; sourceTree = "<group>"; };
 		C20589C318B67B9E003AC20C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C20589C518B67B9E003AC20C /* BubbleGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BubbleGameTests.m; sourceTree = "<group>"; };
-		C20589D218B67C4A003AC20C /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
-		C20589D518B67C4A003AC20C /* bubble-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-blue.png"; sourceTree = "<group>"; };
-		C20589D618B67C4B003AC20C /* bubble-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-green.png"; sourceTree = "<group>"; };
-		C20589D718B67C4B003AC20C /* bubble-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-orange.png"; sourceTree = "<group>"; };
-		C20589D818B67C4B003AC20C /* bubble-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubble-red.png"; sourceTree = "<group>"; };
+		C20589D218B67C4A003AC20C /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = ../LevelDesigner/background.png; sourceTree = "<group>"; };
+		C20589D518B67C4A003AC20C /* bubble-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-blue.png"; path = "../LevelDesigner/bubble-blue.png"; sourceTree = "<group>"; };
+		C20589D618B67C4B003AC20C /* bubble-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-green.png"; path = "../LevelDesigner/bubble-green.png"; sourceTree = "<group>"; };
+		C20589D718B67C4B003AC20C /* bubble-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-orange.png"; path = "../LevelDesigner/bubble-orange.png"; sourceTree = "<group>"; };
+		C20589D818B67C4B003AC20C /* bubble-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-red.png"; path = "../LevelDesigner/bubble-red.png"; sourceTree = "<group>"; };
 		C20589D918B67C4B003AC20C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C20589DB18B67C4B003AC20C /* BubbleControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleControllerDelegate.h; path = LevelDesigner/Controller/BubbleControllerDelegate.h; sourceTree = SOURCE_ROOT; };
 		C20589DC18B67C4B003AC20C /* GameBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBubble.h; path = LevelDesigner/Controller/GameBubble.h; sourceTree = SOURCE_ROOT; };
@@ -90,8 +90,8 @@
 		C20589E018B67C4B003AC20C /* LevelSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelector.h; path = LevelDesigner/Controller/LevelSelector.h; sourceTree = SOURCE_ROOT; };
 		C20589E118B67C4B003AC20C /* LevelSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LevelSelector.m; path = LevelDesigner/Controller/LevelSelector.m; sourceTree = SOURCE_ROOT; };
 		C20589E218B67C4B003AC20C /* LevelSelectorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelectorDelegate.h; path = LevelDesigner/Controller/LevelSelectorDelegate.h; sourceTree = SOURCE_ROOT; };
-		C20589E518B67C4B003AC20C /* eraser-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "eraser-1.png"; sourceTree = "<group>"; };
-		C20589E618B67C4B003AC20C /* eraser-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "eraser-2.jpg"; sourceTree = "<group>"; };
+		C20589E518B67C4B003AC20C /* eraser-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "eraser-1.png"; path = "../LevelDesigner/eraser-1.png"; sourceTree = "<group>"; };
+		C20589E618B67C4B003AC20C /* eraser-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "eraser-2.jpg"; path = "../LevelDesigner/eraser-2.jpg"; sourceTree = "<group>"; };
 		C20589EC18B67C4B003AC20C /* BubbleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleController.h; path = LevelDesigner/Model/BubbleController.h; sourceTree = SOURCE_ROOT; };
 		C20589ED18B67C4B003AC20C /* BubbleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleController.m; path = LevelDesigner/Model/BubbleController.m; sourceTree = SOURCE_ROOT; };
 		C20589EE18B67C4B003AC20C /* BubbleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleManager.h; path = LevelDesigner/Model/BubbleManager.h; sourceTree = SOURCE_ROOT; };
@@ -182,6 +182,7 @@
 		C20589A018B67B9E003AC20C /* BubbleGame */ = {
 			isa = PBXGroup;
 			children = (
+				C24C5C1018B6DF62007A4DEE /* Images */,
 				C20589A918B67B9E003AC20C /* AppDelegate.h */,
 				C20589AA18B67B9E003AC20C /* AppDelegate.m */,
 				C20589AC18B67B9E003AC20C /* Main.storyboard */,
@@ -225,13 +226,6 @@
 		C20589CF18B67C4A003AC20C /* LevelDesigner */ = {
 			isa = PBXGroup;
 			children = (
-				C20589D218B67C4A003AC20C /* background.png */,
-				C20589D518B67C4A003AC20C /* bubble-blue.png */,
-				C20589D618B67C4B003AC20C /* bubble-green.png */,
-				C20589D718B67C4B003AC20C /* bubble-orange.png */,
-				C20589D818B67C4B003AC20C /* bubble-red.png */,
-				C20589E518B67C4B003AC20C /* eraser-1.png */,
-				C20589E618B67C4B003AC20C /* eraser-2.jpg */,
 				C20589D918B67C4B003AC20C /* Constants.h */,
 				C20589DA18B67C4B003AC20C /* Controller */,
 				C20589EB18B67C4B003AC20C /* Model */,
@@ -244,6 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				C20589DB18B67C4B003AC20C /* BubbleControllerDelegate.h */,
+				C20589EC18B67C4B003AC20C /* BubbleController.h */,
+				C20589ED18B67C4B003AC20C /* BubbleController.m */,
 				C20589DC18B67C4B003AC20C /* GameBubble.h */,
 				C20589DD18B67C4B003AC20C /* GameBubble.m */,
 				C20589DE18B67C4B003AC20C /* GameBubbleBasic.h */,
@@ -258,8 +254,6 @@
 		C20589EB18B67C4B003AC20C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C20589EC18B67C4B003AC20C /* BubbleController.h */,
-				C20589ED18B67C4B003AC20C /* BubbleController.m */,
 				C20589EE18B67C4B003AC20C /* BubbleManager.h */,
 				C20589EF18B67C4B003AC20C /* BubbleManager.m */,
 				C20589F018B67C4B003AC20C /* BubbleModel.h */,
@@ -311,6 +305,20 @@
 				C2058A6D18B67F44003AC20C /* PositionUpdateProtocol.h */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		C24C5C1018B6DF62007A4DEE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C20589E618B67C4B003AC20C /* eraser-2.jpg */,
+				C20589D218B67C4A003AC20C /* background.png */,
+				C20589E518B67C4B003AC20C /* eraser-1.png */,
+				C20589D518B67C4A003AC20C /* bubble-blue.png */,
+				C20589D618B67C4B003AC20C /* bubble-green.png */,
+				C20589D718B67C4B003AC20C /* bubble-orange.png */,
+				C20589D818B67C4B003AC20C /* bubble-red.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -646,6 +654,7 @@
 				C20589CB18B67B9E003AC20C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C20589CC18B67B9E003AC20C /* Build configuration list for PBXNativeTarget "BubbleGameTests" */ = {
 			isa = XCConfigurationList;
@@ -654,6 +663,7 @@
 				C20589CE18B67B9E003AC20C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

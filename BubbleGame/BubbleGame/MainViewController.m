@@ -18,12 +18,24 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    [self loadBackground];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (IBAction)meunButtonPressed:(UIButton *)sender {
+    NSLog(@"sender %@", [[sender titleLabel] text]);
+}
+
+- (void)loadBackground{
+    self.menuBackground.contentMode = UIViewContentModeScaleAspectFit;
+    self.menuBackground.clipsToBounds = YES;
+    self.menuBackground.userInteractionEnabled = YES;
+    UIImage *background = [UIImage imageNamed:@"MenuBackground"];
+    [self.menuBackground setImage:background];
 }
 
 @end
