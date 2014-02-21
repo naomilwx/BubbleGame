@@ -10,8 +10,8 @@
 #import "BubbleEngine.h"
 #import "BubbleGridLayout.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Constants.h"
 
-#define NUM_OF_CELLS_IN_ROW 12
 #define DEFAULT_ID 0
 #define DEFAULT_SPEED_FACTOR 20
 

@@ -13,6 +13,7 @@
 #import "Constants.h"
 
 #define NUM_OF_CELLS_IN_ROW 12
+#define CANNON_SIDE_BUFFER 10
 
 @implementation ViewController
 
@@ -29,6 +30,7 @@
     [self loadDefaultBubbles]; //for testing
     [self loadEngine];
     [self addGestureRecognisers];
+    [self loadCannon];
     [self loadNextBubble];
 }
 
@@ -36,6 +38,19 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)loadCannon{
+    [self loadCannonBase];
+}
+- (void)loadCannonBase{
+    CGFloat width = self.defaultBubbleRadius * 2 + CANNON_SIDE_BUFFER * 2;
+    CGFloat height = self.defaultBubbleRadius;
+    CGFloat xPos = self.gameBackground.center.x - width / 2;
+    CGFloat yPos = self.gameBackground.frame.size.height - height;
+    CGRect baseFrame = CGRectMake(xPos, yPos, width, height);
+    UIImageView *cannonBase = [[UIImageView alloc] initWithFrame:baseFrame];
+    [cannonBase setImage:[UIImage imageNamed:@"cannon-base"]];
+    [self.gameBackground addSubview:cannonBase];
+}
 - (void)loadEngine{
     if(!engine){
         engine = [[MainEngine alloc] init];

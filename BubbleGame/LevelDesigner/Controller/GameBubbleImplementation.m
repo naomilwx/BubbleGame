@@ -95,6 +95,9 @@ typedef enum GamePalette{
 }
 
 - (NSInteger)getNextBubbleTypeFromType:(NSInteger)type{
+    if(type >= NUM_OF_BUBBLE_COLORS){
+        return type; //for now don't cycle special bubbles
+    }
     return (type + 1)%NUM_OF_BUBBLE_COLORS;
 }
 
