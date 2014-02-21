@@ -78,6 +78,7 @@
                                 </state>
                                 <connections>
                                     <action selector="buttonPressed:" destination="UUD-8A-Hpr" eventType="touchUpInside" id="XEr-Qx-z0l"/>
+                                    <segue destination="vSm-Bd-8P6" kind="modal" id="8xw-Xh-cie"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhP-kW-PMM">
@@ -224,28 +225,28 @@
             </objects>
             <point key="canvasLocation" x="376" y="-384"/>
         </scene>
-        <!--Main View Controller-->
-        <scene sceneID="8Q3-tO-rh0">
+        <!--View Controller-->
+        <scene sceneID="58t-ia-Bze">
             <objects>
-                <viewController id="1Z2-J6-Omh" customClass="MainViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="Mnv-6h-j4J">
+                <viewController id="vSm-Bd-8P6" customClass="ViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="KT6-bj-aJj">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewLayout key="collectionViewLayout" id="5lW-hM-aFe"/>
-                        <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="jgl-Fy-IWt">
+                        <collectionViewLayout key="collectionViewLayout" id="Ft9-dB-9Cd"/>
+                        <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dv7-5e-vhr">
                             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <cells/>
                     </collectionView>
                     <connections>
-                        <outlet property="BubbleGridTemplate" destination="Mnv-6h-j4J" id="lOt-o2-Ph3"/>
-                        <outlet property="gameBackground" destination="jgl-Fy-IWt" id="r7X-AA-E2I"/>
+                        <outlet property="BubbleGridTemplate" destination="KT6-bj-aJj" id="5ES-uv-843"/>
+                        <outlet property="gameBackground" destination="dv7-5e-vhr" id="Z0d-Jz-utc"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vTv-NM-2dz" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iUM-VK-WC2" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-321" y="803"/>
+            <point key="canvasLocation" x="-357" y="875"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
