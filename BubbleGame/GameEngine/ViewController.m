@@ -10,8 +10,8 @@
 #import "BubbleView.h"
 #import "BubbleGridLayout.h"
 #import "BubbleModel.h"
+#import "Constants.h"
 
-#define NUM_TYPES 4
 #define NUM_OF_CELLS_IN_ROW 12
 
 @implementation ViewController
@@ -133,7 +133,7 @@
 
 
 - (NSInteger)getNextBubbleType{
-    return arc4random_uniform(NUM_TYPES);
+    return arc4random_uniform(NUM_OF_BUBBLE_COLORS);
 }
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser{

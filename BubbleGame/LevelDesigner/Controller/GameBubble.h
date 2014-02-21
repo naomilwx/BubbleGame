@@ -19,9 +19,6 @@
 #define GAME_RESET @"Reset"
 #define TRANSLUCENT_ALPHA 0.35
 
-#define NUM_CELLS_IN_ROW 12
-#define NUM_OF_ROWS 9
-
 // Constants for the three game objects to be implemented
 typedef enum {kGameBubbleBasic} GameBubbleType;
 
