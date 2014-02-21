@@ -6,29 +6,30 @@
 //
 //
 
-#import "GameBubbleBasic.h"
+#import "GameBubbleImplementation.h"
 #import "Constants.h"
 #import "BubbleController.h"
 
-typedef enum GamePaletteBasic{
+typedef enum GamePalette{
     NONE = INVALID,
     ORANGE = 0,
     BLUE = 1,
     GREEN = 2,
     RED = 3,
-    ERASER = 4
+    ERASER = 4,
+    INDESTRUCTIBLE = 5,
 } GamePaletteSelection; //Order must be as set in storyboard
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
 #define SAVE_UNSUCCESSFUL_MSG @"An error occurred while saving. Game level is not saved."
 
-@interface GameBubbleBasic ()
+@interface GameBubbleImplementation ()
 
 @property (nonatomic) GamePaletteSelection selectedType;
 
 @end
 
-@implementation GameBubbleBasic
+@implementation GameBubbleImplementation
 
 @synthesize orangeButton;
 @synthesize blueButton;
@@ -36,6 +37,7 @@ typedef enum GamePaletteBasic{
 @synthesize redButton;
 @synthesize eraser;
 @synthesize selectedType;
+@synthesize indestructibleButton;
 
 - (void)viewDidLoad
 {
@@ -53,7 +55,8 @@ typedef enum GamePaletteBasic{
                                [NSNumber numberWithInt:BLUE]: [UIImage imageNamed:@"bubble-blue"],
                                [NSNumber numberWithInt:GREEN]: [UIImage imageNamed:@"bubble-green"],
                                [NSNumber numberWithInt:RED]: [UIImage imageNamed:@"bubble-red"],
-                               [NSNumber numberWithInt:ERASER]: [UIImage imageNamed:@"eraser-1"]
+                               [NSNumber numberWithInt:ERASER]: [UIImage imageNamed:@"eraser-1"],
+                               [NSNumber numberWithInt:INDESTRUCTIBLE]: [UIImage imageNamed:@"bubble-indestructible"],
                                };
     }
 }
@@ -64,7 +67,8 @@ typedef enum GamePaletteBasic{
                                 [NSNumber numberWithInt:BLUE]: blueButton,
                                 [NSNumber numberWithInt:GREEN]: greenButton,
                                 [NSNumber numberWithInt:RED]: redButton,
-                                [NSNumber numberWithInt:ERASER]: eraser
+                                [NSNumber numberWithInt:ERASER]: eraser,
+                                [NSNumber numberWithInt:INDESTRUCTIBLE]:indestructibleButton,
                                 };
     }
 }

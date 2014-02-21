@@ -8,12 +8,13 @@
 
 #import "GameBubble.h"
 
-@interface GameBubbleBasic : GameBubble
+@interface GameBubbleImplementation : GameBubble
 
 @property (strong, nonatomic) IBOutlet UIImageView *orangeButton;
 @property (strong, nonatomic) IBOutlet UIImageView *blueButton;
 @property (strong, nonatomic) IBOutlet UIImageView *greenButton;
 @property (strong, nonatomic) IBOutlet UIImageView *redButton;
 @property (strong, nonatomic) IBOutlet UIImageView *eraser;
+@property (strong, nonatomic) IBOutlet UIImageView *indestructibleButton;
 
 @end

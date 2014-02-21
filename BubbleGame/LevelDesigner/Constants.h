@@ -9,7 +9,7 @@
 #ifndef ps03_Constants_h
 #define ps03_Constants_h
 
-# define NUM_OF_PALETTE_BUBBLE_TYPES 4
+# define NUM_OF_PALETTE_BUBBLE_TYPES 5
 # define INVALID -1
 
 #endif

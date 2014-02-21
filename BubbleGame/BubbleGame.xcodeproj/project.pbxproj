@@ -27,7 +27,7 @@
 		C2058A0418B67C4B003AC20C /* bubble-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589D718B67C4B003AC20C /* bubble-orange.png */; };
 		C2058A0518B67C4B003AC20C /* bubble-red.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589D818B67C4B003AC20C /* bubble-red.png */; };
 		C2058A0618B67C4B003AC20C /* GameBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589DD18B67C4B003AC20C /* GameBubble.m */; };
-		C2058A0718B67C4B003AC20C /* GameBubbleBasic.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589DF18B67C4B003AC20C /* GameBubbleBasic.m */; };
+		C2058A0718B67C4B003AC20C /* GameBubbleImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589DF18B67C4B003AC20C /* GameBubbleImplementation.m */; };
 		C2058A0818B67C4B003AC20C /* LevelSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589E118B67C4B003AC20C /* LevelSelector.m */; };
 		C2058A0A18B67C4B003AC20C /* eraser-1.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589E518B67C4B003AC20C /* eraser-1.png */; };
 		C2058A0B18B67C4B003AC20C /* eraser-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C20589E618B67C4B003AC20C /* eraser-2.jpg */; };
@@ -85,8 +85,8 @@
 		C20589DB18B67C4B003AC20C /* BubbleControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleControllerDelegate.h; path = LevelDesigner/Controller/BubbleControllerDelegate.h; sourceTree = SOURCE_ROOT; };
 		C20589DC18B67C4B003AC20C /* GameBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBubble.h; path = LevelDesigner/Controller/GameBubble.h; sourceTree = SOURCE_ROOT; };
 		C20589DD18B67C4B003AC20C /* GameBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBubble.m; path = LevelDesigner/Controller/GameBubble.m; sourceTree = SOURCE_ROOT; };
-		C20589DE18B67C4B003AC20C /* GameBubbleBasic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBubbleBasic.h; path = LevelDesigner/Controller/GameBubbleBasic.h; sourceTree = SOURCE_ROOT; };
-		C20589DF18B67C4B003AC20C /* GameBubbleBasic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBubbleBasic.m; path = LevelDesigner/Controller/GameBubbleBasic.m; sourceTree = SOURCE_ROOT; };
+		C20589DE18B67C4B003AC20C /* GameBubbleImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBubbleImplementation.h; path = LevelDesigner/Controller/GameBubbleImplementation.h; sourceTree = SOURCE_ROOT; };
+		C20589DF18B67C4B003AC20C /* GameBubbleImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBubbleImplementation.m; path = LevelDesigner/Controller/GameBubbleImplementation.m; sourceTree = SOURCE_ROOT; };
 		C20589E018B67C4B003AC20C /* LevelSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelector.h; path = LevelDesigner/Controller/LevelSelector.h; sourceTree = SOURCE_ROOT; };
 		C20589E118B67C4B003AC20C /* LevelSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LevelSelector.m; path = LevelDesigner/Controller/LevelSelector.m; sourceTree = SOURCE_ROOT; };
 		C20589E218B67C4B003AC20C /* LevelSelectorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelectorDelegate.h; path = LevelDesigner/Controller/LevelSelectorDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -242,8 +242,8 @@
 				C20589ED18B67C4B003AC20C /* BubbleController.m */,
 				C20589DC18B67C4B003AC20C /* GameBubble.h */,
 				C20589DD18B67C4B003AC20C /* GameBubble.m */,
-				C20589DE18B67C4B003AC20C /* GameBubbleBasic.h */,
-				C20589DF18B67C4B003AC20C /* GameBubbleBasic.m */,
+				C20589DE18B67C4B003AC20C /* GameBubbleImplementation.h */,
+				C20589DF18B67C4B003AC20C /* GameBubbleImplementation.m */,
 				C20589E018B67C4B003AC20C /* LevelSelector.h */,
 				C20589E118B67C4B003AC20C /* LevelSelector.m */,
 				C20589E218B67C4B003AC20C /* LevelSelectorDelegate.h */,
@@ -429,7 +429,7 @@
 				C2058A8418B682EE003AC20C /* BubbleView.m in Sources */,
 				C2058A1518B67C4B003AC20C /* BubbleCell.m in Sources */,
 				C2058A1218B67C4B003AC20C /* DataManager.m in Sources */,
-				C2058A0718B67C4B003AC20C /* GameBubbleBasic.m in Sources */,
+				C2058A0718B67C4B003AC20C /* GameBubbleImplementation.m in Sources */,
 				C2058A7218B67F44003AC20C /* BubbleEngine.m in Sources */,
 				C2058A0818B67C4B003AC20C /* LevelSelector.m in Sources */,
 				C2058A7318B67F44003AC20C /* BubbleEngineManager.m in Sources */,

@@ -68,10 +68,10 @@
             </objects>
             <point key="canvasLocation" x="-712" y="-376"/>
         </scene>
-        <!--Game Bubble Basic-->
+        <!--Game Bubble Implementation-->
         <scene sceneID="zAW-ik-FRd">
             <objects>
-                <viewController id="UUD-8A-Hpr" customClass="GameBubbleBasic" sceneMemberID="viewController">
+                <viewController id="UUD-8A-Hpr" customClass="GameBubbleImplementation" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bH0-cO-RCQ"/>
                         <viewControllerLayoutGuide type="bottom" id="L1N-oz-vJ5"/>
@@ -177,6 +177,14 @@
                                                     <outletCollection property="gestureRecognizers" destination="RRp-ZI-WSK" appends="YES" id="1r9-wX-Wyk"/>
                                                 </connections>
                                             </imageView>
+                                            <imageView autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" alpha="0.34999999403953552" tag="5" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6VP-hb-ga0">
+                                                <rect key="frame" x="333" y="8" width="60" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="cky-zJ-OAB" appends="YES" id="F1z-9n-TQG"/>
+                                                </connections>
+                                            </imageView>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level: NEW" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lkg-Fs-Jpj">
                                                 <rect key="frame" x="666" y="34" width="89" height="21"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -200,6 +208,7 @@
                         <outlet property="eraser" destination="qMw-cU-G5J" id="6My-C3-d71"/>
                         <outlet property="gameArea" destination="uXw-XY-ELJ" id="Zy8-Dk-V48"/>
                         <outlet property="greenButton" destination="tUg-qu-Lml" id="T0M-D9-tNI"/>
+                        <outlet property="indestructibleButton" destination="6VP-hb-ga0" id="o2t-JN-3vp"/>
                         <outlet property="levelIndicator" destination="lkg-Fs-Jpj" id="NHJ-hO-1b4"/>
                         <outlet property="loadButton" destination="I58-lH-PtV" id="JqZ-JF-GCz"/>
                         <outlet property="orangeButton" destination="mzJ-Yp-R55" id="Ykk-Qw-C4z"/>
@@ -231,6 +240,11 @@
                 <tapGestureRecognizer id="BLk-dn-wYr">
                     <connections>
                         <action selector="paletteTap:" destination="UUD-8A-Hpr" id="Ouz-K8-VBS"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="cky-zJ-OAB">
+                    <connections>
+                        <action selector="paletteTap:" destination="UUD-8A-Hpr" id="88h-SL-cKJ"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
