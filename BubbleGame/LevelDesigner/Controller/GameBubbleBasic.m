@@ -157,4 +157,7 @@ typedef enum GamePaletteBasic{
     }
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+}
+
 @end

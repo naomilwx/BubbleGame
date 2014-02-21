@@ -38,4 +38,7 @@
     [self.menuBackground setImage:background];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+}
+
 @end
