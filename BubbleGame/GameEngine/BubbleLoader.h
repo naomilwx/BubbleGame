@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BubbleView.h"
 #import "Queue.h"
+#import "TaggedObject.h"
 
 //Maintains a queue of 3 bubbles
 @interface BubbleLoader : NSObject
@@ -18,5 +19,5 @@
 @property (strong) NSDictionary *bubbleTypeMappings;
 
 - (id)initWithFrame:(CGRect)frame andTypeMapping:(NSDictionary *)mapping andBubbleRadius:(CGFloat)radius;
-- (NSArray *)getNextBubble;
+- (TaggedObject *)getNextBubble;
 @end

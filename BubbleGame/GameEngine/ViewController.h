@@ -33,6 +33,6 @@
 
 - (void)loadNextBubble;
 
-- (NSInteger)getNextBubbleType;
+//- (NSInteger)getNextBubbleType;
 
 @end

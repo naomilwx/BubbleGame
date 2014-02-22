@@ -36,9 +36,9 @@
     }
 }
 
-- (NSArray *)getNextBubble{
-    NSArray *taggedBubble = [bubbleQueue dequeue];
-    BubbleView *bubble = [taggedBubble objectAtIndex:1];
+- (TaggedObject *)getNextBubble{
+    TaggedObject *taggedBubble = [bubbleQueue dequeue];
+    BubbleView *bubble = [taggedBubble object];
     [self shiftBubblesForward];
     [self addNextBubbleView];
     [bubble removeFromSuperview];
@@ -46,8 +46,8 @@
 }
 
 - (void)shiftBubblesForward{
-    for(NSArray *taggedBubble in [bubbleQueue getAllObjects]){
-        BubbleView *bubble = [taggedBubble objectAtIndex:1];
+    for(TaggedObject *taggedBubble in [bubbleQueue getAllObjects]){
+        BubbleView *bubble = [taggedBubble object];
         CGPoint center = bubble.center;
         CGPoint newCenter = CGPointMake(center.x - 2 * bubbleRadius, center.y);
         [bubble setCenter:newCenter];
@@ -55,19 +55,20 @@
 }
 
 - (void)addNextBubbleView{
-    NSArray *taggedBubbleView = [self createNextBubbleView];
-    BubbleView *bubbleView = [taggedBubbleView objectAtIndex:1];
+    TaggedObject *taggedBubbleView = [self createNextBubbleView];
+    BubbleView *bubbleView = [taggedBubbleView object];
     [bubbleQueue enqueue:taggedBubbleView];
     [self.mainFrame addSubview:bubbleView];
 }
 
-- (NSArray *)createNextBubbleView{
+- (TaggedObject *)createNextBubbleView{
     NSInteger nextType = [self getNextBubbleType];
+    NSNumber *nextTypeNumber = [NSNumber numberWithInteger:nextType];
     CGFloat bubbleCenterX = [bubbleQueue count] * 2 * self.bubbleRadius + self.bubbleRadius;
     CGFloat bubbleCenterY = self.bubbleRadius;
     CGPoint bubbleCenter = CGPointMake(bubbleCenterX, bubbleCenterY);
-    BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:(self.bubbleRadius * 2) andImage:[self.bubbleTypeMappings objectForKey:[NSNumber numberWithInteger:nextType]]];
-    return @[[NSNumber numberWithInteger:nextType], bubbleView];
+    BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:(self.bubbleRadius * 2) andImage:[self.bubbleTypeMappings objectForKey:nextTypeNumber]];
+    return [TaggedObject createWithTag:nextTypeNumber AndObject:bubbleView];
 }
 
 - (NSInteger)getNextBubbleType{

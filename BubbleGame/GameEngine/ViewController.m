@@ -21,6 +21,7 @@
 @implementation ViewController{
     NSMutableArray *cannonAnimation;
     UIImageView *cannon;
+    TaggedObject *taggedCannonBubble;
     CGPoint cannonDefaultCenter;
 }
 
@@ -111,6 +112,7 @@
     [cannonBase setImage:[UIImage imageNamed:@"cannon-base"]];
     [self.gameBackground addSubview:cannonBase];
 }
+
 - (void)loadEngine{
     if(!engine){
         engine = [[MainEngine alloc] init];
@@ -188,12 +190,10 @@
 }
 
 - (void)loadNextBubble{
-//    BubbleView *bubbleView = [self createAndAddNewBubbleViewWithType:nextTypeNum];
-    NSArray *taggedBubbleView = [bubbleLoader getNextBubble];
-    BubbleView *bubbleView = [taggedBubbleView objectAtIndex:1];
+    taggedCannonBubble = [bubbleLoader getNextBubble];
+    BubbleView *bubbleView = [taggedCannonBubble object];
     [bubbleView setCenter:[self getStartingBubbleCenter]];
-    [self.gameBackground addSubview:bubbleView];
-    [self addMobileBubbleToEngine:bubbleView forType:[[taggedBubbleView objectAtIndex:0] integerValue]];
+    [self.gameBackground insertSubview:bubbleView belowSubview:cannon];
 }
 
 - (BubbleView *)createAndAddNewBubbleViewWithType:(NSInteger)type{
@@ -205,19 +205,15 @@
 
 - (CGPoint)getStartingBubbleCenter{
     //TODO:
-    CGFloat xPos = self.gameBackground.center.x;
-//    CGFloat yPos = self.gameBackground.frame.size.height - CANNON_HEIGHT + self.defaultBubbleRadius;
-    CGFloat yPos = self.gameBackground.frame.size.height - self.defaultBubbleRadius;
+    CGPoint base = CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
+    CGPoint offset = [self getUnitVectorStart:base toEnd:cannon.center];
+    CGFloat xPos = offset.x * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.x;
+    CGFloat yPos = offset.y * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.y;
     return CGPointMake(xPos, yPos);
 }
 
 - (void)addMobileBubbleToEngine:(BubbleView *)bubble forType:(NSInteger)type{
     [self.engine addMobileEngine:bubble withType:type];
-}
-
-
-- (NSInteger)getNextBubbleType{
-    return arc4random_uniform(NUM_OF_BUBBLE_COLORS);
 }
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser{
@@ -253,10 +249,17 @@
     CGFloat newY = unitOffSet.y * CANNON_HEIGHT / 2 + base.y;
     CGPoint newCannonCenter = CGPointMake(newX, newY);
     [cannon setCenter:newCannonCenter];
+    [self shiftBubbleInCannonWithOffset:unitOffSet];
+}
+
+- (void)shiftBubbleInCannonWithOffset:(CGPoint)unitOffset{
+    CGPoint newCenter = [self getStartingBubbleCenter];
+    [[taggedCannonBubble object] setCenter:newCenter];
 }
 
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
     [cannon startAnimating];//TODO
+    [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
     CGPoint end = point;
     CGPoint start = [self getStartingBubbleCenter];
     CGPoint displacement = [self getUnitVectorStart:start toEnd:end];
