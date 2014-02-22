@@ -54,6 +54,7 @@
                                 </state>
                                 <connections>
                                     <action selector="meunButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uni-8E-q4b"/>
+                                    <segue destination="vSm-Bd-8P6" kind="modal" id="5i4-HE-X4W"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -313,7 +314,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUM-VK-WC2" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-357" y="875"/>
+            <point key="canvasLocation" x="357" y="779"/>
         </scene>
     </scenes>
     <resources>
@@ -324,4 +325,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="5i4-HE-X4W"/>
+    </inferredMetricsTieBreakers>
 </document>

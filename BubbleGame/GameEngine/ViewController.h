@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "MainEngine.h"
 #import "GridTemplateDelegate.h"
+#import "BubbleLoader.h"
 
 @interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, GridTemplateDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *bubbleGridTemplate;
 @property (strong, nonatomic) IBOutlet UIImageView *gameBackground;
+@property (strong) BubbleLoader *bubbleLoader;
 
 @property (strong) NSDictionary *bubbleMappings;
 @property CGFloat defaultBubbleRadius;

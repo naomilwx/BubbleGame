@@ -14,5 +14,6 @@
 # define INVALID -1
 # define NUM_CELLS_IN_ROW 12
 # define NUM_OF_ROWS 9
+# define BUBBLE_QUEUE_SIZE 2
 
 #endif

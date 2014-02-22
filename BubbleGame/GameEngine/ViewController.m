@@ -13,6 +13,7 @@
 #import "Constants.h"
 
 #define NUM_OF_CELLS_IN_ROW 12
+#define BUBBLE_LOADER_BUFFER 5
 #define CANNON_SIDE_BUFFER 10
 #define CANNON_HEIGHT 150
 #define CANNON_ANIMATION_DURATION 0.5
@@ -28,6 +29,7 @@
 @synthesize bubbleMappings;
 @synthesize engine;
 @synthesize bubbleGridTemplate;
+@synthesize bubbleLoader;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -37,11 +39,22 @@
     [self loadEngine];
     [self addGestureRecognisers];
     [self loadCannon];
+    [self loadBubbleLoader];
     [self loadNextBubble];
 }
 
 - (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
+}
+
+- (void)loadBubbleLoader{
+    CGFloat height = self.defaultBubbleRadius * 2 + BUBBLE_LOADER_BUFFER;
+    CGFloat width = self.defaultBubbleRadius * 2 * BUBBLE_QUEUE_SIZE + BUBBLE_LOADER_BUFFER;
+    CGFloat xPos = self.gameBackground.center.x + CANNON_HEIGHT + self.defaultBubbleRadius * 2;
+    CGFloat yPos = self.gameBackground.frame.size.height - height;
+    CGRect loaderFrame = CGRectMake(xPos, yPos, width, height);
+    bubbleLoader = [[BubbleLoader alloc] initWithFrame:loaderFrame andTypeMapping:bubbleMappings andBubbleRadius:self.defaultBubbleRadius];
+    [self.gameBackground addSubview:[bubbleLoader mainFrame]];
 }
 
 - (void)loadCannon{
@@ -133,12 +146,13 @@
 
 - (void)loadGridBubblesFromModel:(NSDictionary *)models{
     for(BubbleModel *model in models){
-        CGPoint bubbleCenter = [model center];
         NSInteger bubbleTypeNum = [model bubbleType];
         NSNumber *bubbleType = [NSNumber numberWithInteger:bubbleTypeNum];
+        
+        CGPoint bubbleCenter = [model center];
         BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:[model width] andImage:[self.bubbleMappings objectForKey:bubbleType]];
-        [self addGridBubbleToEngine:bubbleView forType:bubbleTypeNum withCenter:bubbleCenter];
         [self.gameBackground addSubview:bubbleView];
+        [self addGridBubbleToEngine:bubbleView forType:bubbleTypeNum withCenter:bubbleCenter];
     }
 }
 
@@ -174,17 +188,25 @@
 }
 
 - (void)loadNextBubble{
-    CGPoint bubbleCenter = [self getStartingBubbleCenter];
-    NSInteger nextTypeNum = [self getNextBubbleType];
-    NSNumber *nextBubbleType = [NSNumber numberWithInteger:nextTypeNum];
-    BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:(self.defaultBubbleRadius * 2) andImage:[self.bubbleMappings objectForKey:nextBubbleType]];
-    [self addMobileBubbleToEngine:bubbleView forType:nextTypeNum];
+//    BubbleView *bubbleView = [self createAndAddNewBubbleViewWithType:nextTypeNum];
+    NSArray *taggedBubbleView = [bubbleLoader getNextBubble];
+    BubbleView *bubbleView = [taggedBubbleView objectAtIndex:1];
+    [bubbleView setCenter:[self getStartingBubbleCenter]];
     [self.gameBackground addSubview:bubbleView];
+    [self addMobileBubbleToEngine:bubbleView forType:[[taggedBubbleView objectAtIndex:0] integerValue]];
+}
+
+- (BubbleView *)createAndAddNewBubbleViewWithType:(NSInteger)type{
+    CGPoint bubbleCenter = [self getStartingBubbleCenter];
+    BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:(self.defaultBubbleRadius * 2) andImage:[self.bubbleMappings objectForKey:[NSNumber numberWithInteger:type]]];
+    [self.gameBackground addSubview:bubbleView];
+    return bubbleView;
 }
 
 - (CGPoint)getStartingBubbleCenter{
     //TODO:
     CGFloat xPos = self.gameBackground.center.x;
+//    CGFloat yPos = self.gameBackground.frame.size.height - CANNON_HEIGHT + self.defaultBubbleRadius;
     CGFloat yPos = self.gameBackground.frame.size.height - self.defaultBubbleRadius;
     return CGPointMake(xPos, yPos);
 }
@@ -220,13 +242,17 @@
 - (void)rotateCannonInDirection:(CGPoint)point{
     CGPoint base = CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
     CGPoint unitOffSet = [self getUnitVectorStart:base toEnd:point];
+    [self updateCannonPosition:base withOffset:unitOffSet];
+    CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1;
+    CGFloat angle = atanf(tanRatio);
+    cannon.transform = CGAffineTransformMakeRotation(angle);
+}
+
+- (void)updateCannonPosition:(CGPoint)base withOffset:(CGPoint)unitOffSet{
     CGFloat newX = unitOffSet.x * CANNON_HEIGHT / 2 + base.x;
     CGFloat newY = unitOffSet.y * CANNON_HEIGHT / 2 + base.y;
     CGPoint newCannonCenter = CGPointMake(newX, newY);
     [cannon setCenter:newCannonCenter];
-    CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1;
-    CGFloat angle = atanf(tanRatio);
-    cannon.transform = CGAffineTransformMakeRotation(angle);
 }
 
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
