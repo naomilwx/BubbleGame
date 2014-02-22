@@ -14,8 +14,14 @@
 
 #define NUM_OF_CELLS_IN_ROW 12
 #define CANNON_SIDE_BUFFER 10
+#define CANNON_HEIGHT 150
+#define CANNON_ANIMATION_DURATION 0.5
 
-@implementation ViewController
+@implementation ViewController{
+    NSMutableArray *cannonAnimation;
+    UIImageView *cannon;
+    CGPoint cannonDefaultCenter;
+}
 
 @synthesize gameBackground;
 @synthesize defaultBubbleRadius;
@@ -39,8 +45,49 @@
 }
 
 - (void)loadCannon{
+    [self loadCannonImages];
+    [self loadCannonBody];
+    [self setUpCannonAnimation];
     [self loadCannonBase];
 }
+
+- (void)loadCannonBody{
+    CGFloat width = self.defaultBubbleRadius * 2 + CANNON_SIDE_BUFFER * 2;
+    CGFloat xPos = self.gameBackground.center.x - width / 2;
+    CGFloat yPos = self.gameBackground.frame.size.height - CANNON_HEIGHT;
+    CGRect baseFrame = CGRectMake(xPos, yPos, width, CANNON_HEIGHT);
+    cannon = [[UIImageView alloc] initWithFrame:baseFrame];
+    [cannon setImage:[cannonAnimation objectAtIndex:0]];
+    cannonDefaultCenter = cannon.center;
+    [self.gameBackground addSubview:cannon];
+}
+
+- (void)setUpCannonAnimation{
+    [cannon setAnimationImages:cannonAnimation];
+    [cannon setAnimationRepeatCount:1];
+    [cannon setAnimationDuration:CANNON_ANIMATION_DURATION];
+}
+
+- (void)loadCannonImages{
+    if(!cannonAnimation){
+        cannonAnimation = [[NSMutableArray alloc] init];
+        UIImage *cannonImage = [UIImage imageNamed:@"cannon"];
+        CGFloat imageWidth = cannonImage.size.width;
+        CGFloat imageHeight = cannonImage.size.height;
+        NSInteger spritesRow = 2;
+        NSInteger spritesCol = 6;
+        for(NSInteger i = 0; i < spritesRow; i++){
+            CGFloat xPos = 0;
+            CGFloat yPos = i * imageHeight / spritesRow;
+            for(NSInteger j  = 0; j < spritesCol ; j++){
+                CGImageRef imageRef = CGImageCreateWithImageInRect(cannonImage.CGImage, CGRectMake(xPos, yPos, imageWidth / spritesCol, imageHeight / spritesRow));
+                [cannonAnimation addObject:[UIImage imageWithCGImage:imageRef]];
+                xPos += imageWidth / spritesCol;
+            }
+        }
+    }
+}
+
 - (void)loadCannonBase{
     CGFloat width = self.defaultBubbleRadius * 2 + CANNON_SIDE_BUFFER * 2;
     CGFloat height = self.defaultBubbleRadius;
@@ -152,22 +199,38 @@
 }
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser{
+    [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
     if(recogniser.state == UIGestureRecognizerStateEnded){
         [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
     }
 }
 
 - (void)longPressHandler:(UIGestureRecognizer *)recogniser{
+    [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
     if(recogniser.state == UIGestureRecognizerStateEnded){
         [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
     }
 }
 
 - (void)tapHandler:(UIGestureRecognizer *)recogniser{
+    [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
     [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
 }
 
+- (void)rotateCannonInDirection:(CGPoint)point{
+    CGPoint base = CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
+    CGPoint unitOffSet = [self getUnitVectorStart:base toEnd:point];
+    CGFloat newX = unitOffSet.x * CANNON_HEIGHT / 2 + base.x;
+    CGFloat newY = unitOffSet.y * CANNON_HEIGHT / 2 + base.y;
+    CGPoint newCannonCenter = CGPointMake(newX, newY);
+    [cannon setCenter:newCannonCenter];
+    CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1;
+    CGFloat angle = atanf(tanRatio);
+    cannon.transform = CGAffineTransformMakeRotation(angle);
+}
+
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
+    [cannon startAnimating];//TODO
     CGPoint end = point;
     CGPoint start = [self getStartingBubbleCenter];
     CGPoint displacement = [self getUnitVectorStart:start toEnd:end];
