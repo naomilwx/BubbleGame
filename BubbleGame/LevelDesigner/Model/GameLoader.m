@@ -11,7 +11,7 @@
 #import "BubbleModel.h"
 #import "DataManager.h"
 #import "Constants.h"
-
+//TODO: warn user if level has not been saved
 @implementation GameLoader{
     GameState *currentState;
     DataManager *dataManager;
@@ -30,6 +30,10 @@
 
 - (NSArray *)getAvailableLevels{
     return [dataManager getAvailableLevels];
+}
+
+- (NSDictionary *)getAllBubbleModels{
+    return [currentState getAllBubbles];
 }
 
 - (NSDictionary *)loadLevel:(NSInteger)level{

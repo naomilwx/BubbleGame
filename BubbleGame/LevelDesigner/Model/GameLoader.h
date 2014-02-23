@@ -15,6 +15,8 @@
 
 - (NSArray *)getAvailableLevels;
 
+- (NSDictionary *)getAllBubbleModels;
+
 - (NSDictionary *)loadLevel:(NSInteger)level;
 
 - (NSDictionary *)loadPreviousLevel;

@@ -9,6 +9,7 @@
 #import "GameBubbleImplementation.h"
 #import "Constants.h"
 #import "BubbleController.h"
+#import "GameEngineInitDelegate.h"
 
 typedef enum GamePalette{
     NONE = INVALID,
@@ -180,6 +181,11 @@ typedef enum GamePalette{
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"designerToGame"]){
+        id<GameEngineInitDelegate> controller = segue.destinationViewController;
+        //TODO:
+        [controller setOriginalBubbleModels:[self.gameLoader getAllBubbleModels]];
+    }
 }
 
 @end

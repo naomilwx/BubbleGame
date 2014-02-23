@@ -23,6 +23,7 @@
     UIImageView *cannon;
     TaggedObject *taggedCannonBubble;
     CGPoint cannonDefaultCenter;
+    NSDictionary *originalBubbleModels;
 }
 
 @synthesize gameBackground;
@@ -41,6 +42,7 @@
     [self addGestureRecognisers];
     [self loadCannon];
     [self loadBubbleLoader];
+    [self loadGridBubblesFromModel];
     [self loadNextBubble];
 }
 
@@ -146,15 +148,21 @@
     self.bubbleMappings = mapping;
 }
 
-- (void)loadGridBubblesFromModel:(NSDictionary *)models{
-    for(BubbleModel *model in models){
-        NSInteger bubbleTypeNum = [model bubbleType];
-        NSNumber *bubbleType = [NSNumber numberWithInteger:bubbleTypeNum];
-        
-        CGPoint bubbleCenter = [model center];
-        BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:[model width] andImage:[self.bubbleMappings objectForKey:bubbleType]];
-        [self.gameBackground addSubview:bubbleView];
-        [self addGridBubbleToEngine:bubbleView forType:bubbleTypeNum withCenter:bubbleCenter];
+- (void)setOriginalBubbleModels:(NSDictionary *)models{
+    originalBubbleModels = models;
+}
+
+- (void)loadGridBubblesFromModel{
+    if(originalBubbleModels){
+        for(NSNumber *modelID in originalBubbleModels){
+            BubbleModel *model = [originalBubbleModels objectForKey:modelID];
+            NSInteger bubbleTypeNum = [model bubbleType];
+            NSNumber *bubbleType = [NSNumber numberWithInteger:bubbleTypeNum];
+            CGPoint bubbleCenter = [model center];
+            BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:[model width] andImage:[self.bubbleMappings objectForKey:bubbleType]];
+            [self.gameBackground addSubview:bubbleView];
+            [self addGridBubbleToEngine:bubbleView forType:bubbleTypeNum withCenter:bubbleCenter];
+        }
     }
 }
 

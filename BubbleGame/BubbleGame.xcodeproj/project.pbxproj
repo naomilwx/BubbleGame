@@ -130,6 +130,7 @@
 		C267044D18B8AD7F00DC6448 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		C28179F818B8D278007527FA /* TaggedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaggedObject.h; sourceTree = "<group>"; };
 		C28179F918B8D278007527FA /* TaggedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaggedObject.m; sourceTree = "<group>"; };
+		C28179FC18BA5281007527FA /* GameEngineInitDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameEngineInitDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,10 +160,7 @@
 		C205898E18B67B9E003AC20C = {
 			isa = PBXGroup;
 			children = (
-				C267044C18B8AD7F00DC6448 /* Queue.h */,
-				C267044D18B8AD7F00DC6448 /* Queue.m */,
-				C28179F818B8D278007527FA /* TaggedObject.h */,
-				C28179F918B8D278007527FA /* TaggedObject.m */,
+				C28179FB18BA5096007527FA /* DataStructures */,
 				C2058A4D18B67F44003AC20C /* GameEngine */,
 				C20589CF18B67C4A003AC20C /* LevelDesigner */,
 				C20589A018B67B9E003AC20C /* BubbleGame */,
@@ -195,6 +193,7 @@
 		C20589A018B67B9E003AC20C /* BubbleGame */ = {
 			isa = PBXGroup;
 			children = (
+				C28179FC18BA5281007527FA /* GameEngineInitDelegate.h */,
 				C24C5C1018B6DF62007A4DEE /* Images */,
 				C20589A918B67B9E003AC20C /* AppDelegate.h */,
 				C20589AA18B67B9E003AC20C /* AppDelegate.m */,
@@ -267,8 +266,6 @@
 		C20589EB18B67C4B003AC20C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C20589EE18B67C4B003AC20C /* BubbleManager.h */,
-				C20589EF18B67C4B003AC20C /* BubbleManager.m */,
 				C20589F018B67C4B003AC20C /* BubbleModel.h */,
 				C20589F118B67C4B003AC20C /* BubbleModel.m */,
 				C20589F218B67C4B003AC20C /* DataManager.h */,
@@ -300,8 +297,6 @@
 				C267044518B8A6F000DC6448 /* Controller */,
 				C2058A5218B67F44003AC20C /* BubbleEngine.h */,
 				C2058A5318B67F44003AC20C /* BubbleEngine.m */,
-				C2058A5418B67F44003AC20C /* BubbleEngineManager.h */,
-				C2058A5518B67F44003AC20C /* BubbleEngineManager.m */,
 				C2058A5C18B67F44003AC20C /* GridTemplateDelegate.h */,
 				C2058A6518B67F44003AC20C /* MainEngine.h */,
 				C2058A6618B67F44003AC20C /* MainEngine.m */,
@@ -342,6 +337,21 @@
 				C267044718B8AB8800DC6448 /* BubbleLoader.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		C28179FB18BA5096007527FA /* DataStructures */ = {
+			isa = PBXGroup;
+			children = (
+				C267044C18B8AD7F00DC6448 /* Queue.h */,
+				C267044D18B8AD7F00DC6448 /* Queue.m */,
+				C28179F818B8D278007527FA /* TaggedObject.h */,
+				C28179F918B8D278007527FA /* TaggedObject.m */,
+				C2058A5418B67F44003AC20C /* BubbleEngineManager.h */,
+				C2058A5518B67F44003AC20C /* BubbleEngineManager.m */,
+				C20589EE18B67C4B003AC20C /* BubbleManager.h */,
+				C20589EF18B67C4B003AC20C /* BubbleManager.m */,
+			);
+			name = DataStructures;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

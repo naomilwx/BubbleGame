@@ -10,8 +10,9 @@
 #import "MainEngine.h"
 #import "GridTemplateDelegate.h"
 #import "BubbleLoader.h"
+#import "GameEngineInitDelegate.h"
 
-@interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, GridTemplateDelegate>
+@interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, GridTemplateDelegate, GameEngineInitDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *bubbleGridTemplate;
 @property (strong, nonatomic) IBOutlet UIImageView *gameBackground;
@@ -32,7 +33,5 @@
 //Note: longpressrecogniser is able to track the gesture till finger is lifted
 
 - (void)loadNextBubble;
-
-//- (NSInteger)getNextBubbleType;
 
 @end
