@@ -26,7 +26,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)meunButtonPressed:(UIButton *)sender {
+- (IBAction)menuButtonPressed:(UIButton *)sender {
     NSLog(@"sender %@", [[sender titleLabel] text]);
 }
 

@@ -145,6 +145,10 @@
     }
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//TODO:
+}
+
 - (void)toggleUIViewTransparancy:(UIView *)view{
     if([view alpha] == 1){
         [view setAlpha:TRANSLUCENT_ALPHA];

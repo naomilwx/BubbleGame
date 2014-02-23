@@ -25,6 +25,8 @@ typedef enum GamePalette{
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
 #define SAVE_UNSUCCESSFUL_MSG @"An error occurred while saving. Game level is not saved."
+#define EXCLUDED_TYPES @[[NSNumber numberWithInt:ERASER]]
+#define NUM_PALETTE_SELECTION 9
 
 @interface GameBubbleImplementation ()
 
@@ -95,10 +97,11 @@ typedef enum GamePalette{
 }
 
 - (NSInteger)getNextBubbleTypeFromType:(NSInteger)type{
-    if(type >= NUM_OF_BUBBLE_COLORS){
-        return type; //for now don't cycle special bubbles
+    NSInteger newType = (type + 1) % NUM_PALETTE_SELECTION;
+    while([EXCLUDED_TYPES containsObject:[NSNumber numberWithInteger:newType]]){
+        newType = (newType + 1) % NUM_PALETTE_SELECTION;
     }
-    return (type + 1)%NUM_OF_BUBBLE_COLORS;
+    return newType;
 }
 
 #pragma mark - gesture handling

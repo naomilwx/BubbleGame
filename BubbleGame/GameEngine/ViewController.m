@@ -16,7 +16,7 @@
 #define BUBBLE_LOADER_BUFFER 5
 #define CANNON_SIDE_BUFFER 10
 #define CANNON_HEIGHT 150
-#define CANNON_ANIMATION_DURATION 0.5
+#define CANNON_ANIMATION_DURATION 0.3
 
 @implementation ViewController{
     NSMutableArray *cannonAnimation;
@@ -204,7 +204,6 @@
 }
 
 - (CGPoint)getStartingBubbleCenter{
-    //TODO:
     CGPoint base = CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
     CGPoint offset = [self getUnitVectorStart:base toEnd:cannon.center];
     CGFloat xPos = offset.x * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.x;
@@ -258,7 +257,7 @@
 }
 
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
-    [cannon startAnimating];//TODO
+    [cannon startAnimating];
     [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
     CGPoint end = point;
     CGPoint start = [self getStartingBubbleCenter];

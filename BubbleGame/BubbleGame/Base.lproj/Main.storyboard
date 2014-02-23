@@ -34,7 +34,7 @@
                                     </attributedString>
                                 </state>
                                 <connections>
-                                    <action selector="meunButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="phF-D3-MHV"/>
+                                    <action selector="menuButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rJA-hh-llt"/>
                                     <segue destination="UUD-8A-Hpr" kind="modal" id="f6p-Kj-OjV"/>
                                 </connections>
                             </button>
@@ -53,7 +53,7 @@
                                     </attributedString>
                                 </state>
                                 <connections>
-                                    <action selector="meunButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uni-8E-q4b"/>
+                                    <action selector="menuButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nOc-mm-eKv"/>
                                     <segue destination="vSm-Bd-8P6" kind="modal" id="5i4-HE-X4W"/>
                                 </connections>
                             </button>
@@ -326,6 +326,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="5i4-HE-X4W"/>
+        <segue reference="8xw-Xh-cie"/>
     </inferredMetricsTieBreakers>
 </document>
