@@ -12,6 +12,8 @@
 
 - (void)loadDefaultBubbleMapping:(NSDictionary *)mapping;
 
+- (void)loadColorBubbleMapping:(NSDictionary *)mapping;
+
 - (void)setOriginalBubbleModels:(NSDictionary *)models;
 
 @end

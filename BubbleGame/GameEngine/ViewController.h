@@ -18,7 +18,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *gameBackground;
 @property (strong) BubbleLoader *bubbleLoader;
 
-@property (strong) NSDictionary *bubbleMappings;
+@property (strong) NSDictionary *allBubbleMappings;
+@property (strong) NSDictionary *colorBubbleMappings;
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngine *engine;
 

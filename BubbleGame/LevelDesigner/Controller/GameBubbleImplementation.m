@@ -58,6 +58,28 @@ typedef enum GamePalette{
     [super didReceiveMemoryWarning];
 }
 
+- (NSDictionary *)getColorBubbleMappings{
+    //TODO:
+    return @{[NSNumber numberWithInt:ORANGE]: [UIImage imageNamed:@"bubble-orange"],
+             [NSNumber numberWithInt:BLUE]: [UIImage imageNamed:@"bubble-blue"],
+             [NSNumber numberWithInt:GREEN]: [UIImage imageNamed:@"bubble-green"],
+             [NSNumber numberWithInt:RED]: [UIImage imageNamed:@"bubble-red"],
+             };
+}
+
+- (NSDictionary *)getAllBubbleMappings{
+    //TODO:
+    return @{[NSNumber numberWithInt:ORANGE]: [UIImage imageNamed:@"bubble-orange"],
+             [NSNumber numberWithInt:BLUE]: [UIImage imageNamed:@"bubble-blue"],
+             [NSNumber numberWithInt:GREEN]: [UIImage imageNamed:@"bubble-green"],
+             [NSNumber numberWithInt:RED]: [UIImage imageNamed:@"bubble-red"],
+             [NSNumber numberWithInt:INDESTRUCTIBLE]: [UIImage imageNamed:@"bubble-indestructible"],
+             [NSNumber numberWithInt:LIGHTNING]: [UIImage imageNamed:@"bubble-lightning"],
+             [NSNumber numberWithInt:STAR]: [UIImage imageNamed:@"bubble-star"],
+             [NSNumber numberWithInt:BOMB]: [UIImage imageNamed:@"bubble-bomb"],
+             };
+}
+
 - (void)loadBubbleImages{
     if(!self.paletteImages){
         self.paletteImages = @{[NSNumber numberWithInt:ORANGE]: [UIImage imageNamed:@"bubble-orange"],
@@ -185,6 +207,8 @@ typedef enum GamePalette{
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
         //TODO:
         [controller setOriginalBubbleModels:[self.gameLoader getAllBubbleModels]];
+        [controller loadDefaultBubbleMapping:[self getAllBubbleMappings]];
+        [controller loadColorBubbleMapping:[self getColorBubbleMappings]];
     }
 }
 

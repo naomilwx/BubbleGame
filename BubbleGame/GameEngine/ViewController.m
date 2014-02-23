@@ -28,7 +28,8 @@
 
 @synthesize gameBackground;
 @synthesize defaultBubbleRadius;
-@synthesize bubbleMappings;
+@synthesize allBubbleMappings;
+@synthesize colorBubbleMappings;
 @synthesize engine;
 @synthesize bubbleGridTemplate;
 @synthesize bubbleLoader;
@@ -56,7 +57,7 @@
     CGFloat xPos = self.gameBackground.center.x + CANNON_HEIGHT + self.defaultBubbleRadius * 2;
     CGFloat yPos = self.gameBackground.frame.size.height - height;
     CGRect loaderFrame = CGRectMake(xPos, yPos, width, height);
-    bubbleLoader = [[BubbleLoader alloc] initWithFrame:loaderFrame andTypeMapping:bubbleMappings andBubbleRadius:self.defaultBubbleRadius];
+    bubbleLoader = [[BubbleLoader alloc] initWithFrame:loaderFrame andTypeMapping:colorBubbleMappings andBubbleRadius:self.defaultBubbleRadius];
     [self.gameBackground addSubview:[bubbleLoader mainFrame]];
 }
 
@@ -134,8 +135,8 @@
 
 - (void)loadDefaultBubbles{
     //for testing mapping will be passed from game designer when PS3 is fully integrated with this.
-    if(!self.bubbleMappings){
-        self.bubbleMappings =
+    if(!self.allBubbleMappings){
+        self.allBubbleMappings =
                        @{[NSNumber numberWithInt:0]: [UIImage imageNamed:@"bubble-orange"],
                          [NSNumber numberWithInt:1]: [UIImage imageNamed:@"bubble-blue"],
                          [NSNumber numberWithInt:2]: [UIImage imageNamed:@"bubble-green"],
@@ -145,7 +146,11 @@
 }
 
 - (void)loadDefaultBubbleMapping:(NSDictionary *)mapping{
-    self.bubbleMappings = mapping;
+    self.allBubbleMappings = mapping;
+}
+
+- (void)loadColorBubbleMapping:(NSDictionary *)mapping{
+    self.colorBubbleMappings = mapping;
 }
 
 - (void)setOriginalBubbleModels:(NSDictionary *)models{
@@ -159,7 +164,7 @@
             NSInteger bubbleTypeNum = [model bubbleType];
             NSNumber *bubbleType = [NSNumber numberWithInteger:bubbleTypeNum];
             CGPoint bubbleCenter = [model center];
-            BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:[model width] andImage:[self.bubbleMappings objectForKey:bubbleType]];
+            BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:[model width] andImage:[self.allBubbleMappings objectForKey:bubbleType]];
             [self.gameBackground addSubview:bubbleView];
             [self addGridBubbleToEngine:bubbleView forType:bubbleTypeNum withCenter:bubbleCenter];
         }
@@ -206,7 +211,7 @@
 
 - (BubbleView *)createAndAddNewBubbleViewWithType:(NSInteger)type{
     CGPoint bubbleCenter = [self getStartingBubbleCenter];
-    BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:(self.defaultBubbleRadius * 2) andImage:[self.bubbleMappings objectForKey:[NSNumber numberWithInteger:type]]];
+    BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:(self.defaultBubbleRadius * 2) andImage:[self.allBubbleMappings objectForKey:[NSNumber numberWithInteger:type]]];
     [self.gameBackground addSubview:bubbleView];
     return bubbleView;
 }
