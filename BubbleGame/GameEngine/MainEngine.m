@@ -136,6 +136,8 @@
         [object setCenter:gridCenter];
         NSSet *matchingCluster = [self insertBubble:object intoGridAtIndexPath:path];
         [self handleMatchingCluster:matchingCluster];
+        [self handleSpecialNeighbouringBubbles:object];
+        [self removeAllOrphanedBubbles];
         [self checkGridBubbles];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Game Over"
@@ -148,11 +150,51 @@
     }
 }
 
+- (void)handleSpecialNeighbouringBubbles:(BubbleEngine *)bubbleEngine{
+    NSArray *specialNeighbours = [self getAllNeighbouringSpecialBubbles:bubbleEngine];
+    for(BubbleEngine *neighbour in specialNeighbours){
+        NSInteger specialType = [neighbour bubbleType];
+        if(specialType == LIGHTNING){
+            [self removeAllBubblesInRow:[neighbour gridRow]];
+        }else if(specialType == BOMB){
+            [self removeAllNeighboursForBubble:neighbour];
+        }else if(specialType == STAR){
+            [self removeAllBubbleOfType:[bubbleEngine bubbleType]];
+        }
+    }
+}
+
+- (NSArray *)getAllNeighbouringSpecialBubbles:(BubbleEngine *)bubbleEngine{
+    NSArray *neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    NSSet *specialBubbles = [GameLogic specialBubbleTypes];
+    for(BubbleEngine *engine in neighbourList){
+        if([specialBubbles containsObject:[NSNumber numberWithInteger:[engine bubbleType]]]){
+            [arr addObject:engine];
+        }
+    }
+    return arr;
+}
+
+- (void)removeAllNeighboursForBubble:(BubbleEngine *)bubbleEngine{
+    NSArray *neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
+    [self removeAllInCollection:neighbourList removeType:DROP_ANIMATION];
+}
+
+- (void)removeAllBubbleOfType:(NSInteger)type{
+    NSSet *bubblesOfType = [gridBubbles getAllObjectsOfType:type];
+    [self removeAllInCollection:bubblesOfType removeType:DROP_ANIMATION];
+}
+
+- (void)removeAllBubblesInRow:(NSInteger)row{
+    NSArray *bubblesInRow = [gridBubbles getObjectsAtRow:row];
+    [self removeAllInCollection:bubblesInRow removeType:DROP_ANIMATION];
+}
+
 - (void)handleMatchingCluster:(NSSet *)matchingCluster{
-//Remove matchingCluster and its orphaned neighbours if size of matchingCluster is bigger than 3
+//Remove matchingCluster
     if([matchingCluster count] >= 3){
         [self removeAllInCollection:matchingCluster removeType:POP_ANIMATION];
-        [self removeOrphanedBubblesNeighbouringCluster:matchingCluster];
     }
 }
 
@@ -184,6 +226,34 @@
         }
     }
     return allAccumulated;
+}
+
+- (NSMutableSet *)getOrphanedBubblesIncludingCluster:(NSSet *)cluster{
+    NSMutableSet *accumulated = nil;
+    NSMutableSet *allAccumulated = [[NSMutableSet alloc] init];
+    NSMutableSet *visited = [[NSMutableSet alloc] init];
+    BOOL searchResult;
+    
+    for(BubbleEngine *engine in cluster){
+        if([visited containsObject:engine]){
+            continue;
+        }
+        //New cluster
+        accumulated = [[NSMutableSet alloc] init];
+        searchResult = [self searchForRootBubble:accumulated startPoint:engine visitedBubbles:visited];
+        if(!searchResult){
+            [allAccumulated addObject:accumulated];
+        }
+    }
+    return allAccumulated;
+}
+
+- (void)removeAllOrphanedBubbles{
+    NSSet *allBubbles = [NSSet setWithArray:[gridBubbles getAllObjects]];
+    NSMutableSet *orphaned = [self getOrphanedBubblesIncludingCluster:allBubbles];
+    for(NSMutableSet *set in orphaned){
+        [self removeAllInCollection:set removeType:DROP_ANIMATION];
+    }
 }
 
 - (BOOL)searchForRootBubble:(NSMutableSet *)accumulatedCluster startPoint:(BubbleEngine *)bubble visitedBubbles:(NSMutableSet *)visited{

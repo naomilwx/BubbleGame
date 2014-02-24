@@ -39,4 +39,6 @@ typedef enum GamePalette{
 
 + (NSSet *)launchableBubbleTypes;
 
++ (NSSet *)specialBubbleTypes;
+
 @end

@@ -19,7 +19,7 @@
 @property (strong) BubbleLoader *bubbleLoader;
 
 @property (strong) NSDictionary *allBubbleMappings;
-@property (strong) NSDictionary *colorBubbleMappings;
+@property (strong) NSDictionary *launchableBubbleMappings;
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngine *engine;
 

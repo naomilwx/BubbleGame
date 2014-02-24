@@ -22,9 +22,15 @@
                                              };
     return allBubbleImageMappings;
 }
+
 + (NSSet *)launchableBubbleTypes{
     NSSet *launchableTypes = [NSSet setWithObjects:[NSNumber numberWithInt:ORANGE], [NSNumber numberWithInt:BLUE], [NSNumber numberWithInt:GREEN], [NSNumber numberWithInt:RED], nil];
     return launchableTypes;
+}
+
++ (NSSet *)specialBubbleTypes{
+    NSSet *specialTypes = [NSSet setWithObjects:[NSNumber numberWithInt:INDESTRUCTIBLE], [NSNumber numberWithInt:LIGHTNING], [NSNumber numberWithInt:STAR], [NSNumber numberWithInt:BOMB], nil];
+    return specialTypes;
 }
 
 @end

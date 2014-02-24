@@ -29,4 +29,5 @@
 
 - (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(NSSet *)cluster;
 
+- (void)removeAllOrphanedBubbles;
 @end

@@ -23,7 +23,11 @@
 
 - (NSArray *)getNeighboursForObjectAtRow:(NSInteger)row andPosition:(NSInteger)pos;
 
+- (NSArray *)getObjectsAtRow:(NSInteger)row;
+
 - (NSArray *)getAllObjects;
+
+- (NSSet *)getAllObjectsOfType:(NSInteger)type;
 
 - (NSDictionary *)getAllClusters;
 

@@ -53,6 +53,17 @@
     return clusterFound;
 }
 
+- (NSSet *)getAllObjectsOfType:(NSInteger)type{
+    NSArray *clusterList = [clusters objectForKey:[NSNumber numberWithInteger:type]];
+    NSMutableSet *bubbles = [[NSMutableSet alloc] init];
+    for(NSMutableSet *set in clusterList){
+        for(BubbleEngine *bubbleEngine in set){
+            [bubbles addObject:bubbleEngine];
+        }
+    }
+    return bubbles;
+}
+
 - (NSSet *)getPrunedClusterWithBubble:(BubbleEngine *)object fromCluster:(NSSet *)cluster{
     NSMutableSet *visited = [[NSMutableSet alloc] init];
     NSMutableArray *bubbleClusters = [self getClustersForType:object.bubbleType inOriginalCluster:cluster withVisitedList:visited];
@@ -177,6 +188,10 @@
     //Returns object at given row and position in the grid
     id object =  [[gridItems objectForKey:[NSNumber numberWithInteger:row]] objectForKey:[NSNumber numberWithInteger:pos]];
     return object;
+}
+- (NSArray *)getObjectsAtRow:(NSInteger)row{
+    NSDictionary *bubbleRow = [gridItems objectForKey:[NSNumber numberWithInteger:row]];
+    return [bubbleRow allValues];
 }
 
 - (void)insertObjectAtRow:(NSInteger)row andPosition:(NSInteger)pos intoArray:(NSMutableArray *)array{

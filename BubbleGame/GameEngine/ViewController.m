@@ -29,13 +29,21 @@
 @synthesize gameBackground;
 @synthesize defaultBubbleRadius;
 @synthesize allBubbleMappings;
-@synthesize colorBubbleMappings;
+@synthesize launchableBubbleMappings;
 @synthesize engine;
 @synthesize bubbleGridTemplate;
 @synthesize bubbleLoader;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    [self setUpGameEnvironment];
+}
+
+- (void)didReceiveMemoryWarning{
+    [super didReceiveMemoryWarning];
+}
+
+- (void)setUpGameEnvironment{
     [self loadBackground];
     [self initialiseBubbleGrid];
     [self loadBubbleMappings];
@@ -47,9 +55,6 @@
     [self loadNextBubble];
 }
 
-- (void)didReceiveMemoryWarning{
-    [super didReceiveMemoryWarning];
-}
 
 - (void)loadBubbleLoader{
     CGFloat height = self.defaultBubbleRadius * 2 + BUBBLE_LOADER_BUFFER;
@@ -57,7 +62,7 @@
     CGFloat xPos = self.gameBackground.center.x + CANNON_HEIGHT + self.defaultBubbleRadius * 2;
     CGFloat yPos = self.gameBackground.frame.size.height - height;
     CGRect loaderFrame = CGRectMake(xPos, yPos, width, height);
-    bubbleLoader = [[BubbleLoader alloc] initWithFrame:loaderFrame andTypeMapping:colorBubbleMappings andBubbleRadius:self.defaultBubbleRadius];
+    bubbleLoader = [[BubbleLoader alloc] initWithFrame:loaderFrame andTypeMapping:launchableBubbleMappings andBubbleRadius:self.defaultBubbleRadius];
     [self.gameBackground addSubview:[bubbleLoader mainFrame]];
 }
 
@@ -136,21 +141,15 @@
 - (void)loadBubbleMappings{
     //for testing mapping will be passed from game designer when PS3 is fully integrated with this.
     if(!self.allBubbleMappings){
-//        self.allBubbleMappings =
-//                       @{[NSNumber numberWithInt:0]: [UIImage imageNamed:@"bubble-orange"],
-//                         [NSNumber numberWithInt:1]: [UIImage imageNamed:@"bubble-blue"],
-//                         [NSNumber numberWithInt:2]: [UIImage imageNamed:@"bubble-green"],
-//                         [NSNumber numberWithInt:3]: [UIImage imageNamed:@"bubble-red"],
-//                        };
         self.allBubbleMappings = [GameLogic allBubbleImageMappings];
         
     }
-    if(!self.colorBubbleMappings){
-        self.colorBubbleMappings = [self getColorBubbleMappings];
+    if(!self.launchableBubbleMappings){
+        self.launchableBubbleMappings = [self getLaunchableBubbleMappings];
     }
 }
 
-- (NSDictionary *)getColorBubbleMappings{
+- (NSDictionary *)getLaunchableBubbleMappings{
     //TODO:
     NSMutableDictionary *mappings = [[NSMutableDictionary alloc] init];
     for(NSNumber *key in self.allBubbleMappings){
@@ -176,6 +175,7 @@
             [self.gameBackground addSubview:bubbleView];
             [self addGridBubbleToEngine:bubbleView forType:bubbleTypeNum withCenter:bubbleCenter];
         }
+        [engine removeAllOrphanedBubbles];
     }
 }
 
