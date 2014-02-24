@@ -11,7 +11,6 @@
 #import "BubbleGridLayout.h"
 #import "BubbleModel.h"
 #import "GameLogic.h"
-#import "Constants.h"
 
 #define NUM_OF_CELLS_IN_ROW 12
 #define BUBBLE_LOADER_BUFFER 5

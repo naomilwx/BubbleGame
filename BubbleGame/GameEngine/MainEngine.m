@@ -10,7 +10,7 @@
 #import "BubbleEngine.h"
 #import "BubbleGridLayout.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Constants.h"
+#import "GameLogic.h"
 
 #define DEFAULT_ID 0
 #define DEFAULT_SPEED_FACTOR 20

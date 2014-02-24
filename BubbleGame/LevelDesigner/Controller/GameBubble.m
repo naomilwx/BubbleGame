@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "BubbleGridLayout.h"
 #import "BubbleCell.h"
-#import "Constants.h"
+#import "GameLogic.h"
 #import "BubbleController.h"
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"

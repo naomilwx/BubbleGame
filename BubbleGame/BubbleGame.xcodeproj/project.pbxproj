@@ -85,7 +85,6 @@
 		C20589D618B67C4B003AC20C /* bubble-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-green.png"; path = "../LevelDesigner/bubble-green.png"; sourceTree = "<group>"; };
 		C20589D718B67C4B003AC20C /* bubble-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-orange.png"; path = "../LevelDesigner/bubble-orange.png"; sourceTree = "<group>"; };
 		C20589D818B67C4B003AC20C /* bubble-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-red.png"; path = "../LevelDesigner/bubble-red.png"; sourceTree = "<group>"; };
-		C20589D918B67C4B003AC20C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C20589DB18B67C4B003AC20C /* BubbleControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleControllerDelegate.h; path = LevelDesigner/Controller/BubbleControllerDelegate.h; sourceTree = SOURCE_ROOT; };
 		C20589DC18B67C4B003AC20C /* GameBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBubble.h; path = LevelDesigner/Controller/GameBubble.h; sourceTree = SOURCE_ROOT; };
 		C20589DD18B67C4B003AC20C /* GameBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBubble.m; path = LevelDesigner/Controller/GameBubble.m; sourceTree = SOURCE_ROOT; };
@@ -243,7 +242,6 @@
 		C20589CF18B67C4A003AC20C /* LevelDesigner */ = {
 			isa = PBXGroup;
 			children = (
-				C20589D918B67C4B003AC20C /* Constants.h */,
 				C20589DA18B67C4B003AC20C /* Controller */,
 				C20589EB18B67C4B003AC20C /* Model */,
 				C20589F818B67C4B003AC20C /* view */,
