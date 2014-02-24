@@ -50,6 +50,7 @@
 @synthesize levelIndicator;
 @synthesize levelSelector;
 @synthesize levelSelectorPopover;
+@synthesize backButton;
 
 //override to disable auto rotation
 - (BOOL)shouldAutorotate{
@@ -74,7 +75,7 @@
     [self loadPalette];
     [self initialiseCollectionView];
     [self addGestureRecognisersToCollectionView];
-    [self.gameArea addSubview:bubbleGrid];
+    [self.gameArea insertSubview:bubbleGrid belowSubview:backButton];
     [self initialiseLevelSelectorPopover];
 }
 

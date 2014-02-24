@@ -36,6 +36,7 @@ typedef enum {kGameBubbleBasic} GameBubbleType;
 @property (strong, nonatomic) LevelSelector *levelSelector;
 @property (strong, nonatomic) UIPopoverController *levelSelectorPopover;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
+@property (strong, nonatomic) IBOutlet UIButton *backButton;
 
 - (void)tapHandler:(UIGestureRecognizer *)gesture;
 // MODIFIES: bubble model (color)

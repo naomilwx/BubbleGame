@@ -158,8 +158,10 @@
             [self removeAllBubblesInRow:[neighbour gridRow]];
         }else if(specialType == BOMB){
             [self removeAllNeighboursForBubble:neighbour];
+            [neighbour removeBubbleWithAnimationType:POP_ANIMATION];
         }else if(specialType == STAR){
             [self removeAllBubbleOfType:[bubbleEngine bubbleType]];
+            [neighbour removeBubbleWithAnimationType:POP_ANIMATION];
         }
     }
 }
@@ -178,35 +180,48 @@
 
 - (void)removeAllNeighboursForBubble:(BubbleEngine *)bubbleEngine{
     NSArray *neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
-    [self removeAllInCollection:neighbourList removeType:DROP_ANIMATION];
+    BOOL (^filterCond)(BubbleEngine *) = ^(BubbleEngine *bubble){
+        if(bubble.bubbleType == INDESTRUCTIBLE){
+            return NO;
+        }else{
+            return YES;
+        }
+    };
+    [self removeAllInCollection:neighbourList removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
 }
 
 - (void)removeAllBubbleOfType:(NSInteger)type{
     NSSet *bubblesOfType = [gridBubbles getAllObjectsOfType:type];
-    [self removeAllInCollection:bubblesOfType removeType:DROP_ANIMATION];
+    [self removeAllInCollection:bubblesOfType removeType:POP_ANIMATION additionalRemoveFilter:nil];
 }
 
 - (void)removeAllBubblesInRow:(NSInteger)row{
     NSArray *bubblesInRow = [gridBubbles getObjectsAtRow:row];
-    [self removeAllInCollection:bubblesInRow removeType:DROP_ANIMATION];
+    BOOL (^filterCond)(BubbleEngine *) = ^(BubbleEngine *bubble){
+        if(bubble.bubbleType == INDESTRUCTIBLE){
+            return NO;
+        }else{
+            return YES;
+        }
+    };
+    [self removeAllInCollection:bubblesInRow removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
 }
 
 - (void)handleMatchingCluster:(NSSet *)matchingCluster{
-//Remove matchingCluster
     if([matchingCluster count] >= 3){
-        [self removeAllInCollection:matchingCluster removeType:POP_ANIMATION];
+        [self removeAllInCollection:matchingCluster removeType:POP_ANIMATION additionalRemoveFilter:nil];
     }
 }
 
-- (void)removeOrphanedBubblesNeighbouringCluster:(NSSet *)cluster{
+- (void)removeOrphanedBubblesNeighbouringCluster:(id)cluster{
     //Takes in cluster of removed nodes
     NSMutableSet *orphaned = [self getOrphanedBubblesNeighbouringCluster:cluster];
     for(NSMutableSet *set in orphaned){
-        [self removeAllInCollection:set removeType:DROP_ANIMATION];
+        [self removeAllInCollection:set removeType:DROP_ANIMATION additionalRemoveFilter:nil];
     }
 }
 
-- (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(NSSet *)cluster{
+- (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(id)cluster{
     NSMutableSet *accumulated = nil;
     NSMutableSet *allAccumulated = [[NSMutableSet alloc] init];
     NSMutableSet *visited = [[NSMutableSet alloc] init];
@@ -228,7 +243,7 @@
     return allAccumulated;
 }
 
-- (NSMutableSet *)getOrphanedBubblesIncludingCluster:(NSSet *)cluster{
+- (NSMutableSet *)getOrphanedBubblesIncludingCluster:(id)cluster{
     NSMutableSet *accumulated = nil;
     NSMutableSet *allAccumulated = [[NSMutableSet alloc] init];
     NSMutableSet *visited = [[NSMutableSet alloc] init];
@@ -252,7 +267,7 @@
     NSSet *allBubbles = [NSSet setWithArray:[gridBubbles getAllObjects]];
     NSMutableSet *orphaned = [self getOrphanedBubblesIncludingCluster:allBubbles];
     for(NSMutableSet *set in orphaned){
-        [self removeAllInCollection:set removeType:DROP_ANIMATION];
+        [self removeAllInCollection:set removeType:DROP_ANIMATION additionalRemoveFilter:nil];
     }
 }
 
@@ -271,9 +286,11 @@
                                       visitedItems:visited];
 }
 
-- (void)removeAllInCollection:(id)cluster removeType:(NSInteger)animationType{
+- (void)removeAllInCollection:(id)cluster removeType:(NSInteger)animationType additionalRemoveFilter:(BOOL(^)(BubbleEngine *))filter{
     for(BubbleEngine *engine in cluster){
-        [engine removeBubbleWithAnimationType:animationType];
+        if(filter == nil || filter(engine)){
+            [engine removeBubbleWithAnimationType:animationType];
+        }
     }
 }
 

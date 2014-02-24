@@ -45,12 +45,16 @@
     [super didReceiveMemoryWarning];
 }
 
+
 - (void)loadPaletteImageMappings{
     if(!self.paletteImages){
         NSMutableDictionary *items = [[NSMutableDictionary alloc] initWithDictionary:[GameLogic allBubbleImageMappings]];
         [items setObject:[UIImage imageNamed:@"eraser-1"] forKey:[NSNumber numberWithInt:ERASER]];
         self.paletteImages = items;
     }
+}
+- (IBAction)test:(id)sender {
+    NSLog(@"clicked");
 }
 
 - (void)initialisePaletteButtonsMapping{

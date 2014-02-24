@@ -221,6 +221,17 @@
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.46000000000000002" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y0w-7V-mBO">
+                                        <rect key="frame" x="13" y="826" width="127" height="65"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" image="backButton">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="test:" destination="UUD-8A-Hpr" eventType="touchUpInside" id="sUJ-Xf-I5f"/>
+                                            <segue destination="BYZ-38-t0r" kind="modal" id="gZc-6P-YQq"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -228,6 +239,7 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="y0w-7V-mBO" id="lXd-9d-AH0"/>
                         <outlet property="background" destination="aCD-7A-8TJ" id="Evt-vT-6rU"/>
                         <outlet property="blueButton" destination="vBK-j5-2Rw" id="sfA-lh-rW3"/>
                         <outlet property="bombButton" destination="kh4-bi-NGr" id="E8j-mZ-LG5"/>
@@ -318,6 +330,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="backButton" width="72" height="65"/>
         <image name="button" width="269" height="68"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

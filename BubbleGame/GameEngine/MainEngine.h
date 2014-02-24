@@ -27,7 +27,7 @@
 
 - (void)addGridEngine:(id)bubble withType:(NSInteger)type andCenter:(CGPoint)center;
 
-- (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(NSSet *)cluster;
+- (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(id)cluster;
 
 - (void)removeAllOrphanedBubbles;
 @end
