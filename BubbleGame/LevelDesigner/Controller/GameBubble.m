@@ -118,7 +118,7 @@
 
 - (void)initRequiredUIImages{
     backgroundImage = [UIImage imageNamed:@"background.png"];
-    [self loadBubbleImages];
+    [self loadPaletteImageMappings];
 }
 - (void)loadBackground{
     CGFloat gameHeight = self.gameArea.frame.size.height;
@@ -199,7 +199,7 @@
 }
 
 #pragma mark - Abstract Methods
-- (void)loadBubbleImages{
+- (void)loadPaletteImageMappings{
     //loads the mapping of bubble type to the corresponding images
 }
 - (void)loadPalette{

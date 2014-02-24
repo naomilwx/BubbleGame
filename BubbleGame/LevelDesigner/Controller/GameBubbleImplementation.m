@@ -11,19 +11,6 @@
 #import "GameEngineInitDelegate.h"
 #import "GameLogic.h"
 
-//typedef enum GamePalette{
-//    NONE = INVALID,
-//    ORANGE = 0,
-//    BLUE = 1,
-//    GREEN = 2,
-//    RED = 3,
-//    ERASER = 4,
-//    INDESTRUCTIBLE = 5,
-//    LIGHTNING = 6,
-//    STAR = 7,
-//    BOMB = 8
-//} GamePaletteSelection; //Order must be as set in storyboard
-
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
 #define SAVE_UNSUCCESSFUL_MSG @"An error occurred while saving. Game level is not saved."
 #define EXCLUDED_TYPES @[[NSNumber numberWithInt:ERASER]]
@@ -58,7 +45,7 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)loadBubbleImages{
+- (void)loadPaletteImageMappings{
     if(!self.paletteImages){
         NSMutableDictionary *items = [[NSMutableDictionary alloc] initWithDictionary:[GameLogic allBubbleImageMappings]];
         [items setObject:[UIImage imageNamed:@"eraser-1"] forKey:[NSNumber numberWithInt:ERASER]];
@@ -118,7 +105,6 @@
 }
 
 - (void)tapHandler:(UIGestureRecognizer *)gesture{
-    NSLog(@"tap");
     CGPoint point = [gesture locationInView:self.bubbleGrid];
     NSIndexPath *cellIndexPath = [self.bubbleGrid indexPathForItemAtPoint:point];
     if(cellIndexPath){
@@ -131,7 +117,6 @@
 }
 
 - (void)longpressHandler:(UIGestureRecognizer *)gesture{
-    NSLog(@"press");
     CGPoint point = [gesture locationInView:self.bubbleGrid];
     NSIndexPath *cellIndexPath = [self.bubbleGrid indexPathForItemAtPoint:point];
     if(cellIndexPath){
@@ -139,7 +124,6 @@
     }
 }
 - (void)gridPanHandler:(UIGestureRecognizer *)gesture{
-    NSLog(@"pan");
     if(self.selectedType != NONE){
         NSInteger numOfTouches = [gesture numberOfTouches];
         for(int i = 0; i < numOfTouches; i++){

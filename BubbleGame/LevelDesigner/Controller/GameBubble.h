@@ -53,7 +53,7 @@ typedef enum {kGameBubbleBasic} GameBubbleType;
 //Effect: Cells being swipped will be filled with the selected bubble color
 //Abstract. To be overridden by subclass
 
-- (void)loadBubbleImages;
+- (void)loadPaletteImageMappings;
 //Initialise mapping of image icon to palette selection type
 //Abstract method. Must be overridden by subclasses.
 
