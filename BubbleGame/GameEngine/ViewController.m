@@ -10,6 +10,7 @@
 #import "BubbleView.h"
 #import "BubbleGridLayout.h"
 #import "BubbleModel.h"
+#import "GameLogic.h"
 #import "Constants.h"
 
 #define NUM_OF_CELLS_IN_ROW 12
@@ -38,7 +39,7 @@
     [super viewDidLoad];
     [self loadBackground];
     [self initialiseBubbleGrid];
-    [self loadDefaultBubbles]; //for testing
+    [self loadBubbleMappings];
     [self loadEngine];
     [self addGestureRecognisers];
     [self loadCannon];
@@ -133,24 +134,32 @@
     [self.gameBackground setImage:background];
 }
 
-- (void)loadDefaultBubbles{
+- (void)loadBubbleMappings{
     //for testing mapping will be passed from game designer when PS3 is fully integrated with this.
     if(!self.allBubbleMappings){
-        self.allBubbleMappings =
-                       @{[NSNumber numberWithInt:0]: [UIImage imageNamed:@"bubble-orange"],
-                         [NSNumber numberWithInt:1]: [UIImage imageNamed:@"bubble-blue"],
-                         [NSNumber numberWithInt:2]: [UIImage imageNamed:@"bubble-green"],
-                         [NSNumber numberWithInt:3]: [UIImage imageNamed:@"bubble-red"],
-                        };
+//        self.allBubbleMappings =
+//                       @{[NSNumber numberWithInt:0]: [UIImage imageNamed:@"bubble-orange"],
+//                         [NSNumber numberWithInt:1]: [UIImage imageNamed:@"bubble-blue"],
+//                         [NSNumber numberWithInt:2]: [UIImage imageNamed:@"bubble-green"],
+//                         [NSNumber numberWithInt:3]: [UIImage imageNamed:@"bubble-red"],
+//                        };
+        self.allBubbleMappings = [GameLogic allBubbleImageMappings];
+        
+    }
+    if(!self.colorBubbleMappings){
+        self.colorBubbleMappings = [self getColorBubbleMappings];
     }
 }
 
-- (void)loadDefaultBubbleMapping:(NSDictionary *)mapping{
-    self.allBubbleMappings = mapping;
-}
-
-- (void)loadColorBubbleMapping:(NSDictionary *)mapping{
-    self.colorBubbleMappings = mapping;
+- (NSDictionary *)getColorBubbleMappings{
+    //TODO:
+    NSMutableDictionary *mappings = [[NSMutableDictionary alloc] init];
+    for(NSNumber *key in self.allBubbleMappings){
+        if([[GameLogic launchableBubbleTypes] containsObject:key]){
+            [mappings setObject:[self.allBubbleMappings objectForKey:key] forKey:key];
+        }
+    }
+    return [NSDictionary dictionaryWithDictionary:mappings];
 }
 
 - (void)setOriginalBubbleModels:(NSDictionary *)models{

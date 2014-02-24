@@ -10,19 +10,20 @@
 #import "Constants.h"
 #import "BubbleController.h"
 #import "GameEngineInitDelegate.h"
+#import "GameLogic.h"
 
-typedef enum GamePalette{
-    NONE = INVALID,
-    ORANGE = 0,
-    BLUE = 1,
-    GREEN = 2,
-    RED = 3,
-    ERASER = 4,
-    INDESTRUCTIBLE = 5,
-    LIGHTNING = 6,
-    STAR = 7,
-    BOMB = 8
-} GamePaletteSelection; //Order must be as set in storyboard
+//typedef enum GamePalette{
+//    NONE = INVALID,
+//    ORANGE = 0,
+//    BLUE = 1,
+//    GREEN = 2,
+//    RED = 3,
+//    ERASER = 4,
+//    INDESTRUCTIBLE = 5,
+//    LIGHTNING = 6,
+//    STAR = 7,
+//    BOMB = 8
+//} GamePaletteSelection; //Order must be as set in storyboard
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
 #define SAVE_UNSUCCESSFUL_MSG @"An error occurred while saving. Game level is not saved."
@@ -58,44 +59,15 @@ typedef enum GamePalette{
     [super didReceiveMemoryWarning];
 }
 
-- (NSDictionary *)getColorBubbleMappings{
-    //TODO:
-    return @{[NSNumber numberWithInt:ORANGE]: [UIImage imageNamed:@"bubble-orange"],
-             [NSNumber numberWithInt:BLUE]: [UIImage imageNamed:@"bubble-blue"],
-             [NSNumber numberWithInt:GREEN]: [UIImage imageNamed:@"bubble-green"],
-             [NSNumber numberWithInt:RED]: [UIImage imageNamed:@"bubble-red"],
-             };
-}
-
-- (NSDictionary *)getAllBubbleMappings{
-    //TODO:
-    return @{[NSNumber numberWithInt:ORANGE]: [UIImage imageNamed:@"bubble-orange"],
-             [NSNumber numberWithInt:BLUE]: [UIImage imageNamed:@"bubble-blue"],
-             [NSNumber numberWithInt:GREEN]: [UIImage imageNamed:@"bubble-green"],
-             [NSNumber numberWithInt:RED]: [UIImage imageNamed:@"bubble-red"],
-             [NSNumber numberWithInt:INDESTRUCTIBLE]: [UIImage imageNamed:@"bubble-indestructible"],
-             [NSNumber numberWithInt:LIGHTNING]: [UIImage imageNamed:@"bubble-lightning"],
-             [NSNumber numberWithInt:STAR]: [UIImage imageNamed:@"bubble-star"],
-             [NSNumber numberWithInt:BOMB]: [UIImage imageNamed:@"bubble-bomb"],
-             };
-}
-
 - (void)loadBubbleImages{
     if(!self.paletteImages){
-        self.paletteImages = @{[NSNumber numberWithInt:ORANGE]: [UIImage imageNamed:@"bubble-orange"],
-                               [NSNumber numberWithInt:BLUE]: [UIImage imageNamed:@"bubble-blue"],
-                               [NSNumber numberWithInt:GREEN]: [UIImage imageNamed:@"bubble-green"],
-                               [NSNumber numberWithInt:RED]: [UIImage imageNamed:@"bubble-red"],
-                               [NSNumber numberWithInt:ERASER]: [UIImage imageNamed:@"eraser-1"],
-                               [NSNumber numberWithInt:INDESTRUCTIBLE]: [UIImage imageNamed:@"bubble-indestructible"],
-                               [NSNumber numberWithInt:LIGHTNING]: [UIImage imageNamed:@"bubble-lightning"],
-                               [NSNumber numberWithInt:STAR]: [UIImage imageNamed:@"bubble-star"],
-                               [NSNumber numberWithInt:BOMB]: [UIImage imageNamed:@"bubble-bomb"],
-                               };
+        NSMutableDictionary *items = [[NSMutableDictionary alloc] initWithDictionary:[GameLogic allBubbleImageMappings]];
+        [items setObject:[UIImage imageNamed:@"eraser-1"] forKey:[NSNumber numberWithInt:ERASER]];
+        self.paletteImages = items;
     }
 }
 
-- (void)initialisePaletteButtonsArray{
+- (void)initialisePaletteButtonsMapping{
     if(!self.paletteButtons){
         self.paletteButtons = @{[NSNumber numberWithInt:ORANGE]: orangeButton,
                                 [NSNumber numberWithInt:BLUE]: blueButton,
@@ -111,7 +83,7 @@ typedef enum GamePalette{
 }
 
 - (void)loadPalette{
-    [self initialisePaletteButtonsArray];
+    [self initialisePaletteButtonsMapping];
     for(NSNumber *key in [self.paletteButtons keyEnumerator]){
         UIImageView *imageView = [self.paletteButtons objectForKey:key];
         [self loadImage:[self.paletteImages objectForKey:key] IntoUIView:imageView];
@@ -205,10 +177,7 @@ typedef enum GamePalette{
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"designerToGame"]){
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
-        //TODO:
         [controller setOriginalBubbleModels:[self.gameLoader getAllBubbleModels]];
-        [controller loadDefaultBubbleMapping:[self getAllBubbleMappings]];
-        [controller loadColorBubbleMapping:[self getColorBubbleMappings]];
     }
 }
 

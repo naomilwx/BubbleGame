@@ -47,6 +47,7 @@
 		C267044818B8AB8800DC6448 /* BubbleLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C267044718B8AB8800DC6448 /* BubbleLoader.m */; };
 		C267044E18B8AD7F00DC6448 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = C267044D18B8AD7F00DC6448 /* Queue.m */; };
 		C28179FA18B8D278007527FA /* TaggedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C28179F918B8D278007527FA /* TaggedObject.m */; };
+		C2817A0218BAF3B6007527FA /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = C2817A0118BAF3B6007527FA /* GameLogic.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,8 @@
 		C28179F818B8D278007527FA /* TaggedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaggedObject.h; sourceTree = "<group>"; };
 		C28179F918B8D278007527FA /* TaggedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaggedObject.m; sourceTree = "<group>"; };
 		C28179FC18BA5281007527FA /* GameEngineInitDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameEngineInitDelegate.h; sourceTree = "<group>"; };
+		C2817A0018BAF3B6007527FA /* GameLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLogic.h; sourceTree = "<group>"; };
+		C2817A0118BAF3B6007527FA /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLogic.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				C28179FC18BA5281007527FA /* GameEngineInitDelegate.h */,
+				C2817A0018BAF3B6007527FA /* GameLogic.h */,
+				C2817A0118BAF3B6007527FA /* GameLogic.m */,
 				C24C5C1018B6DF62007A4DEE /* Images */,
 				C20589A918B67B9E003AC20C /* AppDelegate.h */,
 				C20589AA18B67B9E003AC20C /* AppDelegate.m */,
@@ -464,6 +469,7 @@
 				C2058A1518B67C4B003AC20C /* BubbleCell.m in Sources */,
 				C2058A1218B67C4B003AC20C /* DataManager.m in Sources */,
 				C2058A0718B67C4B003AC20C /* GameBubbleImplementation.m in Sources */,
+				C2817A0218BAF3B6007527FA /* GameLogic.m in Sources */,
 				C2058A7218B67F44003AC20C /* BubbleEngine.m in Sources */,
 				C2058A0818B67C4B003AC20C /* LevelSelector.m in Sources */,
 				C2058A7318B67F44003AC20C /* BubbleEngineManager.m in Sources */,
