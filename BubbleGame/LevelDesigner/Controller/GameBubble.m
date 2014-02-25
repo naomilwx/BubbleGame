@@ -38,7 +38,9 @@
 @implementation GameBubble {
     UIImage *backgroundImage;
     SEL blockToExecute;
+    NSInteger selectedLevel;
 }
+
 @synthesize gameArea;
 @synthesize palette;
 @synthesize background;
@@ -141,7 +143,12 @@
     }else if([label isEqualToString:GAME_LOAD]){
         [self load];
     }else if([label isEqualToString:GAME_SAVE]){
-        [self save];
+        if([gameLoader currentLevel] != INVALID){
+            blockToExecute = @selector(save);
+            [self showConfirmationWithTitle:@"Save Level" andMessage:@"Existing level data will be overwritten. Continue?"];
+        }else{
+            [self save];
+        }
     }else{
         if([gameLoader hasUnsavedBubbles]){
             blockToExecute = @selector(reset);
@@ -400,14 +407,21 @@
 #pragma mark - delegate methods for LevelSelectorDelegate
 
 - (void)selectedLevel:(NSInteger)levelIndex{
-    if(levelIndex == INVALID){
+    selectedLevel = levelIndex;
+    [levelSelectorPopover dismissPopoverAnimated:YES];
+    if([gameLoader hasUnsavedBubbles]){
+        blockToExecute = @selector(handleLevelSelection);
+        [self showConfirmationWithTitle:@"Load Level" andMessage:@"Your current unsaved changes will be lost when level is loaded. Continue?"];
+    }else{
+        [self handleLevelSelection];
+    }
+}
+- (void)handleLevelSelection{
+    if(selectedLevel == INVALID){
         [self loadNewLevel];
     }else{
-        [self loadGameLevel:levelIndex];
+        [self loadGameLevel:selectedLevel];
     }
-    [levelSelectorPopover dismissPopoverAnimated:YES];
-}
-- (void)handleLevelSelection:(NSInteger)levelIndes{
     
 }
 - (NSArray *)getAvailableLevels{

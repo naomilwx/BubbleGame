@@ -16,18 +16,15 @@
 
 @implementation MainViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     [self loadBackground];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)menuButtonPressed:(UIButton *)sender {
     NSLog(@"sender %@", [[sender titleLabel] text]);
 }
