@@ -54,16 +54,19 @@
 - (void)setUpGameEnvironment{
     [self loadBackground];
     [self initialiseBubbleGrid];
-    [self loadBubbleMappings];
     [self loadBackButton];
-    [self loadEngine];
-    [self addGestureRecognisers];
     [self loadCannon];
+    [self loadBubbleMappings];
+    [self loadEngine];
+    [self setUpBubbles];
+    [self addGestureRecognisers];
+}
+
+- (void)setUpBubbles{
     [self loadBubbleLoader];
     [self loadGridBubblesFromModel];
     [self loadNextBubble];
 }
-
 
 - (void)loadBubbleLoader{
     CGFloat height = self.defaultBubbleRadius * 2 + BUBBLE_LOADER_BUFFER;
@@ -158,7 +161,6 @@
 }
 
 - (void)loadBubbleMappings{
-    //for testing mapping will be passed from game designer when PS3 is fully integrated with this.
     if(!self.allBubbleMappings){
         self.allBubbleMappings = [GameLogic allBubbleImageMappings];
         
@@ -310,6 +312,7 @@
 }
 
 - (void)launchBubbleWithDisplacementVector:(CGPoint)vector{
+    //Sets displacement vector for bubble in its corresponding BubbleEngine instance
     [engine setDisplacementVectorForBubble:vector];
     [self loadNextBubble];
 }

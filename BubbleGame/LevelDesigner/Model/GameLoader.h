@@ -12,6 +12,7 @@
 
 @property NSInteger currentLevel;
 //game level. level is set when game is saved or a stored game is loaded.
+@property BOOL hasUnsavedBubbles;
 
 - (NSArray *)getAvailableLevels;
 
@@ -32,7 +33,7 @@
 
 - (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth andCenter:(CGPoint)centerPos;
 
-- (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth;
+//- (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth;
 
 - (void)loadNewLevel;
 

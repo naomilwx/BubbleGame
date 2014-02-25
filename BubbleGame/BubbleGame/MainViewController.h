@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LevelSelector.h"
+#import "LevelSelectorDelegate.h"
 
 @interface MainViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UIButton *menuButton;
 @property (strong, nonatomic) IBOutlet UIImageView *menuBackground;
+@property (strong, nonatomic) LevelSelector *levelSelector;
 
 @end

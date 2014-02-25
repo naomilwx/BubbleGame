@@ -37,6 +37,7 @@
 
 @implementation GameBubble {
     UIImage *backgroundImage;
+    SEL blockToExecute;
 }
 @synthesize gameArea;
 @synthesize palette;
@@ -142,7 +143,12 @@
     }else if([label isEqualToString:GAME_SAVE]){
         [self save];
     }else{
-        [self reset];
+        if([gameLoader hasUnsavedBubbles]){
+            blockToExecute = @selector(reset);
+            [self showConfirmationWithTitle:@"Reset Level" andMessage:@"Your unsaved changes will be lost! Are you sure you want to reset the game level?"];
+        }else{
+            [self reset];
+        }
     }
 }
 
@@ -367,10 +373,28 @@
 - (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
-                                                   delegate:self
+                                                   delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+}
+
+- (void)showConfirmationWithTitle:(NSString *)title andMessage:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Proceed",nil];
+    [alert show];
+}
+
+#pragma mark - alert view delegate methods
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex != 0 & blockToExecute != nil){
+        IMP implementation = [self methodForSelector:blockToExecute];
+        void (*func)() = (void *)implementation;
+        func();
+    }
 }
 
 #pragma mark - delegate methods for LevelSelectorDelegate
@@ -383,7 +407,9 @@
     }
     [levelSelectorPopover dismissPopoverAnimated:YES];
 }
-
+- (void)handleLevelSelection:(NSInteger)levelIndes{
+    
+}
 - (NSArray *)getAvailableLevels{
     return [self.gameLoader getAvailableLevels];
 }

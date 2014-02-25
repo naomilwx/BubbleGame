@@ -46,5 +46,13 @@
         [controller setPreviousScreen:MAIN_MENU];
     }
 }
+#pragma mark - delegate methods for LevelSelectorDelegate
 
+- (void)selectedLevel:(NSInteger)levelIndex{
+    
+}
+
+- (NSArray *)getAvailableLevels{
+    return nil;
+}
 @end

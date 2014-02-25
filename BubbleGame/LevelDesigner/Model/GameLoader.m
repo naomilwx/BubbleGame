@@ -18,12 +18,14 @@
 }
 
 @synthesize currentLevel;
+@synthesize hasUnsavedBubbles;
 
 - (id)init{
     if(self = [super init]){
         currentState = [[GameState alloc] init];
         dataManager = [[DataManager alloc] init];
         currentLevel = INVALID;
+        hasUnsavedBubbles = NO;
     }
     return self;
 }
@@ -41,6 +43,7 @@
     if(newLevelState){
         currentLevel = level;
         currentState = newLevelState;
+        hasUnsavedBubbles = NO;
         return [currentState getAllBubbles];
     }else{
         NSException* exception = [NSException
@@ -62,14 +65,17 @@
     }else{
         [dataManager saveGame:currentState asLevel:currentLevel];
     }
+    hasUnsavedBubbles = NO;
     return currentLevel;
 }
 
 - (void)removeBubble:(NSInteger)ID{
+    hasUnsavedBubbles = YES;
     [currentState removeBubbleWithID:ID];
 }
 
 - (void)modifyBubbleTypeTo:(NSInteger)type forBubble:(NSInteger)ID{
+    hasUnsavedBubbles = YES;
     BubbleModel *bubble = [currentState getBubble:ID];
     [bubble setBubbleType:type]; 
 }
@@ -85,22 +91,24 @@
 
 - (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth andCenter:(CGPoint)centerPos{
     //returns ID of bubble added
+    hasUnsavedBubbles = YES;
     NSInteger nextID = [currentState nextBubbleID];
     BubbleModel *bubble = [[BubbleModel alloc] initWithType:type andWidth:bubbleWidth andCenter:centerPos andID:nextID];
     [currentState addBubble:bubble];
     return nextID;
 }
 
-- (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth{
-    //returns ID of bubble added
-    NSInteger nextID = [currentState nextBubbleID];
-    BubbleModel *bubble = [[BubbleModel alloc] initWithType:type andWidth:bubbleWidth andID:nextID];
-    [currentState addBubble:bubble];
-    return nextID;
-}
+//- (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth{
+//    //returns ID of bubble added
+//    NSInteger nextID = [currentState nextBubbleID];
+//    BubbleModel *bubble = [[BubbleModel alloc] initWithType:type andWidth:bubbleWidth andID:nextID];
+//    [currentState addBubble:bubble];
+//    return nextID;
+//}
 
 - (void)reset{
     [currentState reset];
+    hasUnsavedBubbles = NO;
 }
 
 - (void)loadNewLevel{
