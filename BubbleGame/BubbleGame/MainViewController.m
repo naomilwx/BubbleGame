@@ -7,6 +7,8 @@
 //
 
 #import "MainViewController.h"
+#import "GameEngineInitDelegate.h"
+#import "GameLogic.h"
 
 @interface MainViewController ()
 
@@ -39,6 +41,10 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"menuToGame"]){
+        id<GameEngineInitDelegate> controller = segue.destinationViewController;
+        [controller setPreviousScreen:MAIN_MENU];
+    }
 }
 
 @end

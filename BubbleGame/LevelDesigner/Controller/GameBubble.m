@@ -125,7 +125,7 @@
     CGFloat gameHeight = self.gameArea.frame.size.height;
     CGFloat gameWidth = self.gameArea.frame.size.width;
     background.frame = CGRectMake(0, 0, gameWidth, gameHeight);
-    [self loadImage:backgroundImage IntoUIView:background];
+    [background setImage:backgroundImage];
 }
 - (void)loadImage:(UIImage *)image IntoUIView:(UIImageView *)view{
     view.contentMode = UIViewContentModeScaleAspectFit;
@@ -144,10 +144,6 @@
     }else{
         [self reset];
     }
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//TODO:
 }
 
 - (void)toggleUIViewTransparancy:(UIView *)view{

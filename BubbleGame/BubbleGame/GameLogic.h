@@ -17,6 +17,8 @@
 # define NUM_CELLS_IN_ROW 12
 # define NUM_OF_ROWS 9
 # define BUBBLE_QUEUE_SIZE 2
+# define MAIN_MENU 1
+# define LEVEL_DESIGNER 2
 
 #endif
 

@@ -165,6 +165,7 @@
     if([segue.identifier isEqualToString:@"designerToGame"]){
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
         [controller setOriginalBubbleModels:[self.gameLoader getAllBubbleModels]];
+        [controller setPreviousScreen:LEVEL_DESIGNER];
     }
 }
 

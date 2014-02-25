@@ -213,35 +213,35 @@
     }
 }
 
-- (void)removeOrphanedBubblesNeighbouringCluster:(id)cluster{
-    //Takes in cluster of removed nodes
-    NSMutableSet *orphaned = [self getOrphanedBubblesNeighbouringCluster:cluster];
-    for(NSMutableSet *set in orphaned){
-        [self removeAllInCollection:set removeType:DROP_ANIMATION additionalRemoveFilter:nil];
-    }
-}
-
-- (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(id)cluster{
-    NSMutableSet *accumulated = nil;
-    NSMutableSet *allAccumulated = [[NSMutableSet alloc] init];
-    NSMutableSet *visited = [[NSMutableSet alloc] init];
-    BOOL searchResult;
-    for(BubbleEngine *removedEngine in cluster){
-        NSArray *neighbours = [gridBubbles getNeighboursForObjectAtRow:removedEngine.gridRow andPosition:removedEngine.gridCol];
-        for(BubbleEngine *engine in neighbours){
-            if([visited containsObject:engine]){
-                continue;
-            }
-            //New cluster
-            accumulated = [[NSMutableSet alloc] init];
-            searchResult = [self searchForRootBubble:accumulated startPoint:engine visitedBubbles:visited];
-            if(!searchResult){
-                [allAccumulated addObject:accumulated];
-            }
-        }
-    }
-    return allAccumulated;
-}
+//- (void)removeOrphanedBubblesNeighbouringCluster:(id)cluster{
+//    //Takes in cluster of removed nodes
+//    NSMutableSet *orphaned = [self getOrphanedBubblesNeighbouringCluster:cluster];
+//    for(NSMutableSet *set in orphaned){
+//        [self removeAllInCollection:set removeType:DROP_ANIMATION additionalRemoveFilter:nil];
+//    }
+//}
+//
+//- (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(id)cluster{
+//    NSMutableSet *accumulated = nil;
+//    NSMutableSet *allAccumulated = [[NSMutableSet alloc] init];
+//    NSMutableSet *visited = [[NSMutableSet alloc] init];
+//    BOOL searchResult;
+//    for(BubbleEngine *removedEngine in cluster){
+//        NSArray *neighbours = [gridBubbles getNeighboursForObjectAtRow:removedEngine.gridRow andPosition:removedEngine.gridCol];
+//        for(BubbleEngine *engine in neighbours){
+//            if([visited containsObject:engine]){
+//                continue;
+//            }
+//            //New cluster
+//            accumulated = [[NSMutableSet alloc] init];
+//            searchResult = [self searchForRootBubble:accumulated startPoint:engine visitedBubbles:visited];
+//            if(!searchResult){
+//                [allAccumulated addObject:accumulated];
+//            }
+//        }
+//    }
+//    return allAccumulated;
+//}
 
 - (NSMutableSet *)getOrphanedBubblesIncludingCluster:(id)cluster{
     NSMutableSet *accumulated = nil;

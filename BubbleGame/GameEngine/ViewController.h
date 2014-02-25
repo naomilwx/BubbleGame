@@ -16,13 +16,12 @@
 
 @property (strong, nonatomic) IBOutlet UICollectionView *bubbleGridTemplate;
 @property (strong, nonatomic) IBOutlet UIImageView *gameBackground;
-@property (strong) BubbleLoader *bubbleLoader;
-
+@property (strong) UIButton *backButton;
 @property (strong) NSDictionary *allBubbleMappings;
 @property (strong) NSDictionary *launchableBubbleMappings;
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngine *engine;
-
+@property (strong) BubbleLoader *bubbleLoader;
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser;
 //Tracks the gesture and changes the bubble's fire angle

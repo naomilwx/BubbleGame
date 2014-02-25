@@ -17,6 +17,12 @@
 #define CANNON_SIDE_BUFFER 10
 #define CANNON_HEIGHT 150
 #define CANNON_ANIMATION_DURATION 0.3
+#define BACK_BUTTON_XPOS 30
+#define BACK_BUTTON_YPOS 950
+#define BACK_BUTTON_WIDTH 100
+#define BACK_BUTTON_HEIGHT 55
+#define BACK_TO_MAIN_MENU @"gameToMenu"
+#define BACK_TO_DESIGNER @"gameToDesigner"
 
 @implementation ViewController{
     NSMutableArray *cannonAnimation;
@@ -24,6 +30,7 @@
     TaggedObject *taggedCannonBubble;
     CGPoint cannonDefaultCenter;
     NSDictionary *originalBubbleModels;
+    NSInteger previousScreen;
 }
 
 @synthesize gameBackground;
@@ -33,6 +40,7 @@
 @synthesize engine;
 @synthesize bubbleGridTemplate;
 @synthesize bubbleLoader;
+@synthesize backButton;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -47,6 +55,7 @@
     [self loadBackground];
     [self initialiseBubbleGrid];
     [self loadBubbleMappings];
+    [self loadBackButton];
     [self loadEngine];
     [self addGestureRecognisers];
     [self loadCannon];
@@ -71,6 +80,16 @@
     [self loadCannonBody];
     [self setUpCannonAnimation];
     [self loadCannonBase];
+}
+
+- (void)loadBackButton{
+    CGRect frame = CGRectMake(BACK_BUTTON_XPOS, BACK_BUTTON_YPOS, BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
+    backButton = [[UIButton alloc] initWithFrame:frame];
+    [backButton setImage:[UIImage imageNamed:@"backButton"] forState:UIControlStateNormal];
+    [backButton addTarget:self
+               action:@selector(backButtonClicked)
+     forControlEvents:UIControlEventTouchDown];
+    [self.gameBackground addSubview:backButton];
 }
 
 - (void)loadCannonBody{
@@ -150,7 +169,6 @@
 }
 
 - (NSDictionary *)getLaunchableBubbleMappings{
-    //TODO:
     NSMutableDictionary *mappings = [[NSMutableDictionary alloc] init];
     for(NSNumber *key in self.allBubbleMappings){
         if([[GameLogic launchableBubbleTypes] containsObject:key]){
@@ -158,10 +176,6 @@
         }
     }
     return [NSDictionary dictionaryWithDictionary:mappings];
-}
-
-- (void)setOriginalBubbleModels:(NSDictionary *)models{
-    originalBubbleModels = models;
 }
 
 - (void)loadGridBubblesFromModel{
@@ -211,10 +225,19 @@
 }
 
 - (void)loadNextBubble{
+    //Method to load bubble view for the next bubble to its position at the tip of the cannon
     taggedCannonBubble = [bubbleLoader getNextBubble];
     BubbleView *bubbleView = [taggedCannonBubble object];
     [bubbleView setCenter:[self getStartingBubbleCenter]];
     [self.gameBackground insertSubview:bubbleView belowSubview:cannon];
+}
+
+- (void)backButtonClicked{
+    if(previousScreen == LEVEL_DESIGNER){
+        [self performSegueWithIdentifier:BACK_TO_DESIGNER sender:self];
+    }else if(previousScreen == MAIN_MENU){
+        [self performSegueWithIdentifier:BACK_TO_MAIN_MENU sender:self];
+    }
 }
 
 - (BubbleView *)createAndAddNewBubbleViewWithType:(NSInteger)type{
@@ -323,4 +346,13 @@
    return [(BubbleGridLayout *)bubbleGridTemplate.collectionViewLayout getRowPositionFromIndex:path.item];
 }
 
+#pragma mark - GameEngineInitDelegate methods
+
+- (void)setOriginalBubbleModels:(NSDictionary *)models{
+    originalBubbleModels = models;
+}
+
+- (void)setPreviousScreen:(NSInteger)previous{
+    previousScreen = previous;
+}
 @end

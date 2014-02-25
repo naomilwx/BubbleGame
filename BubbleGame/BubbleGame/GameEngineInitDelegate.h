@@ -10,10 +10,8 @@
 
 @protocol GameEngineInitDelegate <NSObject>
 
-//- (void)loadDefaultBubbleMapping:(NSDictionary *)mapping;
-//
-//- (void)loadColorBubbleMapping:(NSDictionary *)mapping;
-
 - (void)setOriginalBubbleModels:(NSDictionary *)models;
+
+- (void)setPreviousScreen:(NSInteger)previous;
 
 @end
