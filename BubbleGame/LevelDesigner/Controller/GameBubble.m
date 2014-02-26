@@ -302,6 +302,7 @@
         NSDictionary *models = [self.gameLoader loadLevel:level];
         [self loadGameLevelWithModels:models];
     }@catch(NSException *e){
+        [self updateCurrentLevelView];
         [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
     }
 }

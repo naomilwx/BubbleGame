@@ -46,6 +46,8 @@
         hasUnsavedBubbles = NO;
         return [currentState getAllBubbles];
     }else{
+        [self reset];
+        currentLevel = level;
         NSException* exception = [NSException
                                   exceptionWithName:@"Load levels"
                                   reason:@"Level Data Empty!"
