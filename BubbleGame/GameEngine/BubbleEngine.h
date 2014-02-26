@@ -21,6 +21,7 @@
 @property BOOL isGridBubble;
 @property NSInteger gridRow;
 @property NSInteger gridCol;
+@property BOOL hasBeenChained; //Indicates if the bubble has been probed for chainable special effects
 
 - (id)initWithBubbleView:(id<PositionUpdateProtocol>)view andID:(NSInteger)ID;
 

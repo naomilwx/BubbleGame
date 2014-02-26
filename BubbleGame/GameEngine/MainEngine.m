@@ -154,18 +154,26 @@
     NSArray *specialNeighbours = [self getAllNeighbouringSpecialBubbles:bubbleEngine];
     for(BubbleEngine *neighbour in specialNeighbours){
         NSInteger specialType = [neighbour bubbleType];
-        if(specialType == LIGHTNING){
-            [self removeAllBubblesInRow:[neighbour gridRow]];
-        }else if(specialType == BOMB){
-            [self removeAllNeighboursForBubble:neighbour];
-            [neighbour removeBubbleWithAnimationType:POP_ANIMATION];
-        }else if(specialType == STAR){
+        if(specialType == STAR){
             [self removeAllBubbleOfType:[bubbleEngine bubbleType]];
             [neighbour removeBubbleWithAnimationType:POP_ANIMATION];
+        }else{
+            [self applyChainableEffect:neighbour];
         }
     }
 }
-
+- (void)applyChainableEffect:(BubbleEngine *)engine{
+    if([engine hasBeenChained] == NO){
+        [engine setHasBeenChained:YES];
+        NSInteger chainableType = [engine bubbleType];
+        if(chainableType == LIGHTNING){
+            [self removeAllBubblesInRow:[engine gridRow]];
+        }else if(chainableType == BOMB){
+            [self removeAllNeighboursForBubble:engine];
+            [engine removeBubbleWithAnimationType:POP_ANIMATION];
+        }
+    }
+}
 - (NSArray *)getAllNeighbouringSpecialBubbles:(BubbleEngine *)bubbleEngine{
     NSArray *neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
@@ -179,15 +187,20 @@
 }
 
 - (void)removeAllNeighboursForBubble:(BubbleEngine *)bubbleEngine{
-    NSArray *neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
-    BOOL (^filterCond)(BubbleEngine *) = ^(BubbleEngine *bubble){
-        if(bubble.bubbleType == INDESTRUCTIBLE){
-            return NO;
-        }else{
-            return YES;
+    if(bubbleEngine){
+        NSArray *neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
+        BOOL (^filterCond)(BubbleEngine *) = ^(BubbleEngine *bubble){
+            if(bubble.bubbleType == INDESTRUCTIBLE){
+                return NO;
+            }else{
+                return YES;
+            }
+        };
+        for(BubbleEngine *neighbour in neighbourList){
+            [self applyChainableEffect:neighbour];
         }
-    };
-    [self removeAllInCollection:neighbourList removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
+        [self removeAllInCollection:neighbourList removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
+    }
 }
 
 - (void)removeAllBubbleOfType:(NSInteger)type{
@@ -204,6 +217,11 @@
             return YES;
         }
     };
+    for(BubbleEngine *engine in bubblesInRow){
+        if([engine bubbleType] != LIGHTNING){
+            [self applyChainableEffect:engine];
+        }
+    }
     [self removeAllInCollection:bubblesInRow removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
 }
 

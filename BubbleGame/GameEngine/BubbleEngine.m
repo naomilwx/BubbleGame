@@ -22,6 +22,7 @@
 @synthesize isGridBubble;
 @synthesize gridCol;
 @synthesize gridRow;
+@synthesize hasBeenChained;
 
 - (id)initWithBubbleView:(id<PositionUpdateProtocol>)view andID:(NSInteger)ID{
     if(self = [super init]){
@@ -29,18 +30,19 @@
         displacementVector = CGPointMake(0, 0);
         bubbleEngineID = ID;
         isGridBubble = NO;
+        hasBeenChained = NO;
     }
     return self;
 }
 
 - (id)initAsGridBubbleWithCenter:(CGPoint)point view:(id<PositionUpdateProtocol>)view andID:(NSInteger)ID{
-    //For future integration with PS3
     if(self = [super init]){
         bubbleView = view;
         displacementVector = CGPointMake(0, 0);
         bubbleEngineID = ID;
         center = point;
         isGridBubble = YES;
+        hasBeenChained = NO;
     }
     return self;
 
@@ -67,10 +69,14 @@
 }
 
 - (void)removeBubbleWithAnimationType:(NSInteger)type{
-    [bubbleView activateForDeletionWithAnimationType:type];
+    if(bubbleView){
+        [bubbleView activateForDeletionWithAnimationType:type];
+    }
     if(self.isGridBubble){
         [mainEngine removeGridBubbleAtRow:self.gridRow andPositions:self.gridCol];
     }
+    bubbleView = nil;
+    self.isGridBubble = NO;
 }
 
 - (BOOL)checkCollisionWithGrid{

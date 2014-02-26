@@ -73,7 +73,6 @@
 - (void)saveGame:(GameState *)game asLevel:(NSInteger)level{
     loadedLevel = level;
     BOOL success = [NSKeyedArchiver archiveRootObject:game toFile:[self getFullFilePathForGameLevel:level]];
-//    NSLog(@"saved success: %d for level %ld", success, level);
     if(!success){
         NSException* exception = [NSException
                                   exceptionWithName:@"Save level"
