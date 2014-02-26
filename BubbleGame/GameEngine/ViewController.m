@@ -251,7 +251,7 @@
 }
 
 - (CGPoint)getStartingBubbleCenter{
-    CGPoint base = CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
+    CGPoint base = [self getLaunchBaseCoordinates];
     CGPoint offset = getUnitPositionVector(base, cannon.center);
 //    CGPoint offset = [self getUnitVectorStart:base toEnd:cannon.center];
 //    CGFloat xPos = offset.x * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.x;
@@ -285,8 +285,12 @@
     [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
 }
 
+- (CGPoint)getLaunchBaseCoordinates{
+    return CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
+}
+
 - (void)rotateCannonInDirection:(CGPoint)point{
-    CGPoint base = CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
+    CGPoint base = [self getLaunchBaseCoordinates];
     CGPoint unitOffSet = getUnitPositionVector(base, point);
 //    CGPoint unitOffSet = [self getUnitVectorStart:base toEnd:point];
     [self updateCannonPosition:base withOffset:unitOffSet];
@@ -312,10 +316,15 @@
 
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
     [cannon startAnimating];
-    [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
+    CGPoint start;
     CGPoint end = point;
-    CGPoint start = [self getStartingBubbleCenter];
-//    CGPoint displacement = [self getUnitVectorStart:start toEnd:end];
+    if(CGRectContainsPoint(cannon.frame, point)){
+        start = [self getLaunchBaseCoordinates];
+    }else{
+        
+        start = [self getStartingBubbleCenter];
+    }
+    [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
     CGPoint displacement = getUnitPositionVector(start, end);
     [self launchBubbleWithDisplacementVector:displacement];
 }
