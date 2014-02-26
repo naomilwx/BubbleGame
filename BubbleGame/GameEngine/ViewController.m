@@ -146,7 +146,7 @@
 
 - (void)loadEngine{
     if(!engine){
-        engine = [[MainEngine alloc] init];
+        engine = [[MainEngineSpecialised alloc] init];
         [engine setFrameHeight:gameBackground.frame.size.height];
         [engine setFrameWidth:gameBackground.frame.size.width];
         [engine setGridTemplateDelegate:self];
@@ -253,12 +253,8 @@
 - (CGPoint)getStartingBubbleCenter{
     CGPoint base = [self getLaunchBaseCoordinates];
     CGPoint offset = getUnitPositionVector(base, cannon.center);
-//    CGPoint offset = [self getUnitVectorStart:base toEnd:cannon.center];
-//    CGFloat xPos = offset.x * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.x;
-//    CGFloat yPos = offset.y * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.y;
     CGFloat scalor = (CANNON_HEIGHT / 2 - self.defaultBubbleRadius);
     CGPoint scaledOffset = scaleVector(offset, scalor);
-//    return CGPointMake(xPos, yPos);
     return addVectors(scaledOffset, cannon.center);
 }
 
@@ -292,7 +288,6 @@
 - (void)rotateCannonInDirection:(CGPoint)point{
     CGPoint base = [self getLaunchBaseCoordinates];
     CGPoint unitOffSet = getUnitPositionVector(base, point);
-//    CGPoint unitOffSet = [self getUnitVectorStart:base toEnd:point];
     [self updateCannonPosition:base withOffset:unitOffSet];
     CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1;
     CGFloat angle = atanf(tanRatio);
@@ -300,10 +295,7 @@
 }
 
 - (void)updateCannonPosition:(CGPoint)base withOffset:(CGPoint)unitOffSet{
-//    CGFloat newX = unitOffSet.x * CANNON_HEIGHT / 2 + base.x;
-//    CGFloat newY = unitOffSet.y * CANNON_HEIGHT / 2 + base.y;
     CGPoint scaledOffset = scaleVector(unitOffSet, CANNON_HEIGHT/2);
-//    CGPoint newCannonCenter = CGPointMake(newX, newY);
     CGPoint newCannonCenter = addVectors(base, scaledOffset);
     [cannon setCenter:newCannonCenter];
     [self shiftBubbleInCannonWithOffset:unitOffSet];
@@ -334,12 +326,6 @@
     [engine setDisplacementVectorForBubble:vector];
     [self loadNextBubble];
 }
-
-//- (CGPoint)getUnitVectorStart:(CGPoint)start toEnd:(CGPoint)end{
-//    CGPoint vector = CGPointMake(end.x - start.x, end.y - start.y);
-//    CGFloat magnitude = sqrt(pow(vector.x, 2) + pow(vector.y, 2));
-//    return CGPointMake(vector.x/magnitude , vector.y/magnitude);
-//}
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

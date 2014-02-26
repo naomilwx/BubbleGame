@@ -135,10 +135,7 @@
         CGPoint gridCenter = [gridTemplateDelegate getCenterForItemAtIndexPath:path];
         [object setCenter:gridCenter];
         NSSet *matchingCluster = [self insertBubble:object intoGridAtIndexPath:path];
-        [self handleMatchingCluster:matchingCluster];
-        [self handleSpecialNeighbouringBubbles:object];
-        [self removeAllOrphanedBubbles];
-        [self checkGridBubbles];
+        [self removeBubblesIfNecessary:matchingCluster onInsertionOf:object];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Game Over"
                                                         message:@"Maximum bubble layers exceeded"
@@ -150,45 +147,16 @@
     }
 }
 
-- (void)handleSpecialNeighbouringBubbles:(BubbleEngine *)bubbleEngine{
-    NSArray *specialNeighbours = [self getAllNeighbouringSpecialBubbles:bubbleEngine];
-    for(BubbleEngine *neighbour in specialNeighbours){
-        NSInteger specialType = [neighbour bubbleType];
-        if(specialType == STAR){
-            [self removeAllBubbleOfType:[bubbleEngine bubbleType]];
-            [neighbour removeBubbleWithAnimationType:POP_ANIMATION];
-        }else{
-            [self applyChainableEffect:neighbour];
-        }
-    }
-}
-- (void)applyChainableEffect:(BubbleEngine *)engine{
-    if([engine hasBeenChained] == NO){
-        [engine setHasBeenChained:YES];
-        NSInteger chainableType = [engine bubbleType];
-        if(chainableType == LIGHTNING){
-            [self removeAllBubblesInRow:[engine gridRow]];
-        }else if(chainableType == BOMB){
-            [self removeAllNeighboursForBubble:engine];
-            [engine removeBubbleWithAnimationType:POP_ANIMATION];
-        }
-    }
-}
-- (NSArray *)getAllNeighbouringSpecialBubbles:(BubbleEngine *)bubbleEngine{
-    NSArray *neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
-    NSSet *specialBubbles = [GameLogic specialBubbleTypes];
-    for(BubbleEngine *engine in neighbourList){
-        if([specialBubbles containsObject:[NSNumber numberWithInteger:[engine bubbleType]]]){
-            [arr addObject:engine];
-        }
-    }
-    return arr;
+- (void)removeBubblesIfNecessary:(NSSet *)matchingCluster onInsertionOf:(id)object{
+    [self handleMatchingCluster:matchingCluster];
+    [self removeAllOrphanedBubbles];
+    [self checkGridBubbles];
 }
 
-- (void)removeAllNeighboursForBubble:(BubbleEngine *)bubbleEngine{
+- (NSArray *)removeAllNeighboursForBubble:(BubbleEngine *)bubbleEngine{
+    NSArray *neighbourList = nil;
     if(bubbleEngine){
-        NSArray *neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
+        neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
         BOOL (^filterCond)(BubbleEngine *) = ^(BubbleEngine *bubble){
             if(bubble.bubbleType == INDESTRUCTIBLE){
                 return NO;
@@ -196,11 +164,9 @@
                 return YES;
             }
         };
-        for(BubbleEngine *neighbour in neighbourList){
-            [self applyChainableEffect:neighbour];
-        }
         [self removeAllInCollection:neighbourList removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
     }
+    return neighbourList;
 }
 
 - (void)removeAllBubbleOfType:(NSInteger)type{
@@ -208,7 +174,7 @@
     [self removeAllInCollection:bubblesOfType removeType:POP_ANIMATION additionalRemoveFilter:nil];
 }
 
-- (void)removeAllBubblesInRow:(NSInteger)row{
+- (NSArray *)removeAllBubblesInRow:(NSInteger)row{
     NSArray *bubblesInRow = [gridBubbles getObjectsAtRow:row];
     BOOL (^filterCond)(BubbleEngine *) = ^(BubbleEngine *bubble){
         if(bubble.bubbleType == INDESTRUCTIBLE){
@@ -217,12 +183,8 @@
             return YES;
         }
     };
-    for(BubbleEngine *engine in bubblesInRow){
-        if([engine bubbleType] != LIGHTNING){
-            [self applyChainableEffect:engine];
-        }
-    }
     [self removeAllInCollection:bubblesInRow removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
+    return bubblesInRow;
 }
 
 - (void)handleMatchingCluster:(NSSet *)matchingCluster{
@@ -295,4 +257,5 @@
     }
     return NO;
 }
+
 @end

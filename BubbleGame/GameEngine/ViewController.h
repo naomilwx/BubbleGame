@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MainEngine.h"
+#import "MainEngineSpecialised.h"
 #import "GridTemplateDelegate.h"
 #import "BubbleLoader.h"
 #import "GameEngineInitDelegate.h"
@@ -20,7 +20,7 @@
 @property (strong) NSDictionary *allBubbleMappings;
 @property (strong) NSDictionary *launchableBubbleMappings;
 @property CGFloat defaultBubbleRadius;
-@property (strong) MainEngine *engine;
+@property (strong) MainEngineSpecialised *engine;
 @property (strong) BubbleLoader *bubbleLoader;
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser;

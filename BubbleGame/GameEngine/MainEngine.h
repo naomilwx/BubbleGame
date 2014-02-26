@@ -21,6 +21,8 @@
 @property CGFloat frameHeight;
 @property (weak) id<GridTemplateDelegate> gridTemplateDelegate;
 
+- (void)checkGridBubbles;
+
 - (void)addMobileEngine:(id)bubble withType:(NSInteger)type;
 
 - (void)setDisplacementVectorForBubble:(CGPoint)vector;
@@ -30,4 +32,14 @@
 - (NSMutableSet *)getOrphanedBubblesIncludingCluster:(id)cluster;
 
 - (void)removeAllOrphanedBubbles;
+
+- (void)removeBubblesIfNecessary:(NSSet *)matchingCluster onInsertionOf:(id)object;
+
+- (NSArray *)removeAllNeighboursForBubble:(BubbleEngine *)bubbleEngine;
+- (void)removeAllBubbleOfType:(NSInteger)type;
+
+- (NSArray *)removeAllBubblesInRow:(NSInteger)row;
+
+- (void)handleMatchingCluster:(NSSet *)matchingCluster;
+
 @end
