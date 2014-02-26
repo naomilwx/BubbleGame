@@ -45,6 +45,10 @@
     return [cell tag];
 }
 
+- (void)setLevelText:(NSNumber *)level forCell:(UITableViewCell *)cell{
+    [cell.textLabel setText:[NSString stringWithFormat:LEVEL_TEXT, level]];
+}
+
 #pragma mark - datasource and delegate methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger selectedLevel = [self getSelectedLevelForIndexPath:indexPath];
@@ -72,7 +76,7 @@
     }else{
         NSNumber *level = [levelOptions objectAtIndex:(indexPath.row - 1)];
         [cell setTag:[level integerValue]];
-        [cell.textLabel setText:[NSString stringWithFormat:LEVEL_TEXT, level]];
+        [self setLevelText:level forCell:cell];
     }
     return cell;
 }

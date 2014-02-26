@@ -16,7 +16,11 @@
 
 - (id)initWithStyle:(UITableViewStyle)style andDelegate:(id<LevelSelectorDelegate> )del;
 
+- (NSInteger)getSelectedLevelForIndexPath:(NSIndexPath *)indexPath;
+
 - (void)updateLevelOptions;
 //Update level selection list
+
+- (void)setLevelText:(NSNumber *)level forCell:(UITableViewCell *)cell;
 
 @end

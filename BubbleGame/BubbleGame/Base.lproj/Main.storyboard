@@ -50,7 +50,6 @@
                                 </state>
                                 <connections>
                                     <action selector="menuButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nOc-mm-eKv"/>
-                                    <segue destination="vSm-Bd-8P6" kind="modal" identifier="menuToGame" id="5i4-HE-X4W"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -59,6 +58,7 @@
                     <connections>
                         <outlet property="menuBackground" destination="Bx6-Yt-7Ix" id="HY4-5B-Qjw"/>
                         <outlet property="menuButton" destination="9n9-mi-qCX" id="C0v-wH-lKp"/>
+                        <segue destination="vSm-Bd-8P6" kind="modal" identifier="menuToGame" id="whu-Bs-hVj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -333,8 +333,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3Nf-1q-5C8"/>
-        <segue reference="8xw-Xh-cie"/>
         <segue reference="xBW-A0-4bs"/>
+        <segue reference="whu-Bs-hVj"/>
+        <segue reference="f6p-Kj-OjV"/>
     </inferredMetricsTieBreakers>
 </document>

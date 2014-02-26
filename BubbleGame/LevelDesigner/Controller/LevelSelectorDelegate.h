@@ -14,4 +14,7 @@
 
 - (NSArray *)getAvailableLevels;
 
+@optional
+- (void)selectedPreloadedLevel:(NSInteger)levelIndex;
+
 @end

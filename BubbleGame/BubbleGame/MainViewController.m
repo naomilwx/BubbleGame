@@ -10,15 +10,19 @@
 #import "GameEngineInitDelegate.h"
 #import "GameLogic.h"
 
-@interface MainViewController ()
+@implementation MainViewController{
+    UIPopoverController *levelSelectorPopover;
+}
 
-@end
-
-@implementation MainViewController
+@synthesize dataManager;
+@synthesize levelSelector;
+@synthesize menuButton;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     [self loadBackground];
+    [self loadDataManager];
+    [self loadLevelSelector];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -26,6 +30,9 @@
 }
 
 - (IBAction)menuButtonPressed:(UIButton *)sender {
+    if([[sender.titleLabel text] isEqual:@"Play!"]){
+        [levelSelectorPopover presentPopoverFromRect:menuButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
     NSLog(@"sender %@", [[sender titleLabel] text]);
 }
 
@@ -37,6 +44,15 @@
     [self.menuBackground setImage:background];
 }
 
+- (void)loadDataManager{
+    dataManager = [[GameDataManager alloc] init];
+}
+
+- (void)loadLevelSelector{
+    levelSelector = [[MenuLevelSelector alloc] initWithStyle:UITableViewStylePlain andDelegate:self];
+    levelSelectorPopover = [[UIPopoverController alloc] initWithContentViewController:levelSelector];
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"menuToGame"]){
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
@@ -46,10 +62,16 @@
 #pragma mark - delegate methods for LevelSelectorDelegate
 
 - (void)selectedLevel:(NSInteger)levelIndex{
-    
+    [levelSelectorPopover dismissPopoverAnimated:YES];
 }
 
 - (NSArray *)getAvailableLevels{
-    return nil;
+    NSLog(@"count %d",[[dataManager getAvailableLevels] count]);
+    return [dataManager getAvailableLevels];
 }
+
+- (void)selectedPreloadedLevel:(NSInteger)levelIndex{
+    [levelSelectorPopover dismissPopoverAnimated:YES];
+}
+
 @end

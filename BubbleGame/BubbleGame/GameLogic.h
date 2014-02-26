@@ -43,5 +43,6 @@ typedef enum GamePalette{
 
 + (NSSet *)specialBubbleTypes;
 
++ (NSDictionary *)preloadedLevelMappings;
 
 @end

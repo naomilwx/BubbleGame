@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LevelSelector.h"
+#import "MenuLevelSelector.h"
 #import "LevelSelectorDelegate.h"
+#import "GameDataManager.h"
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController<LevelSelectorDelegate>
 @property (strong, nonatomic) IBOutlet UIButton *menuButton;
 @property (strong, nonatomic) IBOutlet UIImageView *menuBackground;
-@property (strong, nonatomic) LevelSelector *levelSelector;
-
+@property (strong, nonatomic) MenuLevelSelector *levelSelector;
+@property (strong, nonatomic) GameDataManager *dataManager;
 @end

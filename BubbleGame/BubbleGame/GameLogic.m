@@ -33,4 +33,11 @@
     return specialTypes;
 }
 
++ (NSDictionary *)preloadedLevelMappings{
+    NSDictionary *preloadedMappings = @{@0: @"easy",
+                                        @1: @"intermediate",
+                                        @2: @"hard"};
+    return preloadedMappings;
+}
+
 @end
