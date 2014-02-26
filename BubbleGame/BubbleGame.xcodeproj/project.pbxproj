@@ -44,6 +44,7 @@
 		C2058A7E18B67F44003AC20C /* MainEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C2058A6618B67F44003AC20C /* MainEngine.m */; };
 		C2058A8118B67F44003AC20C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2058A6F18B67F44003AC20C /* ViewController.m */; };
 		C2058A8418B682EE003AC20C /* BubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2058A8318B682EE003AC20C /* BubbleView.m */; };
+		C229890A18BDFCF300FEED38 /* CGPointExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C229890918BDFCF300FEED38 /* CGPointExtension.m */; };
 		C267044818B8AB8800DC6448 /* BubbleLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C267044718B8AB8800DC6448 /* BubbleLoader.m */; };
 		C267044E18B8AD7F00DC6448 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = C267044D18B8AD7F00DC6448 /* Queue.m */; };
 		C28179FA18B8D278007527FA /* TaggedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C28179F918B8D278007527FA /* TaggedObject.m */; };
@@ -124,6 +125,8 @@
 		C2058A6F18B67F44003AC20C /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = GameEngine/ViewController.m; sourceTree = SOURCE_ROOT; };
 		C2058A8218B682EE003AC20C /* BubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleView.h; path = LevelDesigner/view/BubbleView.h; sourceTree = SOURCE_ROOT; };
 		C2058A8318B682EE003AC20C /* BubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleView.m; path = LevelDesigner/view/BubbleView.m; sourceTree = SOURCE_ROOT; };
+		C229890818BDFCF300FEED38 /* CGPointExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGPointExtension.h; sourceTree = "<group>"; };
+		C229890918BDFCF300FEED38 /* CGPointExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGPointExtension.m; sourceTree = "<group>"; };
 		C267044618B8AB8800DC6448 /* BubbleLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleLoader.h; sourceTree = "<group>"; };
 		C267044718B8AB8800DC6448 /* BubbleLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleLoader.m; sourceTree = "<group>"; };
 		C267044C18B8AD7F00DC6448 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
@@ -353,6 +356,8 @@
 				C2058A5518B67F44003AC20C /* BubbleEngineManager.m */,
 				C20589EE18B67C4B003AC20C /* BubbleManager.h */,
 				C20589EF18B67C4B003AC20C /* BubbleManager.m */,
+				C229890818BDFCF300FEED38 /* CGPointExtension.h */,
+				C229890918BDFCF300FEED38 /* CGPointExtension.m */,
 			);
 			name = DataStructures;
 			sourceTree = "<group>";
@@ -467,6 +472,7 @@
 				C2058A1518B67C4B003AC20C /* BubbleCell.m in Sources */,
 				C2058A1218B67C4B003AC20C /* DataManager.m in Sources */,
 				C2058A0718B67C4B003AC20C /* GameBubbleImplementation.m in Sources */,
+				C229890A18BDFCF300FEED38 /* CGPointExtension.m in Sources */,
 				C2817A0218BAF3B6007527FA /* GameLogic.m in Sources */,
 				C2058A7218B67F44003AC20C /* BubbleEngine.m in Sources */,
 				C2058A0818B67C4B003AC20C /* LevelSelector.m in Sources */,
