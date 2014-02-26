@@ -10,8 +10,11 @@
 #import "GameEngineInitDelegate.h"
 #import "GameLogic.h"
 
+#define TO_GAME_SEGUE @"menuToGame"
+
 @implementation MainViewController{
     UIPopoverController *levelSelectorPopover;
+    NSDictionary *dataToGame;
 }
 
 @synthesize dataManager;
@@ -54,24 +57,31 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"menuToGame"]){
+    if([segue.identifier isEqualToString:TO_GAME_SEGUE]){
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
         [controller setPreviousScreen:MAIN_MENU];
+        [controller setOriginalBubbleModels:dataToGame];
     }
 }
 #pragma mark - delegate methods for LevelSelectorDelegate
 
 - (void)selectedLevel:(NSInteger)levelIndex{
     [levelSelectorPopover dismissPopoverAnimated:YES];
+    NSDictionary *bubbles = [dataManager loadDesignedLevel:levelIndex];
+    dataToGame = bubbles;
+    [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
 }
 
 - (NSArray *)getAvailableLevels{
-    NSLog(@"count %d",[[dataManager getAvailableLevels] count]);
     return [dataManager getAvailableLevels];
 }
 
 - (void)selectedPreloadedLevel:(NSInteger)levelIndex{
     [levelSelectorPopover dismissPopoverAnimated:YES];
+    NSString *levelName = [[GameLogic preloadedLevelMappings] objectForKey:[NSNumber numberWithInteger:levelIndex]];
+    NSDictionary *bubbles = [dataManager loadPreloadedLevel:levelName];
+    dataToGame = bubbles;
+    [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
 }
 
 @end
