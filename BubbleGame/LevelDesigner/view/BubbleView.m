@@ -7,6 +7,7 @@
 //
 
 #import "BubbleView.h"
+#import "CGPointExtension.h"
 
 #define SCALE_FACTOR 0
 #define POP_ANIMATION_DURATION 1
@@ -35,9 +36,9 @@
 }
 
 - (CGPoint)moveByOffset:(CGPoint)offset{
-    CGPoint point = self.center;
-    point.x = point.x + offset.x;
-    point.y = point.y + offset.y;
+    CGPoint point = addVectors(self.center, offset);
+//    point.x = point.x + offset.x;
+//    point.y = point.y + offset.y;
     [self setCenter:point];
     return self.center;
 }

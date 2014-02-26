@@ -11,6 +11,7 @@
 #import "BubbleGridLayout.h"
 #import "BubbleModel.h"
 #import "GameLogic.h"
+#import "CGPointExtension.h"
 
 #define NUM_OF_CELLS_IN_ROW 12
 #define BUBBLE_LOADER_BUFFER 5
@@ -251,10 +252,14 @@
 
 - (CGPoint)getStartingBubbleCenter{
     CGPoint base = CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
-    CGPoint offset = [self getUnitVectorStart:base toEnd:cannon.center];
-    CGFloat xPos = offset.x * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.x;
-    CGFloat yPos = offset.y * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.y;
-    return CGPointMake(xPos, yPos);
+    CGPoint offset = getUnitPositionVector(base, cannon.center);
+//    CGPoint offset = [self getUnitVectorStart:base toEnd:cannon.center];
+//    CGFloat xPos = offset.x * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.x;
+//    CGFloat yPos = offset.y * (CANNON_HEIGHT / 2 - self.defaultBubbleRadius) + cannon.center.y;
+    CGFloat scalor = (CANNON_HEIGHT / 2 - self.defaultBubbleRadius);
+    CGPoint scaledOffset = scaleVector(offset, scalor);
+//    return CGPointMake(xPos, yPos);
+    return addVectors(scaledOffset, cannon.center);
 }
 
 - (void)addMobileBubbleToEngine:(BubbleView *)bubble forType:(NSInteger)type{
@@ -282,7 +287,8 @@
 
 - (void)rotateCannonInDirection:(CGPoint)point{
     CGPoint base = CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
-    CGPoint unitOffSet = [self getUnitVectorStart:base toEnd:point];
+    CGPoint unitOffSet = getUnitPositionVector(base, point);
+//    CGPoint unitOffSet = [self getUnitVectorStart:base toEnd:point];
     [self updateCannonPosition:base withOffset:unitOffSet];
     CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1;
     CGFloat angle = atanf(tanRatio);
@@ -290,9 +296,11 @@
 }
 
 - (void)updateCannonPosition:(CGPoint)base withOffset:(CGPoint)unitOffSet{
-    CGFloat newX = unitOffSet.x * CANNON_HEIGHT / 2 + base.x;
-    CGFloat newY = unitOffSet.y * CANNON_HEIGHT / 2 + base.y;
-    CGPoint newCannonCenter = CGPointMake(newX, newY);
+//    CGFloat newX = unitOffSet.x * CANNON_HEIGHT / 2 + base.x;
+//    CGFloat newY = unitOffSet.y * CANNON_HEIGHT / 2 + base.y;
+    CGPoint scaledOffset = scaleVector(unitOffSet, CANNON_HEIGHT/2);
+//    CGPoint newCannonCenter = CGPointMake(newX, newY);
+    CGPoint newCannonCenter = addVectors(base, scaledOffset);
     [cannon setCenter:newCannonCenter];
     [self shiftBubbleInCannonWithOffset:unitOffSet];
 }
@@ -307,7 +315,8 @@
     [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
     CGPoint end = point;
     CGPoint start = [self getStartingBubbleCenter];
-    CGPoint displacement = [self getUnitVectorStart:start toEnd:end];
+//    CGPoint displacement = [self getUnitVectorStart:start toEnd:end];
+    CGPoint displacement = getUnitPositionVector(start, end);
     [self launchBubbleWithDisplacementVector:displacement];
 }
 
@@ -317,11 +326,11 @@
     [self loadNextBubble];
 }
 
-- (CGPoint)getUnitVectorStart:(CGPoint)start toEnd:(CGPoint)end{
-    CGPoint vector = CGPointMake(end.x - start.x, end.y - start.y);
-    CGFloat magnitude = sqrt(pow(vector.x, 2) + pow(vector.y, 2));
-    return CGPointMake(vector.x/magnitude , vector.y/magnitude);
-}
+//- (CGPoint)getUnitVectorStart:(CGPoint)start toEnd:(CGPoint)end{
+//    CGPoint vector = CGPointMake(end.x - start.x, end.y - start.y);
+//    CGFloat magnitude = sqrt(pow(vector.x, 2) + pow(vector.y, 2));
+//    return CGPointMake(vector.x/magnitude , vector.y/magnitude);
+//}
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

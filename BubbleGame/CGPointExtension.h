@@ -13,3 +13,4 @@ CGPoint scaleVector(CGPoint v, CGFloat scale);
 CGFloat getMagnitude(CGPoint vector);
 CGPoint getUnitVector(CGPoint vector);
 CGPoint getUnitPositionVector(CGPoint start, CGPoint end);
+CGPoint uniformShift(CGPoint point, CGFloat amount);

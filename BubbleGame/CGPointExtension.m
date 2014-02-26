@@ -33,3 +33,7 @@ CGPoint getUnitPositionVector(CGPoint start, CGPoint end){
     CGPoint vector = CGPointMake(x, y);
     return getUnitVector(vector);
 }
+
+CGPoint uniformShift(CGPoint point, CGFloat amount){
+    return CGPointMake(point.x + amount, point.y + amount);
+}
