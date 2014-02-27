@@ -80,6 +80,7 @@
     [self addGestureRecognisersToCollectionView];
     [self.gameArea insertSubview:bubbleGrid belowSubview:backButton];
     [self initialiseLevelSelectorPopover];
+    [self loadLevelFromTempIfTempFileExists];
 }
 
 - (void)didReceiveMemoryWarning
@@ -286,6 +287,13 @@
     
 }
 #pragma mark - functions to handle load/save/reset
+- (void)loadLevelFromTempIfTempFileExists{
+    NSDictionary *models = [gameLoader loadUnsavedStateFromTempFile];
+    if(models != nil){
+        [self loadGameLevelWithModels:models];
+    }
+}
+
 - (void)loadPreviousGameLevel{
     @try{
         [self reset];

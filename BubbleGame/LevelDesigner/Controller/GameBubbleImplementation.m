@@ -163,6 +163,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"designerToGame"]){
+        [self.gameLoader saveUnsavedStateToTempFile];
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
         [controller setOriginalBubbleModels:[self.gameLoader getAllBubbleModels]];
         [controller setPreviousScreen:LEVEL_DESIGNER];

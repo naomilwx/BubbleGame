@@ -30,4 +30,8 @@
 - (void)resetForNewLevel;
 //Clears in memory data in the DataManager instance for the currently loaded level
 
+- (void)saveGameStateToTempFile:(GameState *)game;
+
+- (GameState *)loadGameStateFromTempFile;
+
 @end

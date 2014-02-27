@@ -30,6 +30,25 @@
     return self;
 }
 
+- (void)saveUnsavedStateToTempFile{
+    if(hasUnsavedBubbles){
+        [dataManager saveGameStateToTempFile:currentState];
+    }
+}
+
+- (NSDictionary *)loadUnsavedStateFromTempFile{
+    GameState *state = [dataManager loadGameStateFromTempFile];
+    if(state != nil){
+        currentLevel = [dataManager loadedLevel];
+        currentState = state;
+        hasUnsavedBubbles = YES;
+        return [state getAllBubbles];
+    }else{
+        [dataManager resetForNewLevel];
+        return nil;
+    }
+}
+
 - (NSArray *)getAvailableLevels{
     return [dataManager getAvailableLevels];
 }

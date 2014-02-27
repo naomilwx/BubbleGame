@@ -57,7 +57,7 @@
                     </view>
                     <connections>
                         <outlet property="menuBackground" destination="Bx6-Yt-7Ix" id="HY4-5B-Qjw"/>
-                        <outlet property="menuButton" destination="9n9-mi-qCX" id="C0v-wH-lKp"/>
+                        <outlet property="menuButton" destination="XzI-lr-uyf" id="iEs-hO-czk"/>
                         <segue destination="vSm-Bd-8P6" kind="modal" identifier="menuToGame" id="whu-Bs-hVj"/>
                     </connections>
                 </viewController>

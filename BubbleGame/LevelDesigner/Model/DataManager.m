@@ -11,11 +11,13 @@
 
 #define GAME_FILE_PREFIX @"%@/gamebubble_%@"
 #define GAME_LEVEL_FILE @"%@/gamebubble_levels"
+#define GAME_TEMP_FILE @"%@/tempfile"
 
 @implementation DataManager{
     NSMutableArray *availableLevels;
     NSString *currentPath;
     NSString *gameLevelFile;
+    NSString *tempFilePath;
 }
 
 @synthesize nextLevel;
@@ -29,7 +31,7 @@
         loadedLevel = INVALID;
         currentPath = [self getRootFilePath];
         gameLevelFile = [self getFullFilePathForLevelFile];
-        
+        tempFilePath = [NSString stringWithFormat:GAME_TEMP_FILE, currentPath];
         if([[NSFileManager defaultManager] fileExistsAtPath:gameLevelFile]){
             [self loadAvailableLevels];
         }
@@ -68,6 +70,37 @@
     [encoder finishEncoding];
     [NSKeyedArchiver archiveRootObject:data toFile:gameLevelFile];
     
+}
+
+- (void)saveGameStateToTempFile:(GameState *)game{
+    NSMutableData *data = [[NSMutableData alloc] init];
+    NSKeyedArchiver *encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+    [encoder encodeInteger:loadedLevel forKey:@"loadedLevel"];
+    [encoder encodeObject:game forKey:@"game"];
+    [encoder finishEncoding];
+    [NSKeyedArchiver archiveRootObject:data toFile:tempFilePath];
+}
+
+- (GameState *)loadGameStateFromTempFile{
+    if([[NSFileManager defaultManager] fileExistsAtPath:tempFilePath]){
+        NSMutableData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:tempFilePath];
+        NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+        NSInteger level = [decoder decodeIntegerForKey:@"loadedLevel"];
+        GameState *state = [decoder decodeObjectForKey:@"game"];
+        if(state){
+            loadedLevel = level;
+        }
+        [self removeFile:tempFilePath];
+        return state;
+    }else{
+        return nil;
+    }
+}
+
+- (void)removeFile:(NSString *)filePath{
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    }
 }
 
 - (void)saveGame:(GameState *)game asLevel:(NSInteger)level{

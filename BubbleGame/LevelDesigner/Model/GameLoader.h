@@ -38,4 +38,9 @@
 - (void)loadNewLevel;
 
 - (void)reset;
+
+- (void)saveUnsavedStateToTempFile;
+
+- (NSDictionary *)loadUnsavedStateFromTempFile;
+
 @end
