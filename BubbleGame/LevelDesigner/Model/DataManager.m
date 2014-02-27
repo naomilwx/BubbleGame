@@ -72,7 +72,7 @@
     
 }
 
-- (void)saveGameStateToTempFile:(GameState *)game{
+- (void)saveGameStateToTempFile:(GameDesignerState *)game{
     NSMutableData *data = [[NSMutableData alloc] init];
     NSKeyedArchiver *encoder = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
     [encoder encodeInteger:loadedLevel forKey:@"loadedLevel"];
@@ -81,12 +81,12 @@
     [NSKeyedArchiver archiveRootObject:data toFile:tempFilePath];
 }
 
-- (GameState *)loadGameStateFromTempFile{
+- (GameDesignerState *)loadGameStateFromTempFile{
     if([[NSFileManager defaultManager] fileExistsAtPath:tempFilePath]){
         NSMutableData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:tempFilePath];
         NSKeyedUnarchiver *decoder = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
         NSInteger level = [decoder decodeIntegerForKey:@"loadedLevel"];
-        GameState *state = [decoder decodeObjectForKey:@"game"];
+        GameDesignerState *state = [decoder decodeObjectForKey:@"game"];
         if(state){
             loadedLevel = level;
         }
@@ -103,7 +103,7 @@
     }
 }
 
-- (void)saveGame:(GameState *)game asLevel:(NSInteger)level{
+- (void)saveGame:(GameDesignerState *)game asLevel:(NSInteger)level{
     loadedLevel = level;
     BOOL success = [NSKeyedArchiver archiveRootObject:game toFile:[self getFullFilePathForGameLevel:level]];
     if(!success){
@@ -115,7 +115,7 @@
     }
 }
 
-- (NSInteger)saveGame:(GameState *)game{
+- (NSInteger)saveGame:(GameDesignerState *)game{
     //Saves gamestate to file
     //Returns level of game saved
     
@@ -131,7 +131,7 @@
     return [NSArray arrayWithArray:availableLevels];
 }
 
-- (GameState *)loadLevel:(NSInteger)level{
+- (GameDesignerState *)loadLevel:(NSInteger)level{
     loadedLevel = level;
     return [NSKeyedUnarchiver unarchiveObjectWithFile:[self getFullFilePathForGameLevel:level]];
 }

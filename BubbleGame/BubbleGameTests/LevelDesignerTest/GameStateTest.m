@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "GameState.h"
+#import "GameDesignerState.h"
 
 #define INITIAL_BUBBLE_ID 0
 
@@ -30,7 +30,7 @@
 }
 
 - (void)testAddAndRetrieve{
-    GameState *gameState = [[GameState alloc] init];
+    GameDesignerState *gameState = [[GameDesignerState alloc] init];
     XCTAssertTrue([gameState numberOfBubbles] == 0);
     BubbleModel *model = [[BubbleModel alloc] init];
     [model setBubbleID:1];
@@ -57,7 +57,7 @@
 }
 
 - (void)testRemove{
-    GameState *gameState = [[GameState alloc] init];
+    GameDesignerState *gameState = [[GameDesignerState alloc] init];
     BubbleModel *model1 = [[BubbleModel alloc] init];
     [model1 setBubbleID:5];
     BubbleModel *model2 = [[BubbleModel alloc] init];
@@ -79,7 +79,7 @@
 }
 
 - (void)testReset{
-    GameState *gameState = [[GameState alloc] init];
+    GameDesignerState *gameState = [[GameDesignerState alloc] init];
     BubbleModel *model = [[BubbleModel alloc] initWithType:3 andWidth:50 andID:INITIAL_BUBBLE_ID];
     BubbleModel *model1 = [[BubbleModel alloc] initWithType:3 andWidth:50 andID:INITIAL_BUBBLE_ID + 1];
     BubbleModel *mode2 = [[BubbleModel alloc] initWithType:2 andWidth:50 andID:INITIAL_BUBBLE_ID + 2];

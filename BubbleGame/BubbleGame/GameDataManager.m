@@ -18,14 +18,14 @@
 
 - (NSDictionary *)loadPreloadedLevel:(NSString *)levelFileName{
     NSString *filePath = [[NSBundle mainBundle] pathForResource:levelFileName ofType:nil];
-    GameState *savedState = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
+    GameDesignerState *savedState = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     if(savedState ==nil){
         NSLog(@"empty %@ %@ %@",[[NSBundle mainBundle] bundlePath], levelFileName, [[NSBundle mainBundle] pathForResource:@"background" ofType:@"png"]);
     }
     return [savedState getAllBubbles];
 }
 - (NSDictionary *)loadDesignedLevel:(NSInteger)level{
-    GameState *savedState = [self loadLevel:level];
+    GameDesignerState *savedState = [self loadLevel:level];
     return [savedState getAllBubbles];
 }
 

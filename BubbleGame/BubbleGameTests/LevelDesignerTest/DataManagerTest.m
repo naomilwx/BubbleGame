@@ -31,10 +31,10 @@
 
 //Note: running the below method alone will cause the app to be unable to load level 1 because GameStateStub is not linked in the main game
 - (void)testSaveAndLoad{
-    GameState *stub = (GameState *)[[GameStateStub alloc] init];
+    GameDesignerState *stub = (GameDesignerState *)[[GameStateStub alloc] init];
     DataManager *dataManager = [[DataManager alloc] init];
     XCTAssertNoThrow([dataManager saveGame:stub asLevel:STARTING_LEVEL]);
-    GameState *retrieved;
+    GameDesignerState *retrieved;
     XCTAssertNoThrow(retrieved = [dataManager loadLevel:STARTING_LEVEL]);
     XCTAssertNotNil(retrieved);
     XCTAssertTrue([stub isEqual:retrieved]);
@@ -43,11 +43,11 @@
 - (void)testSaveAndLoadAgain{
     //Test that game can be overwritten
     GameStateStub *stub = [[GameStateStub alloc] init];
-    GameState *replace = [[GameState alloc] init];
+    GameDesignerState *replace = [[GameDesignerState alloc] init];
     XCTAssertFalse([stub isEqual:replace]);
     
     DataManager *dataManager = [[DataManager alloc] init];
-    GameState *retrieved = [dataManager loadLevel:STARTING_LEVEL];
+    GameDesignerState *retrieved = [dataManager loadLevel:STARTING_LEVEL];
     XCTAssertTrue([stub isEqual:retrieved]);
     
     XCTAssertNoThrow([dataManager saveGame:replace asLevel:STARTING_LEVEL]);
@@ -61,7 +61,7 @@
     DataManager *dataManager = [[DataManager alloc] init];
     NSInteger currentNextLevel = [dataManager nextLevel];
     XCTAssertTrue([dataManager loadedLevel] == INVALID);
-    GameState *gameState = [[GameState alloc] init];
+    GameDesignerState *gameState = [[GameDesignerState alloc] init];
     XCTAssertTrue([[dataManager getAvailableLevels] count] == currentNextLevel - 1);
     [dataManager saveGame:gameState];
     currentNextLevel += 1;

@@ -6,8 +6,8 @@
 //
 //
 
-#import "GameState.h"
+#import "GameDesignerState.h"
 
-@interface GameStateStub : GameState <NSCoding>
+@interface GameStateStub : GameDesignerState <NSCoding>
 
 @end

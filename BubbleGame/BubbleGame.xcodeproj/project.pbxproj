@@ -36,7 +36,7 @@
 		C2058A1118B67C4B003AC20C /* BubbleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F118B67C4B003AC20C /* BubbleModel.m */; };
 		C2058A1218B67C4B003AC20C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F318B67C4B003AC20C /* DataManager.m */; };
 		C2058A1318B67C4B003AC20C /* GameLevelLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F518B67C4B003AC20C /* GameLevelLoader.m */; };
-		C2058A1418B67C4B003AC20C /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F718B67C4B003AC20C /* GameState.m */; };
+		C2058A1418B67C4B003AC20C /* GameDesignerState.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F718B67C4B003AC20C /* GameDesignerState.m */; };
 		C2058A1518B67C4B003AC20C /* BubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589FA18B67C4B003AC20C /* BubbleCell.m */; };
 		C2058A1618B67C4B003AC20C /* BubbleGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589FC18B67C4B003AC20C /* BubbleGridLayout.m */; };
 		C2058A7218B67F44003AC20C /* BubbleEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = C2058A5318B67F44003AC20C /* BubbleEngine.m */; };
@@ -125,8 +125,8 @@
 		C20589F318B67C4B003AC20C /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = LevelDesigner/Model/DataManager.m; sourceTree = SOURCE_ROOT; };
 		C20589F418B67C4B003AC20C /* GameLevelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLevelLoader.h; path = LevelDesigner/Model/GameLevelLoader.h; sourceTree = SOURCE_ROOT; };
 		C20589F518B67C4B003AC20C /* GameLevelLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLevelLoader.m; path = LevelDesigner/Model/GameLevelLoader.m; sourceTree = SOURCE_ROOT; };
-		C20589F618B67C4B003AC20C /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameState.h; path = LevelDesigner/Model/GameState.h; sourceTree = SOURCE_ROOT; };
-		C20589F718B67C4B003AC20C /* GameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameState.m; path = LevelDesigner/Model/GameState.m; sourceTree = SOURCE_ROOT; };
+		C20589F618B67C4B003AC20C /* GameDesignerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameDesignerState.h; path = LevelDesigner/Model/GameDesignerState.h; sourceTree = SOURCE_ROOT; };
+		C20589F718B67C4B003AC20C /* GameDesignerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameDesignerState.m; path = LevelDesigner/Model/GameDesignerState.m; sourceTree = SOURCE_ROOT; };
 		C20589F918B67C4B003AC20C /* BubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleCell.h; path = LevelDesigner/view/BubbleCell.h; sourceTree = SOURCE_ROOT; };
 		C20589FA18B67C4B003AC20C /* BubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleCell.m; path = LevelDesigner/view/BubbleCell.m; sourceTree = SOURCE_ROOT; };
 		C20589FB18B67C4B003AC20C /* BubbleGridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleGridLayout.h; path = LevelDesigner/view/BubbleGridLayout.h; sourceTree = SOURCE_ROOT; };
@@ -328,8 +328,8 @@
 				C20589F318B67C4B003AC20C /* DataManager.m */,
 				C20589F418B67C4B003AC20C /* GameLevelLoader.h */,
 				C20589F518B67C4B003AC20C /* GameLevelLoader.m */,
-				C20589F618B67C4B003AC20C /* GameState.h */,
-				C20589F718B67C4B003AC20C /* GameState.m */,
+				C20589F618B67C4B003AC20C /* GameDesignerState.h */,
+				C20589F718B67C4B003AC20C /* GameDesignerState.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -597,7 +597,7 @@
 				C20589AB18B67B9E003AC20C /* AppDelegate.m in Sources */,
 				C2058A1618B67C4B003AC20C /* BubbleGridLayout.m in Sources */,
 				C20589A718B67B9E003AC20C /* main.m in Sources */,
-				C2058A1418B67C4B003AC20C /* GameState.m in Sources */,
+				C2058A1418B67C4B003AC20C /* GameDesignerState.m in Sources */,
 				C2058A7E18B67F44003AC20C /* MainEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

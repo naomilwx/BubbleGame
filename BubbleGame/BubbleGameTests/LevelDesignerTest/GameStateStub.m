@@ -40,7 +40,7 @@
     return self;
 }
 
-- (BOOL)isEqual:(GameState *)gameState{
+- (BOOL)isEqual:(GameDesignerState *)gameState{
     if([gameState numberOfBubbles] != [self numberOfBubbles]){
         return NO;
     }

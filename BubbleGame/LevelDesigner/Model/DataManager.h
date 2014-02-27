@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GameState.h"
+#import "GameDesignerState.h"
 
 #define STARTING_LEVEL 1
 @interface DataManager : NSObject
@@ -19,11 +19,11 @@
 - (NSArray *)getAvailableLevels;
 //Returns array of saved level numbers
 
-- (GameState *)loadLevel:(NSInteger)level;
+- (GameDesignerState *)loadLevel:(NSInteger)level;
 
-- (void)saveGame:(GameState *)game asLevel:(NSInteger)level;
+- (void)saveGame:(GameDesignerState *)game asLevel:(NSInteger)level;
 
-- (NSInteger)saveGame:(GameState *)game;
+- (NSInteger)saveGame:(GameDesignerState *)game;
 //Saves given game state. Sets game level as the next available game level
 
 - (NSInteger)getPreviousLevelNumber;
@@ -32,10 +32,10 @@
 - (void)resetForNewLevel;
 //Clears in memory data in the DataManager instance for the currently loaded level
 
-- (void)saveGameStateToTempFile:(GameState *)game;
+- (void)saveGameStateToTempFile:(GameDesignerState *)game;
 //Saves given game state to the predefined DataManager temp file so it is retrievable in future
 
-- (GameState *)loadGameStateFromTempFile;
+- (GameDesignerState *)loadGameStateFromTempFile;
 //Loads game state from temp file and removes temp file if the file exists. Returns nil if the file doesn't exist
 
 @end

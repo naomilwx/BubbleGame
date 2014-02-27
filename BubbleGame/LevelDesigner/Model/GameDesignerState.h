@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BubbleModel.h"
 
-@interface GameState : NSObject <NSCoding>
+@interface GameDesignerState : NSObject <NSCoding>
 
 @property NSInteger nextBubbleID;
 @property (strong) NSMutableDictionary* bubbles; //can't make it readonly because it has to be modifiable to subclasses, but this should not be set directly by other classes

@@ -7,13 +7,13 @@
 //
 
 #import "GameLevelLoader.h"
-#import "GameState.h"
+#import "GameDesignerState.h"
 #import "BubbleModel.h"
 #import "DataManager.h"
 #import "GameLogic.h"
 //TODO: warn user if level has not been saved
 @implementation GameLevelLoader{
-    GameState *currentState;
+    GameDesignerState *currentState;
     DataManager *dataManager;
 }
 
@@ -22,7 +22,7 @@
 
 - (id)init{
     if(self = [super init]){
-        currentState = [[GameState alloc] init];
+        currentState = [[GameDesignerState alloc] init];
         dataManager = [[DataManager alloc] init];
         currentLevel = INVALID;
         hasUnsavedBubbles = NO;
@@ -37,7 +37,7 @@
 }
 
 - (NSDictionary *)loadUnsavedStateFromTempFile{
-    GameState *state = [dataManager loadGameStateFromTempFile];
+    GameDesignerState *state = [dataManager loadGameStateFromTempFile];
     if(state != nil){
         currentLevel = [dataManager loadedLevel];
         currentState = state;
@@ -58,7 +58,7 @@
 }
 
 - (NSDictionary *)loadLevel:(NSInteger)level{
-    GameState *newLevelState = [dataManager loadLevel:level];
+    GameDesignerState *newLevelState = [dataManager loadLevel:level];
     if(newLevelState){
         currentLevel = level;
         currentState = newLevelState;

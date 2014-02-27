@@ -6,12 +6,12 @@
 //
 //
 
-#import "GameState.h"
+#import "GameDesignerState.h"
 #import "GameLogic.h"
 #import "BubbleModel.h"
 #define INITIAL_BUBBLE_ID 0
 
-@implementation GameState
+@implementation GameDesignerState
 
 @synthesize nextBubbleID;
 @synthesize bubbles;
