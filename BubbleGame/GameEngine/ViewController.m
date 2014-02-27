@@ -289,7 +289,7 @@
     CGPoint base = [self getLaunchBaseCoordinates];
     CGPoint unitOffSet = getUnitPositionVector(base, point);
     [self updateCannonPosition:base withOffset:unitOffSet];
-    CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1;
+    CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1; //negative of angle because it is with respecto to normal
     CGFloat angle = atanf(tanRatio);
     cannon.transform = CGAffineTransformMakeRotation(angle);
 }
