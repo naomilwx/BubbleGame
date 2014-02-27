@@ -39,6 +39,7 @@
 - (id)initWithFrame:(CGRect)frame andColor:(UIColor *)color{
     if(self = [super initWithFrame:frame]){
         [self setBackgroundColor:color];
+        [self.layer setCornerRadius:frame.size.width/2];
     }
     return self;
 }

@@ -11,6 +11,7 @@
 #import "GridTemplateDelegate.h"
 #import "BubbleLoader.h"
 #import "GameEngineInitDelegate.h"
+#import "PathPlotter.h"
 
 @interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, GridTemplateDelegate, GameEngineInitDelegate>
 
@@ -22,6 +23,7 @@
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngineSpecialised *engine;
 @property (strong) BubbleLoader *bubbleLoader;
+@property (strong) PathPlotter *plotter;
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser;
 //Tracks the gesture and changes the bubble's fire angle

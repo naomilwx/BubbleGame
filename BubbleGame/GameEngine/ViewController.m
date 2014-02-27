@@ -25,6 +25,8 @@
 #define BACK_BUTTON_HEIGHT 30
 #define BACK_TO_MAIN_MENU @"gameToMenu"
 #define BACK_TO_DESIGNER @"gameToDesigner"
+#define PLOTTER_WIDTH 10
+#define PLOTTER_INTERVAL 100
 
 @implementation ViewController{
     NSMutableArray *cannonAnimation;
@@ -45,10 +47,12 @@
 @synthesize bubbleGridTemplate;
 @synthesize bubbleLoader;
 @synthesize backButton;
+@synthesize plotter;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     [self setUpGameEnvironment];
+    [self loadPathPlotter];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -90,6 +94,12 @@
     cannonLaunching = NO;
 }
 
+- (void)loadPathPlotter{
+    if(!plotter){
+        CGRect frame = CGRectMake(self.gameBackground.frame.origin.x, self.gameBackground.frame.origin.y, self.gameBackground.frame.size.width, self.gameBackground.frame.size.height);
+        plotter = [[PathPlotter alloc] initWithFrame:frame andWidth:PLOTTER_WIDTH andInterval:PLOTTER_INTERVAL];
+    }
+}
 - (void)loadBackButton{
     CGRect frame = CGRectMake(BACK_BUTTON_XPOS, BACK_BUTTON_YPOS, BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
     backButton = [[UIButton alloc] initWithFrame:frame];
@@ -268,20 +278,24 @@
 }
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser{
+    CGPoint point = [recogniser locationInView:self.gameBackground];
+    [self.plotter addRayFromPoint:[self getStartingBubbleCenter] andPoint:point toView:self.gameBackground];
     if(!cannonLaunching){
-        [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
+        [self rotateCannonInDirection:point];
     }
     if(recogniser.state == UIGestureRecognizerStateEnded && bubbleInCannon){
-        [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
+        [self launchBubbleWithInputPoint:point];
     }
 }
 
 - (void)longPressHandler:(UIGestureRecognizer *)recogniser{
+    CGPoint point = [recogniser locationInView:self.gameBackground];
+    [self.plotter addRayFromPoint:[self getStartingBubbleCenter] andPoint:point toView:self.gameBackground];
     if(!cannonLaunching){
-        [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
+        [self rotateCannonInDirection:point];
     }
     if(recogniser.state == UIGestureRecognizerStateEnded && bubbleInCannon){
-        [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
+        [self launchBubbleWithInputPoint:point];
     }
 }
 
