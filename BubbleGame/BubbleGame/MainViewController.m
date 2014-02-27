@@ -63,13 +63,27 @@
         [controller setOriginalBubbleModels:dataToGame];
     }
 }
+
+- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
 #pragma mark - delegate methods for LevelSelectorDelegate
 
 - (void)selectedLevel:(NSInteger)levelIndex{
     [levelSelectorPopover dismissPopoverAnimated:YES];
-    NSDictionary *bubbles = [dataManager loadDesignedLevel:levelIndex];
+    @try{
+        NSDictionary *bubbles = [dataManager loadDesignedLevel:levelIndex];
     dataToGame = bubbles;
-    [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
+        [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
+    }@catch(NSException *e){
+        [self showAlertWithTitle:@"Load Designer Level" andMessage:[e reason]];
+    }
 }
 
 - (NSArray *)getAvailableLevels{
@@ -78,10 +92,14 @@
 
 - (void)selectedPreloadedLevel:(NSInteger)levelIndex{
     [levelSelectorPopover dismissPopoverAnimated:YES];
-    NSString *levelName = [[GameLogic preloadedLevelMappings] objectForKey:[NSNumber numberWithInteger:levelIndex]];
-    NSDictionary *bubbles = [dataManager loadPreloadedLevel:levelName];
+    @try{
+        NSString *levelName = [[GameLogic preloadedLevelMappings] objectForKey:[NSNumber numberWithInteger:levelIndex]];
+        NSDictionary *bubbles = [dataManager loadPreloadedLevel:levelName];
     dataToGame = bubbles;
-    [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
+        [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
+    }@catch(NSException *e){
+        [self showAlertWithTitle:@"Load Preloaded Level" andMessage:[e reason]];
+    }
 }
 
 @end
