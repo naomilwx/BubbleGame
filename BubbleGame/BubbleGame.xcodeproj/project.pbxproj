@@ -48,6 +48,9 @@
 		C229891218BE1F4800FEED38 /* MainEngineSpecialised.m in Sources */ = {isa = PBXBuildFile; fileRef = C229891118BE1F4800FEED38 /* MainEngineSpecialised.m */; };
 		C229892618BE33AC00FEED38 /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C229892518BE33AC00FEED38 /* GameDataManager.m */; };
 		C229892918BE389A00FEED38 /* MenuLevelSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C229892818BE389A00FEED38 /* MenuLevelSelector.m */; };
+		C229894918BEC54300FEED38 /* Easy in Resources */ = {isa = PBXBuildFile; fileRef = C229894618BEC54300FEED38 /* Easy */; };
+		C229894A18BEC54300FEED38 /* Hard in Resources */ = {isa = PBXBuildFile; fileRef = C229894718BEC54300FEED38 /* Hard */; };
+		C229894B18BEC54300FEED38 /* Intermediate in Resources */ = {isa = PBXBuildFile; fileRef = C229894818BEC54300FEED38 /* Intermediate */; };
 		C267044818B8AB8800DC6448 /* BubbleLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C267044718B8AB8800DC6448 /* BubbleLoader.m */; };
 		C267044E18B8AD7F00DC6448 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = C267044D18B8AD7F00DC6448 /* Queue.m */; };
 		C28179FA18B8D278007527FA /* TaggedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C28179F918B8D278007527FA /* TaggedObject.m */; };
@@ -136,6 +139,9 @@
 		C229892518BE33AC00FEED38 /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
 		C229892718BE389A00FEED38 /* MenuLevelSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuLevelSelector.h; sourceTree = "<group>"; };
 		C229892818BE389A00FEED38 /* MenuLevelSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuLevelSelector.m; sourceTree = "<group>"; };
+		C229894618BEC54300FEED38 /* Easy */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Easy; sourceTree = "<group>"; };
+		C229894718BEC54300FEED38 /* Hard */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Hard; sourceTree = "<group>"; };
+		C229894818BEC54300FEED38 /* Intermediate */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Intermediate; sourceTree = "<group>"; };
 		C267044618B8AB8800DC6448 /* BubbleLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleLoader.h; sourceTree = "<group>"; };
 		C267044718B8AB8800DC6448 /* BubbleLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleLoader.m; sourceTree = "<group>"; };
 		C267044C18B8AD7F00DC6448 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
@@ -207,6 +213,7 @@
 		C20589A018B67B9E003AC20C /* BubbleGame */ = {
 			isa = PBXGroup;
 			children = (
+				C229894518BEC54300FEED38 /* preloaded */,
 				C229892718BE389A00FEED38 /* MenuLevelSelector.h */,
 				C229892818BE389A00FEED38 /* MenuLevelSelector.m */,
 				C229892418BE33AC00FEED38 /* GameDataManager.h */,
@@ -343,6 +350,16 @@
 			name = engine;
 			sourceTree = "<group>";
 		};
+		C229894518BEC54300FEED38 /* preloaded */ = {
+			isa = PBXGroup;
+			children = (
+				C229894618BEC54300FEED38 /* Easy */,
+				C229894718BEC54300FEED38 /* Hard */,
+				C229894818BEC54300FEED38 /* Intermediate */,
+			);
+			path = preloaded;
+			sourceTree = "<group>";
+		};
 		C24C5C1018B6DF62007A4DEE /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,12 +478,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C229894918BEC54300FEED38 /* Easy in Resources */,
 				C2058A0318B67C4B003AC20C /* bubble-green.png in Resources */,
 				C2058A0418B67C4B003AC20C /* bubble-orange.png in Resources */,
 				C2058A0A18B67C4B003AC20C /* eraser-1.png in Resources */,
 				C2058A0518B67C4B003AC20C /* bubble-red.png in Resources */,
 				C2058A0B18B67C4B003AC20C /* eraser-2.jpg in Resources */,
+				C229894B18BEC54300FEED38 /* Intermediate in Resources */,
 				C20589B318B67B9E003AC20C /* Images.xcassets in Resources */,
+				C229894A18BEC54300FEED38 /* Hard in Resources */,
 				C2058A0018B67C4B003AC20C /* background.png in Resources */,
 				C2058A0218B67C4B003AC20C /* bubble-blue.png in Resources */,
 				C20589A518B67B9E003AC20C /* InfoPlist.strings in Resources */,
