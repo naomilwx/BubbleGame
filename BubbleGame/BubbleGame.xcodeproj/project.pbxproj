@@ -51,6 +51,19 @@
 		C229894918BEC54300FEED38 /* Easy in Resources */ = {isa = PBXBuildFile; fileRef = C229894618BEC54300FEED38 /* Easy */; };
 		C229894A18BEC54300FEED38 /* Hard in Resources */ = {isa = PBXBuildFile; fileRef = C229894718BEC54300FEED38 /* Hard */; };
 		C229894B18BEC54300FEED38 /* Intermediate in Resources */ = {isa = PBXBuildFile; fileRef = C229894818BEC54300FEED38 /* Intermediate */; };
+		C229895C18BEF29900FEED38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C229895018BEF29900FEED38 /* InfoPlist.strings */; };
+		C229896218BEF2A600FEED38 /* BubbleControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229894D18BEF29900FEED38 /* BubbleControllerTest.m */; };
+		C229896318BEF2AE00FEED38 /* BubbleModelStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229894E18BEF29900FEED38 /* BubbleModelStorageTest.m */; };
+		C229896418BEF2C500FEED38 /* DataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229894F18BEF29900FEED38 /* DataManagerTest.m */; };
+		C229896518BEF30300FEED38 /* GameBubbleBasicTester.m in Sources */ = {isa = PBXBuildFile; fileRef = C229895318BEF29900FEED38 /* GameBubbleBasicTester.m */; };
+		C229896618BEF30E00FEED38 /* GameLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229895418BEF29900FEED38 /* GameLoaderTest.m */; };
+		C229896718BEF31200FEED38 /* GameStateStub.m in Sources */ = {isa = PBXBuildFile; fileRef = C229895618BEF29900FEED38 /* GameStateStub.m */; };
+		C229896818BEF31500FEED38 /* GameStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229895718BEF29900FEED38 /* GameStateTest.m */; };
+		C229896918BEF31E00FEED38 /* GameTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C229895818BEF29900FEED38 /* GameTests-Info.plist */; };
+		C229897118BEF42400FEED38 /* BubbleManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229896B18BEF42400FEED38 /* BubbleManagerTest.m */; };
+		C229897218BEF42400FEED38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C229896C18BEF42400FEED38 /* InfoPlist.strings */; };
+		C229897318BEF42400FEED38 /* GameEngineTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C229896E18BEF42400FEED38 /* GameEngineTests-Info.plist */; };
+		C229897418BEF42400FEED38 /* MainEngineTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229896F18BEF42400FEED38 /* MainEngineTest.m */; };
 		C267044818B8AB8800DC6448 /* BubbleLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C267044718B8AB8800DC6448 /* BubbleLoader.m */; };
 		C267044E18B8AD7F00DC6448 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = C267044D18B8AD7F00DC6448 /* Queue.m */; };
 		C28179FA18B8D278007527FA /* TaggedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C28179F918B8D278007527FA /* TaggedObject.m */; };
@@ -142,6 +155,21 @@
 		C229894618BEC54300FEED38 /* Easy */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Easy; sourceTree = "<group>"; };
 		C229894718BEC54300FEED38 /* Hard */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Hard; sourceTree = "<group>"; };
 		C229894818BEC54300FEED38 /* Intermediate */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Intermediate; sourceTree = "<group>"; };
+		C229894D18BEF29900FEED38 /* BubbleControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleControllerTest.m; sourceTree = "<group>"; };
+		C229894E18BEF29900FEED38 /* BubbleModelStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleModelStorageTest.m; sourceTree = "<group>"; };
+		C229894F18BEF29900FEED38 /* DataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManagerTest.m; sourceTree = "<group>"; };
+		C229895118BEF29900FEED38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C229895218BEF29900FEED38 /* GameBubbleBasicTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBubbleBasicTester.h; sourceTree = "<group>"; };
+		C229895318BEF29900FEED38 /* GameBubbleBasicTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBubbleBasicTester.m; sourceTree = "<group>"; };
+		C229895418BEF29900FEED38 /* GameLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLoaderTest.m; sourceTree = "<group>"; };
+		C229895518BEF29900FEED38 /* GameStateStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStateStub.h; sourceTree = "<group>"; };
+		C229895618BEF29900FEED38 /* GameStateStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStateStub.m; sourceTree = "<group>"; };
+		C229895718BEF29900FEED38 /* GameStateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStateTest.m; sourceTree = "<group>"; };
+		C229895818BEF29900FEED38 /* GameTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GameTests-Info.plist"; sourceTree = "<group>"; };
+		C229896B18BEF42400FEED38 /* BubbleManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleManagerTest.m; sourceTree = "<group>"; };
+		C229896D18BEF42400FEED38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C229896E18BEF42400FEED38 /* GameEngineTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GameEngineTests-Info.plist"; sourceTree = "<group>"; };
+		C229896F18BEF42400FEED38 /* MainEngineTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainEngineTest.m; sourceTree = "<group>"; };
 		C267044618B8AB8800DC6448 /* BubbleLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleLoader.h; sourceTree = "<group>"; };
 		C267044718B8AB8800DC6448 /* BubbleLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleLoader.m; sourceTree = "<group>"; };
 		C267044C18B8AD7F00DC6448 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
@@ -247,6 +275,8 @@
 		C20589BF18B67B9E003AC20C /* BubbleGameTests */ = {
 			isa = PBXGroup;
 			children = (
+				C229896A18BEF42400FEED38 /* GameEngineTests */,
+				C229894C18BEF29900FEED38 /* LevelDesignerTest */,
 				C20589C518B67B9E003AC20C /* BubbleGameTests.m */,
 				C20589C018B67B9E003AC20C /* Supporting Files */,
 			);
@@ -358,6 +388,35 @@
 				C229894818BEC54300FEED38 /* Intermediate */,
 			);
 			path = preloaded;
+			sourceTree = "<group>";
+		};
+		C229894C18BEF29900FEED38 /* LevelDesignerTest */ = {
+			isa = PBXGroup;
+			children = (
+				C229894D18BEF29900FEED38 /* BubbleControllerTest.m */,
+				C229894E18BEF29900FEED38 /* BubbleModelStorageTest.m */,
+				C229894F18BEF29900FEED38 /* DataManagerTest.m */,
+				C229895018BEF29900FEED38 /* InfoPlist.strings */,
+				C229895218BEF29900FEED38 /* GameBubbleBasicTester.h */,
+				C229895318BEF29900FEED38 /* GameBubbleBasicTester.m */,
+				C229895418BEF29900FEED38 /* GameLoaderTest.m */,
+				C229895518BEF29900FEED38 /* GameStateStub.h */,
+				C229895618BEF29900FEED38 /* GameStateStub.m */,
+				C229895718BEF29900FEED38 /* GameStateTest.m */,
+				C229895818BEF29900FEED38 /* GameTests-Info.plist */,
+			);
+			path = LevelDesignerTest;
+			sourceTree = "<group>";
+		};
+		C229896A18BEF42400FEED38 /* GameEngineTests */ = {
+			isa = PBXGroup;
+			children = (
+				C229896B18BEF42400FEED38 /* BubbleManagerTest.m */,
+				C229896C18BEF42400FEED38 /* InfoPlist.strings */,
+				C229896E18BEF42400FEED38 /* GameEngineTests-Info.plist */,
+				C229896F18BEF42400FEED38 /* MainEngineTest.m */,
+			);
+			path = GameEngineTests;
 			sourceTree = "<group>";
 		};
 		C24C5C1018B6DF62007A4DEE /* Images */ = {
@@ -479,6 +538,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C229894918BEC54300FEED38 /* Easy in Resources */,
+				C229895C18BEF29900FEED38 /* InfoPlist.strings in Resources */,
 				C2058A0318B67C4B003AC20C /* bubble-green.png in Resources */,
 				C2058A0418B67C4B003AC20C /* bubble-orange.png in Resources */,
 				C2058A0A18B67C4B003AC20C /* eraser-1.png in Resources */,
@@ -498,6 +558,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C229897318BEF42400FEED38 /* GameEngineTests-Info.plist in Resources */,
+				C229896918BEF31E00FEED38 /* GameTests-Info.plist in Resources */,
+				C229897218BEF42400FEED38 /* InfoPlist.strings in Resources */,
 				C20589C418B67B9E003AC20C /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,6 +607,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C20589C618B67B9E003AC20C /* BubbleGameTests.m in Sources */,
+				C229896518BEF30300FEED38 /* GameBubbleBasicTester.m in Sources */,
+				C229896618BEF30E00FEED38 /* GameLoaderTest.m in Sources */,
+				C229896418BEF2C500FEED38 /* DataManagerTest.m in Sources */,
+				C229896318BEF2AE00FEED38 /* BubbleModelStorageTest.m in Sources */,
+				C229897118BEF42400FEED38 /* BubbleManagerTest.m in Sources */,
+				C229897418BEF42400FEED38 /* MainEngineTest.m in Sources */,
+				C229896818BEF31500FEED38 /* GameStateTest.m in Sources */,
+				C229896218BEF2A600FEED38 /* BubbleControllerTest.m in Sources */,
+				C229896718BEF31200FEED38 /* GameStateStub.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -578,6 +650,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				C20589C318B67B9E003AC20C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C229895018BEF29900FEED38 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C229895118BEF29900FEED38 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C229896C18BEF42400FEED38 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C229896D18BEF42400FEED38 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

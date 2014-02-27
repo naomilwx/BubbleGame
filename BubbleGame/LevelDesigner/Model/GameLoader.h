@@ -33,7 +33,7 @@
 
 - (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth andCenter:(CGPoint)centerPos;
 
-//- (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth;
+- (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth;
 
 - (void)loadNewLevel;
 

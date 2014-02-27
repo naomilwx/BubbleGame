@@ -119,13 +119,13 @@
     return nextID;
 }
 
-//- (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth{
-//    //returns ID of bubble added
-//    NSInteger nextID = [currentState nextBubbleID];
-//    BubbleModel *bubble = [[BubbleModel alloc] initWithType:type andWidth:bubbleWidth andID:nextID];
-//    [currentState addBubble:bubble];
-//    return nextID;
-//}
+- (NSInteger)addBubbleWithType:(NSInteger)type andWidth:(CGFloat)bubbleWidth{
+    //returns ID of bubble added
+    NSInteger nextID = [currentState nextBubbleID];
+    BubbleModel *bubble = [[BubbleModel alloc] initWithType:type andWidth:bubbleWidth andID:nextID];
+    [currentState addBubble:bubble];
+    return nextID;
+}
 
 - (void)reset{
     [currentState reset];

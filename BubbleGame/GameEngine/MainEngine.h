@@ -31,6 +31,8 @@
 
 - (NSMutableSet *)getOrphanedBubblesIncludingCluster:(id)cluster;
 
+- (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(NSSet *)cluster;
+
 - (void)removeAllOrphanedBubbles;
 
 - (void)removeBubblesIfNecessary:(NSSet *)matchingCluster onInsertionOf:(id)object;
