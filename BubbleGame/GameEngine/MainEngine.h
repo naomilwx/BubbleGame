@@ -7,16 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BubbleEngineManager.h"
 #import "MainEngineDelegate.h"
 #import "GridTemplateDelegate.h"
+#import "GameState.h"
 
 @interface MainEngine : NSObject<MainEngineDelegate>{
     NSMutableArray *mobileBubbles;
 }
 
 @property CGFloat defaultSpeed;
-@property (strong) BubbleEngineManager *gridBubbles; //This stores the bubbleView objects encapsulated in BubbleEngine instances.
+//@property (strong) BubbleEngineManager *gridBubbles; //This stores the bubbleView objects encapsulated in BubbleEngine instances.
+@property (strong) GameState *bubbleGameState;
 @property CGFloat frameWidth;
 @property CGFloat frameHeight;
 @property (weak) id<GridTemplateDelegate> gridTemplateDelegate;
@@ -29,9 +30,8 @@
 
 - (void)addGridEngine:(id)bubble withType:(NSInteger)type andCenter:(CGPoint)center;
 
-- (NSMutableSet *)getOrphanedBubblesIncludingCluster:(id)cluster;
-
 - (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(NSSet *)cluster;
+//Legacy for old tests
 
 - (void)removeAllOrphanedBubbles;
 

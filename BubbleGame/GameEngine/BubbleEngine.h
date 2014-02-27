@@ -31,7 +31,12 @@
 
 - (BOOL)hasOverlapWithOtherCenter:(CGPoint)point;
 
-- (void)removeBubbleWithAnimationType:(NSInteger)type;
+- (BOOL)removeBubbleWithAnimationType:(NSInteger)type;
+/*!
+ @param type: NSInteger corresponding to bubble view removal animation type
+ It is possible for a message to be sent to a BubbleEngine instance whose view has already been removed
+ The returned boolean type indicates if the instance's view has been removed from the view as a result of the method call.
+ */
 
 - (CGPoint)getBacktrackedCenter;
 

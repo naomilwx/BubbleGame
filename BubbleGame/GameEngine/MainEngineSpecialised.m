@@ -49,7 +49,7 @@
     }
 }
 - (NSArray *)getAllNeighbouringSpecialBubbles:(BubbleEngine *)bubbleEngine{
-    NSArray *neighbourList = [self.gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
+    NSArray *neighbourList = [self.bubbleGameState getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
     NSSet *specialBubbles = [GameLogic specialBubbleTypes];
     for(BubbleEngine *engine in neighbourList){

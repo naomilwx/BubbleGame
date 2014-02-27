@@ -18,19 +18,20 @@
 //All bubbleviews will be wrapped in a BubbleEngine instance which will act as its controller
 @implementation MainEngine{
     CADisplayLink *displayLink;
-    NSMutableArray *bubblesToRemove;
+    NSMutableArray *mobileBubblesToRemove;
     NSInteger nextEngineID;
 }
 
 @synthesize defaultSpeed;
-@synthesize gridBubbles; //This will store all static bubble views
+//@synthesize gridBubbles; //This will store all static bubble views
+@synthesize bubbleGameState;
 @synthesize frameHeight;
 @synthesize frameWidth;
 @synthesize gridTemplateDelegate;
 
 - (void)checkGridBubbles{
     //Checks if stored GridBubbles tally with view, ie all of the BubbleEngine instances have their corresponding views rendered
-    for(BubbleEngine *engine in [gridBubbles getAllObjects]){
+    for(BubbleEngine *engine in [bubbleGameState getAllObjects]){
         id view = [engine bubbleView];
         if(view == nil || ![view isRendered]){
             [NSException raise:@"BubbleGrid and view rendering error" format:
@@ -44,8 +45,8 @@
         defaultSpeed = DEFAULT_SPEED_FACTOR;
         nextEngineID = DEFAULT_ID;
         mobileBubbles = [[NSMutableArray alloc] init];
-        bubblesToRemove = [[NSMutableArray alloc] init];
-        gridBubbles = [[BubbleEngineManager alloc] init];
+        mobileBubblesToRemove = [[NSMutableArray alloc] init];
+        bubbleGameState = [[GameState alloc] init];
         [self createDisplayLink];
     }
     return self;
@@ -54,8 +55,8 @@
 - (void)reload{
     [self clearAllExistingBubbles];
     mobileBubbles = [[NSMutableArray alloc] init];
-    bubblesToRemove = [[NSMutableArray alloc] init];
-    gridBubbles = [[BubbleEngineManager alloc] init];
+    mobileBubblesToRemove = [[NSMutableArray alloc] init];
+    bubbleGameState = [[GameState alloc] init];
 }
 
 - (void)shutdownDisplayLink{
@@ -63,7 +64,7 @@
 }
 
 - (void)clearAllExistingBubbles{
-    NSArray *bubbles = [gridBubbles getAllObjects];
+    NSArray *bubbles = [bubbleGameState getAllObjects];
     for(BubbleEngine *engine in bubbles){
         [engine removeBubbleWithAnimationType:NO_ANIMATION];
     }
@@ -78,18 +79,28 @@
 }
 
 - (void)addMobileEngine:(id)bubble withType:(NSInteger)type{
+    BubbleEngine *bubbleEngine = [self createBubbleEngineWithView:(id)bubble andType:type];
+    [mobileBubbles addObject:bubbleEngine];
+    [bubbleGameState increaseLaunchedBubblesCount];
+}
+
+- (BubbleEngine *)createBubbleEngineWithView:(id)bubble andType:(NSInteger)type{
     BubbleEngine *bubbleEngine = [[BubbleEngine alloc] initWithBubbleView:bubble andID:nextEngineID];
     [bubbleEngine setBubbleType:type];
     nextEngineID += 1;
     [bubbleEngine setMainEngine:self];
-    [mobileBubbles addObject:bubbleEngine];
+    return bubbleEngine;
 }
 
-- (void)addGridEngine:(id)bubble withType:(NSInteger)type andCenter:(CGPoint)center{
+- (BubbleEngine *)createBubbleEngineWithView:(id)bubble andType:(NSInteger)type andCenter:(CGPoint)center{
     BubbleEngine *bubbleEngine = [[BubbleEngine alloc] initAsGridBubbleWithCenter:center view:bubble andID:nextEngineID];
     [bubbleEngine setBubbleType:type];
     nextEngineID += 1;
     [bubbleEngine setMainEngine:self];
+    return bubbleEngine;
+}
+- (void)addGridEngine:(id)bubble withType:(NSInteger)type andCenter:(CGPoint)center{
+    BubbleEngine *bubbleEngine = [self createBubbleEngineWithView:bubble andType:type andCenter:center];
     NSIndexPath *path = [gridTemplateDelegate indexPathForItemAtPoint:center];
     [self insertBubble:bubbleEngine intoGridAtIndexPath:path];
     [self checkGridBubbles];
@@ -109,24 +120,15 @@
 }
 
 - (void)cleanUpMobileArray{
-    [mobileBubbles removeObjectsInArray:bubblesToRemove];
-    [bubblesToRemove removeAllObjects];
-}
-
-- (NSSet *)insertBubble:(BubbleEngine *)bubbleEngine intoGridAtIndexPath:(NSIndexPath *)path{
-    NSInteger row = [gridTemplateDelegate getRowNumberFromIndexPath:path];
-    NSInteger col = [gridTemplateDelegate getRowPositionFromIndexPath:path];
-    
-    [bubbleEngine setGridCol:col];
-    [bubbleEngine setGridRow:row];
-    return [gridBubbles insertObject:bubbleEngine AtRow:row andPosition:col];
+    [mobileBubbles removeObjectsInArray:mobileBubblesToRemove];
+    [mobileBubblesToRemove removeAllObjects];
 }
 
 - (void)setMobileBubbleAsGridBubble:(id)object{
     //Expects object to be of type BubbleEngine
     //Will update BubbleEngine to store center and coordinates of grid
     object = (BubbleEngine *)object;
-    [bubblesToRemove addObject:object];
+    [mobileBubblesToRemove addObject:object];
     NSIndexPath *path = [gridTemplateDelegate indexPathForItemAtPoint:[object center]];
     if(!path){
         path = [gridTemplateDelegate indexPathForItemAtPoint:[object getBacktrackedCenter]];
@@ -153,10 +155,16 @@
     [self checkGridBubbles];
 }
 
+- (void)handleMatchingCluster:(NSSet *)matchingCluster{
+    if([matchingCluster count] >= 3){
+        [self removeAllInCollection:matchingCluster removeType:POP_ANIMATION additionalRemoveFilter:nil];
+    }
+}
+
 - (NSArray *)removeAllNeighboursForBubble:(BubbleEngine *)bubbleEngine{
     NSArray *neighbourList = nil;
     if(bubbleEngine){
-        neighbourList = [gridBubbles getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
+        neighbourList = [bubbleGameState getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
         BOOL (^filterCond)(BubbleEngine *) = ^(BubbleEngine *bubble){
             if(bubble.bubbleType == INDESTRUCTIBLE){
                 return NO;
@@ -170,12 +178,12 @@
 }
 
 - (void)removeAllBubbleOfType:(NSInteger)type{
-    NSSet *bubblesOfType = [gridBubbles getAllObjectsOfType:type];
+    NSSet *bubblesOfType = [bubbleGameState getAllObjectsOfType:type];
     [self removeAllInCollection:bubblesOfType removeType:POP_ANIMATION additionalRemoveFilter:nil];
 }
 
 - (NSArray *)removeAllBubblesInRow:(NSInteger)row{
-    NSArray *bubblesInRow = [gridBubbles getObjectsAtRow:row];
+    NSArray *bubblesInRow = [bubbleGameState getObjectsAtRow:row];
     BOOL (^filterCond)(BubbleEngine *) = ^(BubbleEngine *bubble){
         if(bubble.bubbleType == INDESTRUCTIBLE){
             return NO;
@@ -187,92 +195,62 @@
     return bubblesInRow;
 }
 
-- (void)handleMatchingCluster:(NSSet *)matchingCluster{
-    if([matchingCluster count] >= 3){
-        [self removeAllInCollection:matchingCluster removeType:POP_ANIMATION additionalRemoveFilter:nil];
-    }
-}
-
-- (NSMutableSet *)getOrphanedBubblesIncludingCluster:(id)cluster{
-    NSMutableSet *accumulated = nil;
-    NSMutableSet *allAccumulated = [[NSMutableSet alloc] init];
-    NSMutableSet *visited = [[NSMutableSet alloc] init];
-    BOOL searchResult;
+- (NSSet *)insertBubble:(BubbleEngine *)bubbleEngine intoGridAtIndexPath:(NSIndexPath *)path{
+    NSInteger row = [gridTemplateDelegate getRowNumberFromIndexPath:path];
+    NSInteger col = [gridTemplateDelegate getRowPositionFromIndexPath:path];
     
-    for(BubbleEngine *engine in cluster){
-        if([visited containsObject:engine]){
-            continue;
-        }
-        //New cluster
-        accumulated = [[NSMutableSet alloc] init];
-        searchResult = [self searchForRootBubble:accumulated startPoint:engine visitedBubbles:visited];
-        if(!searchResult){
-            [allAccumulated addObject:accumulated];
-        }
-    }
-    return allAccumulated;
+    [bubbleEngine setGridCol:col];
+    [bubbleEngine setGridRow:row];
+    return [bubbleGameState insertBubble:bubbleEngine intoGridAtRow:row andCol:col];
 }
 
 - (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(NSSet *)cluster{
     //Deprecated but used in old tests
-    NSMutableSet *accumulated = nil;
-    NSMutableSet *allAccumulated = [[NSMutableSet alloc] init];
-    NSMutableSet *visited = [[NSMutableSet alloc] init];
-    BOOL searchResult;
-    for(BubbleEngine *removedEngine in cluster){
-        NSArray *neighbours = [gridBubbles getNeighboursForObjectAtRow:removedEngine.gridRow andPosition:removedEngine.gridCol];
-        for(BubbleEngine *engine in neighbours){
-            if([visited containsObject:engine]){
-                continue;
-            }
-            //New cluster
-            accumulated = [[NSMutableSet alloc] init];
-            searchResult = [self searchForRootBubble:accumulated startPoint:engine visitedBubbles:visited];
-            if(!searchResult){
-                [allAccumulated addObject:accumulated];
-            }
-        }
-    }
-    return allAccumulated;
+    return [bubbleGameState getOrphanedBubblesNeighbouringCluster:cluster];
 }
 
 - (void)removeAllOrphanedBubbles{
-    NSSet *allBubbles = [NSSet setWithArray:[gridBubbles getAllObjects]];
-    NSMutableSet *orphaned = [self getOrphanedBubblesIncludingCluster:allBubbles];
+    NSSet *allBubbles = [NSSet setWithArray:[bubbleGameState getAllObjects]];
+    NSMutableSet *orphaned = [bubbleGameState getOrphanedBubblesIncludingCluster:allBubbles];
     for(NSMutableSet *set in orphaned){
         [self removeAllInCollection:set removeType:DROP_ANIMATION additionalRemoveFilter:nil];
     }
 }
 
-- (BOOL)searchForRootBubble:(NSMutableSet *)accumulatedCluster startPoint:(BubbleEngine *)bubble visitedBubbles:(NSMutableSet *)visited{
-    BOOL (^searchCondition)(BubbleEngine *) = ^(BubbleEngine *bubbleEngine){
-        if(bubbleEngine.gridRow == 0){
-            return YES;
-        }else{
-            return NO;
-        }
-    };
-    return [gridBubbles depthFirstSearchAndCluster:accumulatedCluster
-                                        startPoint:bubble
-                             accumulationCondition:nil
-                               andSearchConditions:searchCondition
-                                      visitedItems:visited];
+- (void)popBubblesInCollection:(id)bubbles withCondition:(BOOL(^)(BubbleEngine *))filter{
+    NSInteger numRemoved = [self removeAllInCollection:bubbles removeType:POP_ANIMATION additionalRemoveFilter:filter];
+    [bubbleGameState updateTotalScoresForPoppedBubbles:numRemoved];
 }
 
-- (void)removeAllInCollection:(id)cluster removeType:(NSInteger)animationType additionalRemoveFilter:(BOOL(^)(BubbleEngine *))filter{
+- (void)dropBubblesInCollection:(id)bubbles withCondition:(BOOL(^)(BubbleEngine *))filter{
+    NSInteger numRemoved = [self removeAllInCollection:bubbles removeType:DROP_ANIMATION additionalRemoveFilter:filter];
+    [bubbleGameState updateTotalScoresForPoppedBubbles:numRemoved];
+}
+
+- (NSInteger)removeAllInCollection:(id)cluster removeType:(NSInteger)animationType additionalRemoveFilter:(BOOL(^)(BubbleEngine *))filter{
+    /*!
+     @param cluster: Collection of bubbles to remove. Parameter can be any iterable collection 1 dimentional data structure
+     @param animationType: NSInteger corresponding to animation to apply when the bubble's view is removed.
+     @param filter: Boolean block. Additional condition to apply to each bubble to which will determine if the bubble is actually removed
+     @return number of bubbles actually removed
+     */
+    NSInteger totalRemoved = 0;
     for(BubbleEngine *engine in cluster){
         if(filter == nil || filter(engine)){
-            [engine removeBubbleWithAnimationType:animationType];
+            if([engine removeBubbleWithAnimationType:animationType]){
+                totalRemoved += 1;
+            }
         }
     }
+    return totalRemoved;
 }
 
 - (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col{
-    [gridBubbles removeObjectAtRow:row andPosition:col];
+    [bubbleGameState removeGridBubbleAtRow:row andPositions:col];
 }
 
 - (BOOL)hasCollisionWithGridForCenter:(CGPoint)point{
-    NSArray *allGridBubbles = [gridBubbles getAllObjects];
+    NSArray *allGridBubbles = [bubbleGameState getAllObjects];
     for(BubbleEngine *engine in allGridBubbles){
         if([engine hasOverlapWithOtherCenter:point]){
             return YES;

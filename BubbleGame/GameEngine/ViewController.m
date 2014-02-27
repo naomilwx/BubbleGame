@@ -17,11 +17,11 @@
 #define BUBBLE_LOADER_BUFFER 5
 #define CANNON_SIDE_BUFFER 10
 #define CANNON_HEIGHT 150
-#define CANNON_ANIMATION_DURATION 0.3
+#define CANNON_ANIMATION_DURATION 0.7
 #define BACK_BUTTON_XPOS 30
-#define BACK_BUTTON_YPOS 950
-#define BACK_BUTTON_WIDTH 100
-#define BACK_BUTTON_HEIGHT 55
+#define BACK_BUTTON_YPOS 980
+#define BACK_BUTTON_WIDTH 45
+#define BACK_BUTTON_HEIGHT 30
 #define BACK_TO_MAIN_MENU @"gameToMenu"
 #define BACK_TO_DESIGNER @"gameToDesigner"
 
@@ -307,18 +307,27 @@
 }
 
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
+    CGPoint displacement = [self calculateLaunchDisplacementForInputPoint:point];
+    dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, CANNON_ANIMATION_DURATION * NSEC_PER_SEC);
     [cannon startAnimating];
+    dispatch_after(delay,
+                   dispatch_get_main_queue(),
+                   ^{[self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
+                       [self launchBubbleWithDisplacementVector:displacement];
+                   });
+}
+
+- (CGPoint)calculateLaunchDisplacementForInputPoint:(CGPoint)point{
     CGPoint start;
-    CGPoint end = point;
+
     if(CGRectContainsPoint(cannon.frame, point)){
         start = [self getLaunchBaseCoordinates];
     }else{
         
         start = [self getStartingBubbleCenter];
     }
-    [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
-    CGPoint displacement = getUnitPositionVector(start, end);
-    [self launchBubbleWithDisplacementVector:displacement];
+    CGPoint displacement = getUnitPositionVector(start, point);
+    return displacement;
 }
 
 - (void)launchBubbleWithDisplacementVector:(CGPoint)vector{

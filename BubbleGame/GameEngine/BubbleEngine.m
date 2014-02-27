@@ -68,15 +68,18 @@
     return previousCenter;
 }
 
-- (void)removeBubbleWithAnimationType:(NSInteger)type{
+- (BOOL)removeBubbleWithAnimationType:(NSInteger)type{
+    BOOL removed = NO;
     if(bubbleView){
         [bubbleView activateForDeletionWithAnimationType:type];
+        removed = YES;
     }
     if(self.isGridBubble){
         [mainEngine removeGridBubbleAtRow:self.gridRow andPositions:self.gridCol];
     }
     bubbleView = nil;
     self.isGridBubble = NO;
+    return removed;
 }
 
 - (BOOL)checkCollisionWithGrid{
