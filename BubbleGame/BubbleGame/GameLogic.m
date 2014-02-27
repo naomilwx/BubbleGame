@@ -34,9 +34,9 @@
 }
 
 + (NSDictionary *)preloadedLevelMappings{
-    NSDictionary *preloadedMappings = @{@0: @"easy",
-                                        @1: @"intermediate",
-                                        @2: @"hard"};
+    NSDictionary *preloadedMappings = @{@0: @"Easy",
+                                        @1: @"Intermediate",
+                                        @2: @"Hard"};
     return preloadedMappings;
 }
 
