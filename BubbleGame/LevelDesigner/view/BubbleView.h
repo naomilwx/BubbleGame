@@ -13,6 +13,8 @@
 
 + (id)createWithCenter:(CGPoint)center andWidth:(CGFloat)width andImage:(UIImage *)image;
 
++ (id)createWithCenter:(CGPoint)center andWidth:(CGFloat)width andColor:(UIColor *)color;
+
 - (void)loadImage:(UIImage *)image;
 //Modifies: image attribute of BubbleView instance
 //Requires: image not nil

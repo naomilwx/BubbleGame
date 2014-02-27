@@ -22,9 +22,23 @@
     return [[BubbleView alloc] initWithFrame:frame andImage:image];
 }
 
++ (id)createWithCenter:(CGPoint)center andWidth:(CGFloat)width andColor:(UIColor *)color{
+    CGFloat xPos = center.x - width/2;
+    CGFloat yPos = center.y - width/2;
+    CGRect frame = CGRectMake(xPos, yPos, width, width);
+    return [[BubbleView alloc] initWithFrame:frame andColor:color];
+}
+
 - (id)initWithFrame:(CGRect)frame andImage:(UIImage *)image{
     if(self = [super initWithFrame:frame]){
         [self loadImage:image];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame andColor:(UIColor *)color{
+    if(self = [super initWithFrame:frame]){
+        [self setBackgroundColor:color];
     }
     return self;
 }

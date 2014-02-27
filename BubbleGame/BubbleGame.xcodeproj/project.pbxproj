@@ -69,6 +69,7 @@
 		C28179FA18B8D278007527FA /* TaggedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C28179F918B8D278007527FA /* TaggedObject.m */; };
 		C2817A0218BAF3B6007527FA /* GameLogic.m in Sources */ = {isa = PBXBuildFile; fileRef = C2817A0118BAF3B6007527FA /* GameLogic.m */; };
 		C2908B1318BF29C800499B4C /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1218BF29C800499B4C /* GameState.m */; };
+		C2908B1618BF883300499B4C /* PathPlotter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1518BF883300499B4C /* PathPlotter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +183,8 @@
 		C2817A0118BAF3B6007527FA /* GameLogic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLogic.m; sourceTree = "<group>"; };
 		C2908B1118BF29C800499B4C /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameState.h; sourceTree = "<group>"; };
 		C2908B1218BF29C800499B4C /* GameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameState.m; sourceTree = "<group>"; };
+		C2908B1418BF883300499B4C /* PathPlotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathPlotter.h; sourceTree = "<group>"; };
+		C2908B1518BF883300499B4C /* PathPlotter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathPlotter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -445,6 +448,8 @@
 				C2058A6F18B67F44003AC20C /* ViewController.m */,
 				C267044618B8AB8800DC6448 /* BubbleLoader.h */,
 				C267044718B8AB8800DC6448 /* BubbleLoader.m */,
+				C2908B1418BF883300499B4C /* PathPlotter.h */,
+				C2908B1518BF883300499B4C /* PathPlotter.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -596,6 +601,7 @@
 				C2058A1318B67C4B003AC20C /* GameLevelLoader.m in Sources */,
 				C20589B118B67B9E003AC20C /* MainViewController.m in Sources */,
 				C2058A1018B67C4B003AC20C /* BubbleManager.m in Sources */,
+				C2908B1618BF883300499B4C /* PathPlotter.m in Sources */,
 				C267044818B8AB8800DC6448 /* BubbleLoader.m in Sources */,
 				C28179FA18B8D278007527FA /* TaggedObject.m in Sources */,
 				C2058A0618B67C4B003AC20C /* GameBubble.m in Sources */,

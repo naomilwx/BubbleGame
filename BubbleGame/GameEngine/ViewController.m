@@ -322,12 +322,12 @@
 }
 
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
-    bubbleInCannon = NO;
-    CGPoint displacement = [self calculateLaunchDisplacementForInputPoint:point];
     cannonLaunching = YES;
+    bubbleInCannon = NO;
     [cannon startAnimating];
     void (^launchCode)() = ^{
         cannonLaunching = NO;
+        CGPoint displacement = [self calculateLaunchDisplacementForInputPoint:point];
         [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
         [self launchBubbleWithDisplacementVector:displacement];
     };
