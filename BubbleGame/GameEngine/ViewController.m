@@ -17,7 +17,8 @@
 #define BUBBLE_LOADER_BUFFER 5
 #define CANNON_SIDE_BUFFER 10
 #define CANNON_HEIGHT 150
-#define CANNON_ANIMATION_DURATION 0.7
+#define CANNON_ANIMATION_DURATION 1
+#define RELOAD_DELAY 1
 #define BACK_BUTTON_XPOS 30
 #define BACK_BUTTON_YPOS 980
 #define BACK_BUTTON_WIDTH 45
@@ -32,6 +33,8 @@
     CGPoint cannonDefaultCenter;
     NSDictionary *originalBubbleModels;
     NSInteger previousScreen;
+    BOOL bubbleInCannon;
+    BOOL cannonLaunching;
 }
 
 @synthesize gameBackground;
@@ -84,6 +87,7 @@
     [self loadCannonBody];
     [self setUpCannonAnimation];
     [self loadCannonBase];
+    cannonLaunching = NO;
 }
 
 - (void)loadBackButton{
@@ -233,6 +237,7 @@
     BubbleView *bubbleView = [taggedCannonBubble object];
     [bubbleView setCenter:[self getStartingBubbleCenter]];
     [self.gameBackground insertSubview:bubbleView belowSubview:cannon];
+    bubbleInCannon = YES;
 }
 
 - (void)backButtonClicked{
@@ -263,22 +268,30 @@
 }
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser{
-    [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
-    if(recogniser.state == UIGestureRecognizerStateEnded){
+    if(!cannonLaunching){
+        [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
+    }
+    if(recogniser.state == UIGestureRecognizerStateEnded && bubbleInCannon){
         [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
     }
 }
 
 - (void)longPressHandler:(UIGestureRecognizer *)recogniser{
-    [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
-    if(recogniser.state == UIGestureRecognizerStateEnded){
+    if(!cannonLaunching){
+        [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
+    }
+    if(recogniser.state == UIGestureRecognizerStateEnded && bubbleInCannon){
         [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
     }
 }
 
 - (void)tapHandler:(UIGestureRecognizer *)recogniser{
-    [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
-    [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
+    if(!cannonLaunching){
+        [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
+    }
+    if(bubbleInCannon){
+        [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
+    }
 }
 
 - (CGPoint)getLaunchBaseCoordinates{
@@ -302,19 +315,23 @@
 }
 
 - (void)shiftBubbleInCannonWithOffset:(CGPoint)unitOffset{
-    CGPoint newCenter = [self getStartingBubbleCenter];
-    [[taggedCannonBubble object] setCenter:newCenter];
+    if(bubbleInCannon){
+        CGPoint newCenter = [self getStartingBubbleCenter];
+        [[taggedCannonBubble object] setCenter:newCenter];
+    }
 }
 
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
+    bubbleInCannon = NO;
     CGPoint displacement = [self calculateLaunchDisplacementForInputPoint:point];
-    dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, CANNON_ANIMATION_DURATION * NSEC_PER_SEC);
+    cannonLaunching = YES;
     [cannon startAnimating];
-    dispatch_after(delay,
-                   dispatch_get_main_queue(),
-                   ^{[self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
-                       [self launchBubbleWithDisplacementVector:displacement];
-                   });
+    void (^launchCode)() = ^{
+        cannonLaunching = NO;
+        [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
+        [self launchBubbleWithDisplacementVector:displacement];
+    };
+    [self executeBlock:launchCode afterDelay:CANNON_ANIMATION_DURATION];
 }
 
 - (CGPoint)calculateLaunchDisplacementForInputPoint:(CGPoint)point{
@@ -333,7 +350,13 @@
 - (void)launchBubbleWithDisplacementVector:(CGPoint)vector{
     //Sets displacement vector for bubble in its corresponding BubbleEngine instance
     [engine setDisplacementVectorForBubble:vector];
-    [self loadNextBubble];
+    [self executeBlock:^{[self loadNextBubble];}
+            afterDelay:RELOAD_DELAY];
+}
+
+- (void)executeBlock:(void (^)(void))block afterDelay:(NSInteger)delay{
+    dispatch_time_t duration = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+    dispatch_after(duration, dispatch_get_main_queue(), block);
 }
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
