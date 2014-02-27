@@ -35,7 +35,7 @@
 		C2058A1018B67C4B003AC20C /* BubbleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589EF18B67C4B003AC20C /* BubbleManager.m */; };
 		C2058A1118B67C4B003AC20C /* BubbleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F118B67C4B003AC20C /* BubbleModel.m */; };
 		C2058A1218B67C4B003AC20C /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F318B67C4B003AC20C /* DataManager.m */; };
-		C2058A1318B67C4B003AC20C /* GameLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F518B67C4B003AC20C /* GameLoader.m */; };
+		C2058A1318B67C4B003AC20C /* GameLevelLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F518B67C4B003AC20C /* GameLevelLoader.m */; };
 		C2058A1418B67C4B003AC20C /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589F718B67C4B003AC20C /* GameState.m */; };
 		C2058A1518B67C4B003AC20C /* BubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589FA18B67C4B003AC20C /* BubbleCell.m */; };
 		C2058A1618B67C4B003AC20C /* BubbleGridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589FC18B67C4B003AC20C /* BubbleGridLayout.m */; };
@@ -123,8 +123,8 @@
 		C20589F118B67C4B003AC20C /* BubbleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BubbleModel.m; path = LevelDesigner/Model/BubbleModel.m; sourceTree = SOURCE_ROOT; };
 		C20589F218B67C4B003AC20C /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = LevelDesigner/Model/DataManager.h; sourceTree = SOURCE_ROOT; };
 		C20589F318B67C4B003AC20C /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = LevelDesigner/Model/DataManager.m; sourceTree = SOURCE_ROOT; };
-		C20589F418B67C4B003AC20C /* GameLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLoader.h; path = LevelDesigner/Model/GameLoader.h; sourceTree = SOURCE_ROOT; };
-		C20589F518B67C4B003AC20C /* GameLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLoader.m; path = LevelDesigner/Model/GameLoader.m; sourceTree = SOURCE_ROOT; };
+		C20589F418B67C4B003AC20C /* GameLevelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameLevelLoader.h; path = LevelDesigner/Model/GameLevelLoader.h; sourceTree = SOURCE_ROOT; };
+		C20589F518B67C4B003AC20C /* GameLevelLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameLevelLoader.m; path = LevelDesigner/Model/GameLevelLoader.m; sourceTree = SOURCE_ROOT; };
 		C20589F618B67C4B003AC20C /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameState.h; path = LevelDesigner/Model/GameState.h; sourceTree = SOURCE_ROOT; };
 		C20589F718B67C4B003AC20C /* GameState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameState.m; path = LevelDesigner/Model/GameState.m; sourceTree = SOURCE_ROOT; };
 		C20589F918B67C4B003AC20C /* BubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleCell.h; path = LevelDesigner/view/BubbleCell.h; sourceTree = SOURCE_ROOT; };
@@ -326,8 +326,8 @@
 				C20589F118B67C4B003AC20C /* BubbleModel.m */,
 				C20589F218B67C4B003AC20C /* DataManager.h */,
 				C20589F318B67C4B003AC20C /* DataManager.m */,
-				C20589F418B67C4B003AC20C /* GameLoader.h */,
-				C20589F518B67C4B003AC20C /* GameLoader.m */,
+				C20589F418B67C4B003AC20C /* GameLevelLoader.h */,
+				C20589F518B67C4B003AC20C /* GameLevelLoader.m */,
 				C20589F618B67C4B003AC20C /* GameState.h */,
 				C20589F718B67C4B003AC20C /* GameState.m */,
 			);
@@ -587,7 +587,7 @@
 				C2058A1118B67C4B003AC20C /* BubbleModel.m in Sources */,
 				C229891218BE1F4800FEED38 /* MainEngineSpecialised.m in Sources */,
 				C229892618BE33AC00FEED38 /* GameDataManager.m in Sources */,
-				C2058A1318B67C4B003AC20C /* GameLoader.m in Sources */,
+				C2058A1318B67C4B003AC20C /* GameLevelLoader.m in Sources */,
 				C20589B118B67B9E003AC20C /* MainViewController.m in Sources */,
 				C2058A1018B67C4B003AC20C /* BubbleManager.m in Sources */,
 				C267044818B8AB8800DC6448 /* BubbleLoader.m in Sources */,

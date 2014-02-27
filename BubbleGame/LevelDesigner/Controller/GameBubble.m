@@ -65,7 +65,7 @@
     [super viewDidLoad];
     @try{
         if(!gameLoader){
-            gameLoader = [[GameLoader alloc] init];
+            gameLoader = [[GameLevelLoader alloc] init];
         }
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];

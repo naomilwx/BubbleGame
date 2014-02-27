@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "GameLoader.h"
+#import "GameLevelLoader.h"
 #import "DataManager.h"
 #import "GameLogic.h"
 
@@ -31,7 +31,7 @@
 
 - (void)testLoadLevel{
     //Only test that currentLevel is loaded properly, the rest is handled by GameState and DataManager
-    GameLoader *loader = [[GameLoader alloc] init];
+    GameLevelLoader *loader = [[GameLevelLoader alloc] init];
     NSInteger levels = [[loader getAvailableLevels] count];
     if(levels > 0){
         NSInteger n = 1 + arc4random_uniform(STARTING_LEVEL + levels - 1);
@@ -41,7 +41,7 @@
 }
 
 - (void)testAddBubble{
-     GameLoader *loader = [[GameLoader alloc] init];
+     GameLevelLoader *loader = [[GameLevelLoader alloc] init];
     //New level
     XCTAssertTrue([loader currentLevel] == INVALID);
     
@@ -59,7 +59,7 @@
 }
 
 - (void)testModifyBubbleType{
-    GameLoader *loader = [[GameLoader alloc] init];
+    GameLevelLoader *loader = [[GameLevelLoader alloc] init];
     NSInteger id1 = [loader addBubbleWithType:2 andWidth:40.4];
     NSInteger id2 = [loader addBubbleWithType:3 andWidth:40.4];
     NSInteger id3 = [loader addBubbleWithType:1 andWidth:40.4];

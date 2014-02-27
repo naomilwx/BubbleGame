@@ -24,7 +24,7 @@
     if(self = [super init]){
         bubbleViews = [[NSMutableArray alloc] init]; //For testing addToView. Removal of bubbles from view is not tracked
         
-        gameLoader = [[GameLoader alloc] init];
+        gameLoader = [[GameLevelLoader alloc] init];
         
         bubbleControllerManager = [[BubbleManager alloc] initWithNumofRows:NUM_OF_ROWS andColumns:NUM_CELLS_IN_ROW];
 

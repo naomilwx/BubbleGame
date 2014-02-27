@@ -10,7 +10,7 @@
 #import "BubbleView.h"
 #import "BubbleControllerDelegate.h"
 #import "BubbleManager.h"
-#import "GameLoader.h"
+#import "GameLevelLoader.h"
 #import "LevelSelector.h"
 
 #define GAME_START @"Start"
@@ -26,7 +26,7 @@ typedef enum {kGameBubbleBasic} GameBubbleType;
 
 @property (strong, nonatomic) NSDictionary *paletteImages;
 @property (strong, nonatomic) NSDictionary *paletteButtons;
-@property (strong) GameLoader *gameLoader;
+@property (strong) GameLevelLoader *gameLoader;
 @property (strong) BubbleManager *bubbleControllerManager;
 @property (strong, nonatomic) IBOutlet UIView *gameArea;
 @property (strong, nonatomic) IBOutlet UIView *palette;

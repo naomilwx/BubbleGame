@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GameLoader : NSObject
+@interface GameLevelLoader : NSObject
 
 @property NSInteger currentLevel;
 //game level. level is set when game is saved or a stored game is loaded.
