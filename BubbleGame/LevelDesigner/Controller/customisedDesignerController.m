@@ -8,7 +8,6 @@
 
 #import "customisedDesignerController.h"
 #import "BubbleController.h"
-#import "GameEngineInitDelegate.h"
 #import "GameLogic.h"
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
@@ -155,15 +154,6 @@
         [self addBubbleAtCollectionViewIndex:index withType:self.selectedType];
     }else{
         [bubble modifyBubbletoType:self.selectedType];
-    }
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"designerToGame"]){
-        [self.gameLoader saveUnsavedStateToTempFile];
-        id<GameEngineInitDelegate> controller = segue.destinationViewController;
-        [controller setOriginalBubbleModels:[self.gameLoader getAllBubbleModels]];
-        [controller setPreviousScreen:LEVEL_DESIGNER];
     }
 }
 

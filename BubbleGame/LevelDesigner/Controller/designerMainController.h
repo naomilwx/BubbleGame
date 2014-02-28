@@ -19,8 +19,6 @@
 #define GAME_RESET @"Reset"
 #define TRANSLUCENT_ALPHA 0.35
 
-// Constants for the three game objects to be implemented
-typedef enum {kGameBubbleBasic} GameBubbleType;
 
 @interface designerMainController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, BubbleControllerDelegate, LevelSelectorDelegate>
 

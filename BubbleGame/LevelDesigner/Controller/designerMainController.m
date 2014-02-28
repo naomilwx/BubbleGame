@@ -12,6 +12,7 @@
 #import "BubbleCell.h"
 #import "GameLogic.h"
 #import "BubbleController.h"
+#import "GameEngineInitDelegate.h"
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
 #define SAVE_UNSUCCESSFUL_MSG @"An error occurred while saving. Game level is not saved."
@@ -181,6 +182,26 @@
         [view setAlpha:1];
     }
 }
+#pragma mark - Segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"designerToGame"]){
+        [self.gameLoader saveUnsavedStateToTempFile];
+        id<GameEngineInitDelegate> controller = segue.destinationViewController;
+        [controller setOriginalBubbleModels:[self.gameLoader getAllBubbleModels]];
+        [controller setPreviousScreen:LEVEL_DESIGNER];
+    }
+}
+
+#pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    BubbleCell *bubble = [collectionView dequeueReusableCellWithReuseIdentifier:@"bubbleCell" forIndexPath:indexPath];
+    return bubble;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return [(BubbleGridLayout *)bubbleGrid.collectionViewLayout defaultBubbleCellCount];
+}
 
 #pragma mark - Delegate Methods for BubbleController
 - (void)addToView:(UIView *)view{
@@ -211,46 +232,6 @@
 - (BubbleView *)createBubbleViewWithCenter:(CGPoint)center andWidth:(CGFloat)width andType:(NSInteger)type{
     UIImage *image = [self.paletteImages objectForKey:[NSNumber numberWithInteger:type]];
     return [BubbleView createWithCenter:center andWidth:width andImage:image];
-}
-
-#pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    BubbleCell *bubble = [collectionView dequeueReusableCellWithReuseIdentifier:@"bubbleCell" forIndexPath:indexPath];
-    return bubble;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [(BubbleGridLayout *)bubbleGrid.collectionViewLayout defaultBubbleCellCount];
-}
-
-#pragma mark - Abstract Methods
-- (void)loadPaletteImageMappings{
-    //loads the mapping of bubble type to the corresponding images
-}
-- (void)loadPalette{
-    //loads the mapping of bubble type to the corresponding view representation in the selector palette
-}
-
-- (NSInteger)getNextBubbleTypeFromType:(NSInteger)type{
-    return 0;
-}
-
-- (void)tapHandler:(UIGestureRecognizer *)gesture{
-    // MODIFIES: bubble model (color)
-    // REQUIRES: game in designer mode
-    // EFFECTS: the user taps the bubble with one finger
-    //          if the bubble is active, it will change its color
-}
-
-- (void)longpressHandler:(UIGestureRecognizer *)gesture{
-    // MODIFIES: bubble model (state from active to inactive)
-    // REQUIRES: game in designer mode, bubble active in the grid
-    // EFFECTS: the bubble is 'erased' after being long-pressed
-}
-
-- (void)gridPanHandler:(UIGestureRecognizer *)gesture{
-    //REQUIRES: game in designer mode
-    //Effect: Cells being swipped will be filled with the selected bubble color
 }
 
 #pragma mark - operations on bubble in bubble grid for level creator
@@ -449,6 +430,36 @@
 }
 - (NSArray *)getAvailableLevels{
     return [self.gameLoader getAvailableLevels];
+}
+
+#pragma mark - Abstract Methods
+- (void)loadPaletteImageMappings{
+    //loads the mapping of bubble type to the corresponding images
+}
+- (void)loadPalette{
+    //loads the mapping of bubble type to the corresponding view representation in the selector palette
+}
+
+- (NSInteger)getNextBubbleTypeFromType:(NSInteger)type{
+    return 0;
+}
+
+- (void)tapHandler:(UIGestureRecognizer *)gesture{
+    // MODIFIES: bubble model (color)
+    // REQUIRES: game in designer mode
+    // EFFECTS: the user taps the bubble with one finger
+    //          if the bubble is active, it will change its color
+}
+
+- (void)longpressHandler:(UIGestureRecognizer *)gesture{
+    // MODIFIES: bubble model (state from active to inactive)
+    // REQUIRES: game in designer mode, bubble active in the grid
+    // EFFECTS: the bubble is 'erased' after being long-pressed
+}
+
+- (void)gridPanHandler:(UIGestureRecognizer *)gesture{
+    //REQUIRES: game in designer mode
+    //Effect: Cells being swipped will be filled with the selected bubble color
 }
 
 @end
