@@ -49,14 +49,7 @@
 
 - (void)removeAllBubbles;
 
-//gameloader stuff
-- (BOOL)hasUnsavedBubbles;
-
-- (NSInteger)currentLevel;
-
 - (void)saveUnsavedStateToTempFile;
-
-- (NSDictionary *)getAllBubbleModels;
 
 - (NSDictionary *)loadUnsavedStateFromTempFile;
 
@@ -70,12 +63,19 @@
 
 - (void)loadNewLevel;
 
-- (NSArray *)getAvailableLevels;
-
 - (void)loadBubblesFromModels:(NSDictionary *)bubbleModels;
 
 - (void)loadGameLevelWithModels:(NSDictionary *)models;
 
 - (void)loadLevelFromTempIfTempFileExists;
+
+//gameloader stuff
+- (BOOL)hasUnsavedBubbles;
+
+- (NSInteger)currentLevel;
+
+- (NSArray *)getAvailableLevels;
+
+- (NSDictionary *)getAllBubbleModels;
 
 @end

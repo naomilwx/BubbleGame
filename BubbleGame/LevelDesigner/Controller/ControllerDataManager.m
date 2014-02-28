@@ -10,10 +10,7 @@
 #import "BubbleController.h"
 #import "GameLogic.h"
 
-@implementation ControllerDataManager{
-    SEL selectorToExecute;
-    NSInteger selectedLevel;
-}
+@implementation ControllerDataManager
 
 @synthesize bubbleControllerManager;
 @synthesize gameLoader;
@@ -139,7 +136,7 @@
     }
 }
 
-#pragma mark - game loader stuff
+#pragma mark - game loader methods
 
 - (BOOL)hasUnsavedBubbles{
     return [gameLoader hasUnsavedBubbles];
@@ -149,39 +146,14 @@
     return [gameLoader currentLevel];
 }
 
-- (void)saveUnsavedStateToTempFile{
-    [gameLoader saveUnsavedStateToTempFile];
-}
-
 - (NSDictionary *)getAllBubbleModels{
     return [gameLoader getAllBubbleModels];
-}
-
-- (NSDictionary *)loadUnsavedStateFromTempFile{
-    return [gameLoader loadUnsavedStateFromTempFile];
-}
-
-- (NSDictionary *)loadPreviousLevel{
-    NSDictionary *levelModels = [gameLoader loadPreviousLevel];
-    [self loadGameLevelWithModels:levelModels];
-    return levelModels;
-}
-
-- (NSDictionary *)loadLevel:(NSInteger)level{
-    NSDictionary *levelModels = [gameLoader loadLevel:level];
-    [self loadGameLevelWithModels:levelModels];
-    return levelModels;
-}
-
-- (NSInteger)saveLevel{
-    return [gameLoader saveLevel];
 }
 
 - (NSArray *)getAvailableLevels{
     return [gameLoader getAvailableLevels];
 }
 
-//
 #pragma mark - functions to handle load/save/reset
 - (void)resetLevel{
     [self removeAllBubbles];
@@ -215,4 +187,27 @@
     }
 }
 
+- (void)saveUnsavedStateToTempFile{
+    [gameLoader saveUnsavedStateToTempFile];
+}
+
+- (NSDictionary *)loadUnsavedStateFromTempFile{
+    return [gameLoader loadUnsavedStateFromTempFile];
+}
+
+- (NSDictionary *)loadPreviousLevel{
+    NSDictionary *levelModels = [gameLoader loadPreviousLevel];
+    [self loadGameLevelWithModels:levelModels];
+    return levelModels;
+}
+
+- (NSDictionary *)loadLevel:(NSInteger)level{
+    NSDictionary *levelModels = [gameLoader loadLevel:level];
+    [self loadGameLevelWithModels:levelModels];
+    return levelModels;
+}
+
+- (NSInteger)saveLevel{
+    return [gameLoader saveLevel];
+}
 @end

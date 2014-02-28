@@ -64,15 +64,11 @@
 {
     [super viewDidLoad];
     [self initRequiredUIImages];
-    [self loadBackground];
-    [self loadPalette];
-    [self initialiseCollectionView];
+    [self loadViews];
     [self addGestureRecognisersToCollectionView];
-    [self.gameArea insertSubview:bubbleGrid belowSubview:backButton];
-    [self initialiseBubbleControllerManager];
+    [self initialiseControllerDataManager];
     [self initialiseLevelSelectorPopover];
-    [self.controllerDataManager loadLevelFromTempIfTempFileExists];
-    [self updateCurrentLevelView];
+    [self restoreViewFromTempFileIfFileExists];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,9 +77,23 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initialiseBubbleControllerManager{
+- (void)loadViews{
+    [self loadBackground];
+    [self loadPalette];
+    [self initialiseCollectionView];
+    [self.gameArea insertSubview:bubbleGrid belowSubview:backButton];
+}
+
+- (void)restoreViewFromTempFileIfFileExists{
+    [self.controllerDataManager loadLevelFromTempIfTempFileExists];
+    [self updateCurrentLevelView];
+}
+
+- (void)initialiseControllerDataManager{
     @try{
-        controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea  andBubbleGrid:bubbleGrid andImageMappings:self.paletteImages];
+        if(!controllerDataManager){
+            controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea  andBubbleGrid:bubbleGrid andImageMappings:self.paletteImages];
+        }
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];
     }
@@ -247,7 +257,6 @@
 
 - (void)save{
     //Saves data model for current level to file.
-    //Loads blank palette for next level
     @try{
         [self.controllerDataManager saveLevel];
         [self showAlertWithTitle:@"Save Level" andMessage:SAVE_SUCCESSFUL_MSG];
