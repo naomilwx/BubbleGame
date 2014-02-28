@@ -19,7 +19,7 @@
 
 @property (strong) BubbleView *bubbleView;
 
-- (id)initWithMasterController:(UIViewController<BubbleControllerDelegate> *)controller;
+- (id)initWithMasterController:(UIViewController<BubbleControllerDelegate> *)controller andGridTemplate:(BubbleGridLayout *)layoutTemplate;
 
 - (void)addBubbleFromModel:(BubbleModel *)model;
 

@@ -31,6 +31,4 @@
 //Effect: Adds given image to main view
 //Requires: view not nil
 
-- (BubbleGridLayout *)getGridLayout;
-
 @end

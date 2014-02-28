@@ -171,10 +171,6 @@
     }
 }
 
-- (void)goBackToMainMenu{
-    [self performSegueWithIdentifier:DESIGNER_TO_MENU sender:self];
-}
-
 - (void)toggleUIViewTransparancy:(UIView *)view{
     if([view alpha] == 1){
         [view setAlpha:TRANSLUCENT_ALPHA];
@@ -193,6 +189,10 @@
     }
 }
 
+- (void)goBackToMainMenu{
+    [self performSegueWithIdentifier:DESIGNER_TO_MENU sender:self];
+}
+
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     BubbleCell *bubble = [collectionView dequeueReusableCellWithReuseIdentifier:@"bubbleCell" forIndexPath:indexPath];
@@ -206,10 +206,6 @@
 #pragma mark - Delegate Methods for BubbleController
 - (void)addToView:(UIView *)view{
     [self.gameArea addSubview:view];
-}
-
-- (BubbleGridLayout *)getGridLayout{
-    return (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
 }
 
 - (NSInteger)addBubbleModelWithType:(NSInteger)type andWidth:(CGFloat)width andCenter:(CGPoint)center{
@@ -246,7 +242,8 @@
 }
 
 - (void)addBubbleAtCollectionViewIndex:(NSIndexPath *)index withType:(NSInteger)type{
-    BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self];
+    BubbleGridLayout *gridTemplate = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
+    BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self andGridTemplate:gridTemplate];
     [bubble addBubbleAtCollectionViewIndex:index withType:type];
     [self insertBubbleController:bubble AtCollectionViewIndex:index];
 }
@@ -330,10 +327,11 @@
 }
 
 - (void)loadBubblesFromModels:(NSDictionary *)bubbleModels{
+    BubbleGridLayout *gridTemplate = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
     for(NSNumber *ID in bubbleModels){
         BubbleModel *model = [bubbleModels objectForKey:ID];
         NSIndexPath *gridIndex = [self.bubbleGrid indexPathForItemAtPoint:[model center]];
-        BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self];
+        BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self andGridTemplate:gridTemplate];
         [bubble addBubbleFromModel:model];
         [self insertBubbleController:bubble AtCollectionViewIndex:gridIndex];
     }
