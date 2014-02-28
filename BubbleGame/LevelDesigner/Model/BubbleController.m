@@ -19,7 +19,7 @@
 @synthesize bubbleModelID;
 @synthesize bubbleView;
 
-- (id)initWithMasterController:(UIViewController<BubbleControllerDelegate> *)controller andGridTemplate:(BubbleGridLayout *)layoutTemplate{
+- (id)initWithMasterController:(id<BubbleControllerDelegate>)controller andGridTemplate:(BubbleGridLayout *)layoutTemplate{
     if(self = [super init]){
         mainController = controller;
         layoutManager = layoutTemplate;

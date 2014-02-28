@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BubbleGridLayout.h"
+//#import "BubbleGridLayout.h"
+#import "BubbleView.h"
 
 @protocol BubbleControllerDelegate <NSObject>
 
@@ -30,5 +31,7 @@
 - (void)addToView:(UIView *)view;
 //Effect: Adds given image to main view
 //Requires: view not nil
+
+//- (BubbleGridLayout *)getGridLayout;
 
 @end

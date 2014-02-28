@@ -10,16 +10,17 @@
 #import "BubbleModel.h"
 #import "BubbleView.h"
 #import "BubbleControllerDelegate.h"
+#import "BubbleGridLayout.h"
 
 @interface BubbleController : NSObject
 
-@property (weak, readonly) UIViewController<BubbleControllerDelegate>* mainController;
+@property (weak, readonly) id<BubbleControllerDelegate> mainController;
 
 @property NSInteger bubbleModelID;
 
 @property (strong) BubbleView *bubbleView;
 
-- (id)initWithMasterController:(UIViewController<BubbleControllerDelegate> *)controller andGridTemplate:(BubbleGridLayout *)layoutTemplate;
+- (id)initWithMasterController:(id<BubbleControllerDelegate>)controller andGridTemplate:(BubbleGridLayout *)layoutTemplate;
 
 - (void)addBubbleFromModel:(BubbleModel *)model;
 

@@ -8,18 +8,25 @@
 
 #import <Foundation/Foundation.h>
 #import "BubbleManager.h"
+#import "GameLevelLoader.h"
+#import "BubbleGridLayout.h"
+#import "BubbleControllerDelegate.h"
 
-@interface BubbleControllerManager : NSObject
+@interface BubbleControllerManager : NSObject <BubbleControllerDelegate>
 
 @property (strong) BubbleManager *bubbleControllerManager;
+@property (strong) GameLevelLoader *gameLoader;
+@property (strong) BubbleGridLayout *gridTemplate;
+@property (strong) UIView *gameArea;
+@property (strong, nonatomic) NSDictionary *paletteImages;
+
+- (id)initWithView:(UIView *)view andDataModel:(GameLevelLoader *)model andGridTemplate:(BubbleGridLayout *)template;
 
 - (id)getBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
 
 - (void)insertBubbleController:(id)controller AtCollectionViewIndex:(NSIndexPath *)index;
 
 - (void)removeBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
-
-- (void)cycleBubbleAtCollectionViewIndex:(NSIndexPath *)index;
 
 - (void)addBubbleAtCollectionViewIndex:(NSIndexPath *)index withType:(NSInteger)type;
 
