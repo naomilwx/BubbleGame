@@ -16,10 +16,11 @@
 
 @property (strong) NSDictionary *launchableBubbleMappings;
 @property CGFloat defaultBubbleRadius;
-@property (strong) MainEngine *engine;
 @property (strong) BubbleLoader *bubbleLoader;
 @property (strong) PathPlotter *plotter;
 @property (strong) UIView *gameView;
+@property (strong) MainEngine *engine;
+
 
 - (id)initWithGameView:(UIView *)view andEngine:(MainEngine *)mainEngine andBubbleMappings:(NSDictionary *)mapping andBubbleRadius:(CGFloat)radius;
 

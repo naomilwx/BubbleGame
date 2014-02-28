@@ -63,6 +63,7 @@
 - (void)loadCannonController{
     cannonController = [[CannonController alloc] initWithGameView:self.gameBackground andEngine:engine andBubbleMappings:launchableBubbleMappings andBubbleRadius:self.defaultBubbleRadius];
 }
+
 - (void)loadBackButton{
     CGRect frame = CGRectMake(BACK_BUTTON_XPOS, BACK_BUTTON_YPOS, BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
     backButton = [[UIButton alloc] initWithFrame:frame];
@@ -72,6 +73,7 @@
      forControlEvents:UIControlEventTouchDown];
     [self.gameBackground addSubview:backButton];
 }
+
 - (void)loadEngine{
     if(!engine){
         engine = [[MainEngineSpecialised alloc] init];

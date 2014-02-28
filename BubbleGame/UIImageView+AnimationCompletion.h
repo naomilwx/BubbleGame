@@ -1,5 +1,6 @@
 //
-//  Imported extension for UIImageView
+//  Imported extension for UIImageView.
+//  Extends UIImageView animation with completion block.
 //  UIImageView+AnimationCompletion.h
 //  imageViewAnimationCompletion
 //
