@@ -50,7 +50,7 @@
 @synthesize paletteImages;
 @synthesize paletteButtons;
 @synthesize gameLoader;
-@synthesize bubbleControllerManager;
+@synthesize controllerDataManager;
 @synthesize loadButton;
 @synthesize levelIndicator;
 @synthesize levelSelector;
@@ -92,8 +92,8 @@
 
 - (void)initialiseBubbleControllerManager{
     BubbleGridLayout *gridTemplate = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
-    bubbleControllerManager = [[ControllerDataManager alloc] initWithView:self.gameArea andDataModel:gameLoader andGridTemplate:gridTemplate];
-    [bubbleControllerManager setPaletteImages:self.paletteImages];
+    controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea andDataModel:gameLoader andGridTemplate:gridTemplate];
+    [controllerDataManager setPaletteImages:self.paletteImages];
 }
 
 - (void)initialiseCollectionView{
@@ -209,9 +209,9 @@
 
 #pragma mark - operations on bubble in bubble grid for level creator
 - (void)cycleBubbleAtCollectionViewIndex:(NSIndexPath *)index{
-    NSInteger previousType = [self.bubbleControllerManager getBubbleTypeForBubbleAtCollectionViewIndex:index];
+    NSInteger previousType = [self.controllerDataManager getBubbleTypeForBubbleAtCollectionViewIndex:index];
     NSInteger newType = [self getNextBubbleTypeFromType:previousType];
-    [self.bubbleControllerManager modifyBubbleAtCollectionViewIndex:index ToType:newType];
+    [self.controllerDataManager modifyBubbleAtCollectionViewIndex:index ToType:newType];
 }
 
 #pragma mark - functions to handle load/save/reset
@@ -244,7 +244,7 @@
 }
 
 - (void)loadGameLevelWithModels:(NSDictionary *)models{
-    [self.bubbleControllerManager clearAll];
+    [self.controllerDataManager clearAll];
     [self loadBubblesFromModels:models];
     [self updateCurrentLevelView];
 }
@@ -267,15 +267,15 @@
     for(NSNumber *ID in bubbleModels){
         BubbleModel *model = [bubbleModels objectForKey:ID];
         NSIndexPath *gridIndex = [self.bubbleGrid indexPathForItemAtPoint:[model center]];
-        BubbleController *bubble = [[BubbleController alloc] initWithMasterController:bubbleControllerManager andGridTemplate:gridTemplate];
+        BubbleController *bubble = [[BubbleController alloc] initWithMasterController:controllerDataManager andGridTemplate:gridTemplate];
         [bubble addBubbleFromModel:model];
-        [self.bubbleControllerManager insertBubbleController:bubble AtCollectionViewIndex:gridIndex];
+        [self.controllerDataManager insertBubbleController:bubble AtCollectionViewIndex:gridIndex];
     }
 }
 
 - (void)removeAllBubbles{
     //Gets invokes removeBubble method of all controllers, which removes all bubble models and bubble views
-    NSArray *allBubbles = [self.bubbleControllerManager getAllObjects];
+    NSArray *allBubbles = [self.controllerDataManager getAllObjects];
     for(BubbleController *bubble in allBubbles){
         [bubble removeBubble];
     }
@@ -283,7 +283,7 @@
 
 - (void)resetControllerState{
     [self removeAllBubbles];
-    [self.bubbleControllerManager clearAll];
+    [self.controllerDataManager clearAll];
 }
 
 - (void)loadNewLevel{

@@ -14,7 +14,7 @@
 
 - (BubbleView *)createBubbleViewWithCenter:(CGPoint)center andWidth:(CGFloat)width andType:(NSInteger)type;
 
-- (NSInteger)addBubbleModelWithType:(NSInteger)type andWidth:(CGFloat)width andCenter:(CGPoint)center;
+- (NSInteger)addOrModifyBubbleModelWithType:(NSInteger)type andWidth:(CGFloat)width andCenter:(CGPoint)center;
 
 - (void)modifyBubbleView:(BubbleView *)bubble toType:(NSInteger)type;
 //Modifies: the BubbleView instance: bubble

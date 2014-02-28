@@ -26,13 +26,17 @@
 
 - (NSInteger)getBubbleTypeForBubbleAtCollectionViewIndex:(NSIndexPath *)index;
 
-- (void)modifyBubbleAtCollectionViewIndex:(NSIndexPath *)index ToType:(NSInteger)type;
+- (BOOL)modifyBubbleAtCollectionViewIndex:(NSIndexPath *)index ToType:(NSInteger)type;
+//Modifies type of bubble at given index
+//Returns YES if a bubble exists at the given index. NO otherwise
 
 - (void)insertBubbleController:(id)controller AtCollectionViewIndex:(NSIndexPath *)index;
 
 - (void)removeBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
 
-- (void)addBubbleAtCollectionViewIndex:(NSIndexPath *)index withType:(NSInteger)type;
+- (void)addOrModifyBubbleAtCollectionViewIndex:(NSIndexPath *)index withType:(NSInteger)type;
+//Adds bubble of given type to given index
+//If a bubble already exists at the stated index, its type is modified 
 
 - (void)removeBubbleAtCollectionViewIndex:(NSIndexPath *)index;
 

@@ -44,7 +44,7 @@
     
         self.bubbleView = [self.mainController createBubbleViewWithCenter:center andWidth:width andType:type];
         [self.mainController addToView:self.bubbleView];
-        self.bubbleModelID =  [self.mainController addBubbleModelWithType:type andWidth:width andCenter:center];
+        self.bubbleModelID =  [self.mainController addOrModifyBubbleModelWithType:type andWidth:width andCenter:center];
     }
 }
 

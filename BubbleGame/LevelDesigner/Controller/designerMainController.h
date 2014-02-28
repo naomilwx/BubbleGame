@@ -34,7 +34,7 @@
 @property (strong, nonatomic) UIPopoverController *levelSelectorPopover;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
-@property (strong) ControllerDataManager *bubbleControllerManager;
+@property (strong) ControllerDataManager *controllerDataManager;
 
 - (void)tapHandler:(UIGestureRecognizer *)gesture;
 // MODIFIES: bubble model (color)
