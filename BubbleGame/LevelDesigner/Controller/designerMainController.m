@@ -71,7 +71,8 @@
     [self.gameArea insertSubview:bubbleGrid belowSubview:backButton];
     [self initialiseBubbleControllerManager];
     [self initialiseLevelSelectorPopover];
-    [self loadLevelFromTempIfTempFileExists];
+    [self.controllerDataManager loadLevelFromTempIfTempFileExists];
+    [self updateCurrentLevelView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,14 +82,11 @@
 }
 
 - (void)initialiseBubbleControllerManager{
-    BubbleGridLayout *gridTemplate = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
-//    controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea andDataModel:gameLoader andGridTemplate:gridTemplate];
     @try{
-        controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea  andGridTemplate:gridTemplate andImageMappings:self.paletteImages];
+        controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea  andBubbleGrid:bubbleGrid andImageMappings:self.paletteImages];
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];
     }
-//    [controllerDataManager setPaletteImages:self.paletteImages];
 }
 
 - (void)initialiseCollectionView{
@@ -210,20 +208,6 @@
 }
 
 #pragma mark - functions to handle load/save/reset
-- (void)loadBubblesFromModels:(NSDictionary *)bubbleModels{
-    for(NSNumber *ID in bubbleModels){
-        BubbleModel *model = [bubbleModels objectForKey:ID];
-        NSIndexPath *gridIndex = [self.bubbleGrid indexPathForItemAtPoint:[model center]];
-        [self.controllerDataManager addBubbleFromModel:model atIndex:gridIndex];
-    }
-}
-
-- (void)loadGameLevelWithModels:(NSDictionary *)models{
-    [self.controllerDataManager clearAll];
-    [self loadBubblesFromModels:models];
-    [self updateCurrentLevelView];
-}
-
 - (void)updateCurrentLevelView{
     NSInteger currentLevel = [self.controllerDataManager currentLevel];
     if(currentLevel == INVALID){
@@ -233,18 +217,10 @@
     }
 }
 
-- (void)loadLevelFromTempIfTempFileExists{
-    NSDictionary *models = [self.controllerDataManager loadUnsavedStateFromTempFile];
-    if(models != nil){
-        [self loadGameLevelWithModels:models];
-    }
-}
-
 - (void)loadPreviousGameLevel{
     @try{
         [self reset];
-        NSDictionary *models = [self.controllerDataManager loadPreviousLevel];
-        [self loadGameLevelWithModels:models];
+        [self.controllerDataManager loadPreviousLevel];
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
     }
@@ -253,10 +229,8 @@
 - (void)loadGameLevel:(NSInteger)level{
     @try{
         [self reset];
-        NSDictionary *models = [self.controllerDataManager loadLevel:level];
-        [self loadGameLevelWithModels:models];
+        [self.controllerDataManager loadLevel:level];
     }@catch(NSException *e){
-        [self updateCurrentLevelView];
         [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
     }
 }
@@ -264,7 +238,6 @@
 
 - (void)loadNewLevel{
     [self.controllerDataManager loadNewLevel];
-    [self updateCurrentLevelView];
 }
 
 - (void)load{
@@ -334,7 +307,7 @@
     }else{
         [self loadGameLevel:selectedLevel];
     }
-    
+    [self updateCurrentLevelView];
 }
 - (NSArray *)getAvailableLevels{
     return [self.controllerDataManager getAvailableLevels];
