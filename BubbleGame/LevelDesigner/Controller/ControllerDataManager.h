@@ -21,9 +21,9 @@
 @property (strong) UIView *gameArea;
 @property (strong, nonatomic) NSDictionary *paletteImages;
 
-- (id)initWithView:(UIView *)view andDataModel:(GameLevelLoader *)model andGridTemplate:(BubbleGridLayout *)template;
+- (id)initWithView:(UIView *)view andDataModel:(GameLevelLoader *)model andGridTemplate:(BubbleGridLayout *)bubbleTemplate;
 
-//- (id)initWithView:(UIView *)view andGridTemplate:(BubbleGridLayout *)template;
+- (id)initWithView:(UIView *)view andGridTemplate:(BubbleGridLayout *)bubbleTemplate andImageMappings:(NSDictionary *)mappings;
 
 - (id)getBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
 
@@ -50,4 +50,27 @@
 - (void)clearAll;
 
 - (void)removeAllBubbles;
+
+//gameloader stuff
+- (BOOL)hasUnsavedBubbles;
+
+- (NSInteger)currentLevel;
+
+- (void)saveUnsavedStateToTempFile;
+
+- (NSDictionary *)getAllBubbleModels;
+
+- (NSDictionary *)loadUnsavedStateFromTempFile;
+
+- (NSDictionary *)loadPreviousLevel;
+
+- (NSDictionary *)loadLevel:(NSInteger)level;
+
+- (NSInteger)saveLevel;
+
+- (void)loadNewLevel;
+
+- (void)resetGameLoader;
+
+- (NSArray *)getAvailableLevels;
 @end

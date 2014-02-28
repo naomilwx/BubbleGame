@@ -48,7 +48,7 @@
 @synthesize bubbleGrid;
 @synthesize paletteImages;
 @synthesize paletteButtons;
-@synthesize gameLoader;
+//@synthesize gameLoader;
 @synthesize controllerDataManager;
 @synthesize loadButton;
 @synthesize levelIndicator;
@@ -64,13 +64,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    @try{
-        if(!gameLoader){
-            gameLoader = [[GameLevelLoader alloc] init];
-        }
-    }@catch(NSException *e){
-        [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];
-    }
+//    @try{
+//        if(!gameLoader){
+//            gameLoader = [[GameLevelLoader alloc] init];
+//        }
+//    }@catch(NSException *e){
+//        [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];
+//    }
 
     [self initRequiredUIImages];
     [self loadBackground];
@@ -91,8 +91,13 @@
 
 - (void)initialiseBubbleControllerManager{
     BubbleGridLayout *gridTemplate = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
-    controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea andDataModel:gameLoader andGridTemplate:gridTemplate];
-    [controllerDataManager setPaletteImages:self.paletteImages];
+//    controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea andDataModel:gameLoader andGridTemplate:gridTemplate];
+    @try{
+        controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea  andGridTemplate:gridTemplate andImageMappings:self.paletteImages];
+    }@catch(NSException *e){
+        [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];
+    }
+//    [controllerDataManager setPaletteImages:self.paletteImages];
 }
 
 - (void)initialiseCollectionView{
@@ -142,7 +147,7 @@
 }
 
 - (IBAction)backButtonPressed:(id)sender {
-    if([gameLoader hasUnsavedBubbles]){
+    if([self.controllerDataManager hasUnsavedBubbles]){
         selectorToExecute = @selector(goBackToMainMenu);
         [self showConfirmationWithTitle:@"Go to Main Menu" andMessage:@"Your unsaved changes will be lost! Are you sure you want to leave this page without saving?"];
     }else{
@@ -157,14 +162,14 @@
     }else if([label isEqualToString:GAME_LOAD]){
         [self load];
     }else if([label isEqualToString:GAME_SAVE]){
-        if([gameLoader currentLevel] != INVALID){
+        if([self.controllerDataManager currentLevel] != INVALID){
             selectorToExecute = @selector(save);
             [self showConfirmationWithTitle:@"Save Level" andMessage:@"Existing level data will be overwritten. Continue?"];
         }else{
             [self save];
         }
     }else{
-        if([gameLoader hasUnsavedBubbles]){
+        if([self.controllerDataManager hasUnsavedBubbles]){
             selectorToExecute = @selector(reset);
             [self showConfirmationWithTitle:@"Reset Level" andMessage:@"Your unsaved changes will be lost! Are you sure you want to reset the game level?"];
         }else{
@@ -184,9 +189,9 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([segue.identifier isEqualToString:@"designerToGame"]){
-        [self.gameLoader saveUnsavedStateToTempFile];
+        [self.controllerDataManager saveUnsavedStateToTempFile];
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
-        [controller setOriginalBubbleModels:[self.gameLoader getAllBubbleModels]];
+        [controller setOriginalBubbleModels:[self.controllerDataManager getAllBubbleModels]];
         [controller setPreviousScreen:LEVEL_DESIGNER];
     }
 }
@@ -222,8 +227,23 @@
     }
 }
 
+- (void)loadGameLevelWithModels:(NSDictionary *)models{
+    [self.controllerDataManager clearAll];
+    [self loadBubblesFromModels:models];
+    [self updateCurrentLevelView];
+}
+
+- (void)updateCurrentLevelView{
+    NSInteger currentLevel = [self.controllerDataManager currentLevel];
+    if(currentLevel == INVALID){
+        [self.levelIndicator setText:[NSString stringWithFormat:LEVEL_INDICATOR_TEXT, @"NEW"]];
+    }else{
+        [self.levelIndicator setText:[NSString stringWithFormat:LEVEL_INDICATOR_TEXT, [NSNumber numberWithInteger:currentLevel]]];
+    }
+}
+
 - (void)loadLevelFromTempIfTempFileExists{
-    NSDictionary *models = [gameLoader loadUnsavedStateFromTempFile];
+    NSDictionary *models = [self.controllerDataManager loadUnsavedStateFromTempFile];
     if(models != nil){
         [self loadGameLevelWithModels:models];
     }
@@ -232,7 +252,7 @@
 - (void)loadPreviousGameLevel{
     @try{
         [self reset];
-        NSDictionary *models = [self.gameLoader loadPreviousLevel];
+        NSDictionary *models = [self.controllerDataManager loadPreviousLevel];
         [self loadGameLevelWithModels:models];
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
@@ -242,33 +262,13 @@
 - (void)loadGameLevel:(NSInteger)level{
     @try{
         [self reset];
-        NSDictionary *models = [self.gameLoader loadLevel:level];
+        NSDictionary *models = [self.controllerDataManager loadLevel:level];
         [self loadGameLevelWithModels:models];
     }@catch(NSException *e){
         [self updateCurrentLevelView];
         [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
     }
 }
-
-- (void)loadGameLevelWithModels:(NSDictionary *)models{
-    [self.controllerDataManager clearAll];
-    [self loadBubblesFromModels:models];
-    [self updateCurrentLevelView];
-}
-
-- (NSInteger)getCurrentLevel{
-    return [gameLoader currentLevel];
-}
-
-- (void)updateCurrentLevelView{
-    NSInteger currentLevel = [self getCurrentLevel];
-    if(currentLevel == INVALID){
-        [self.levelIndicator setText:[NSString stringWithFormat:LEVEL_INDICATOR_TEXT, @"NEW"]];
-    }else{
-        [self.levelIndicator setText:[NSString stringWithFormat:LEVEL_INDICATOR_TEXT, [NSNumber numberWithInteger:currentLevel]]];
-    }
-}
-
 
 - (void)resetControllerState{
     [self.controllerDataManager removeAllBubbles];
@@ -277,7 +277,7 @@
 
 - (void)loadNewLevel{
     [self resetControllerState];
-    [self.gameLoader loadNewLevel];
+    [self.controllerDataManager loadNewLevel];
     [self updateCurrentLevelView];
 }
 
@@ -290,7 +290,7 @@
     //Saves data model for current level to file.
     //Loads blank palette for next level
     @try{
-        [self.gameLoader saveLevel];
+        [self.controllerDataManager saveLevel];
         [self showAlertWithTitle:@"Save Level" andMessage:SAVE_SUCCESSFUL_MSG];
         [self updateCurrentLevelView];
         [levelSelector updateLevelOptions];
@@ -300,8 +300,9 @@
 }
 
 - (void)reset{
+    //TODO:
     [self resetControllerState];
-    [self.gameLoader reset];
+    [self.controllerDataManager resetGameLoader];
 }
 
 - (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
@@ -336,7 +337,7 @@
 - (void)selectedLevel:(NSInteger)levelIndex{
     selectedLevel = levelIndex;
     [levelSelectorPopover dismissPopoverAnimated:YES];
-    if([gameLoader hasUnsavedBubbles]){
+    if([self.controllerDataManager hasUnsavedBubbles]){
         selectorToExecute = @selector(handleLevelSelection);
         [self showConfirmationWithTitle:@"Load Level" andMessage:@"Your current unsaved changes will be lost when level is loaded. Continue?"];
     }else{
@@ -352,7 +353,7 @@
     
 }
 - (NSArray *)getAvailableLevels{
-    return [self.gameLoader getAvailableLevels];
+    return [self.controllerDataManager getAvailableLevels];
 }
 
 #pragma mark - Abstract Methods

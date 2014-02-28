@@ -21,15 +21,28 @@
 @synthesize gameArea;
 @synthesize paletteImages;
 
-- (id)initWithView:(UIView *)view andDataModel:(GameLevelLoader *)model andGridTemplate:template{
+- (id)initWithView:(UIView *)view andDataModel:(GameLevelLoader *)model andGridTemplate:bubbleTemplate{
     if(self = [super init]){
         bubbleControllerManager = [[BubbleManager alloc] initWithNumofRows:NUM_OF_ROWS andColumns:NUM_CELLS_IN_ROW];
         gameArea = view;
         gameLoader = model;
-        gridTemplate = template;
+        gridTemplate = bubbleTemplate;
     }
     return self;
 }
+
+- (id)initWithView:(UIView *)view andGridTemplate:(BubbleGridLayout *)bubbleTemplate andImageMappings:(NSDictionary *)mappings{
+    if(self = [super init]){
+        bubbleControllerManager = [[BubbleManager alloc] initWithNumofRows:NUM_OF_ROWS andColumns:NUM_CELLS_IN_ROW];
+        gameArea = view;
+        gridTemplate = bubbleTemplate;
+        paletteImages = mappings;
+        gameLoader = [[GameLevelLoader alloc] init];
+    }
+    return self;
+
+}
+
 - (NSArray *)getAllObjects{
     return [self.bubbleControllerManager getAllObjects];
 }
@@ -136,124 +149,162 @@
         [bubble removeBubble];
     }
 }
-/*
-#pragma mark - functions to handle load/save/reset
-- (void)loadLevelFromTempIfTempFileExists{
-    NSDictionary *models = [gameLoader loadUnsavedStateFromTempFile];
-    if(models != nil){
-        [self loadGameLevelWithModels:models];
-    }
+
+#pragma mark - game loader stuff
+
+- (BOOL)hasUnsavedBubbles{
+    return [gameLoader hasUnsavedBubbles];
 }
 
-- (void)loadPreviousGameLevel{
-    @try{
-        [self reset];
-        NSDictionary *models = [self.gameLoader loadPreviousLevel];
-        [self loadGameLevelWithModels:models];
-    }@catch(NSException *e){
-        [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
-    }
-}
-
-- (void)loadGameLevel:(NSInteger)level{
-    @try{
-        [self reset];
-        NSDictionary *models = [self.gameLoader loadLevel:level];
-        [self loadGameLevelWithModels:models];
-    }@catch(NSException *e){
-        [self updateCurrentLevelView];
-        [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
-    }
-}
-
-- (void)loadGameLevelWithModels:(NSDictionary *)models{
-    [self.bubbleControllerManager clearAll];
-    [self loadBubblesFromModels:models];
-    [self updateCurrentLevelView];
-}
-
-- (NSInteger)getCurrentLevel{
+- (NSInteger)currentLevel{
     return [gameLoader currentLevel];
 }
 
-- (void)updateCurrentLevelView{
-    NSInteger currentLevel = [self getCurrentLevel];
-    if(currentLevel == INVALID){
-        [self.levelIndicator setText:[NSString stringWithFormat:LEVEL_INDICATOR_TEXT, @"NEW"]];
-    }else{
-        [self.levelIndicator setText:[NSString stringWithFormat:LEVEL_INDICATOR_TEXT, [NSNumber numberWithInteger:currentLevel]]];
-    }
+- (void)saveUnsavedStateToTempFile{
+    [gameLoader saveUnsavedStateToTempFile];
 }
 
-- (void)loadBubblesFromModels:(NSDictionary *)bubbleModels{
-    for(NSNumber *ID in bubbleModels){
-        BubbleModel *model = [bubbleModels objectForKey:ID];
-        NSIndexPath *gridIndex = [self.bubbleGrid indexPathForItemAtPoint:[model center]];
-        BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self andGridTemplate:gridTemplate];
-        [bubble addBubbleFromModel:model];
-        [self insertBubbleController:bubble AtCollectionViewIndex:gridIndex];
-    }
+- (NSDictionary *)getAllBubbleModels{
+    return [gameLoader getAllBubbleModels];
 }
 
-- (void)resetControllerState{
-    [self removeAllBubbles];
-    [self.bubbleControllerManager clearAll];
+- (NSDictionary *)loadUnsavedStateFromTempFile{
+    return [gameLoader loadUnsavedStateFromTempFile];
+}
+
+- (NSDictionary *)loadPreviousLevel{
+    return [gameLoader loadPreviousLevel];
+}
+
+- (NSDictionary *)loadLevel:(NSInteger)level{
+    return [gameLoader loadLevel:level];
+}
+
+- (NSInteger)saveLevel{
+    return [gameLoader saveLevel];
 }
 
 - (void)loadNewLevel{
-    [self resetControllerState];
-    [self.gameLoader loadNewLevel];
-    [self updateCurrentLevelView];
+    [gameLoader loadNewLevel];
 }
 
-- (void)load{
-    //Shows level selector popover view. currently selection of level will load the level and wipe whatever is on screen, even if it is an unsaved level. Future work: add warning dialog if level has not been saved.
-    [levelSelectorPopover presentPopoverFromRect:loadButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+- (void)resetGameLoader{
+    //TEMP
+    [gameLoader reset];
 }
 
-- (void)save{
-    //Saves data model for current level to file.
-    //Loads blank palette for next level
-    @try{
-        [self.gameLoader saveLevel];
-        [self showAlertWithTitle:@"Save Level" andMessage:SAVE_SUCCESSFUL_MSG];
-        [self updateCurrentLevelView];
-        [levelSelector updateLevelOptions];
-    }@catch(NSException *e){
-        [self showAlertWithTitle:@"Save Level" andMessage:SAVE_UNSUCCESSFUL_MSG];
-    }
+- (NSArray *)getAvailableLevels{
+    return [gameLoader getAvailableLevels];
 }
+//
+//#pragma mark - functions to handle load/save/reset
+//- (void)loadLevelFromTempIfTempFileExists{
+//    NSDictionary *models = [gameLoader loadUnsavedStateFromTempFile];
+//    if(models != nil){
+//        [self loadGameLevelWithModels:models];
+//    }
+//}
+//
+//- (void)loadPreviousGameLevel{
+//    @try{
+//        [self reset];
+//        NSDictionary *models = [self.gameLoader loadPreviousLevel];
+//        [self loadGameLevelWithModels:models];
+//    }@catch(NSException *e){
+//        [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
+//    }
+//}
+//
+//- (void)loadGameLevel:(NSInteger)level{
+//    @try{
+//        [self reset];
+//        NSDictionary *models = [self.gameLoader loadLevel:level];
+//        [self loadGameLevelWithModels:models];
+//    }@catch(NSException *e){
+//        [self updateCurrentLevelView];
+//        [self showAlertWithTitle:@"Load Level" andMessage:[e reason]];
+//    }
+//}
+//
+//- (void)loadGameLevelWithModels:(NSDictionary *)models{
+//    [self.bubbleControllerManager clearAll];
+//    [self loadBubblesFromModels:models];
+//    [self updateCurrentLevelView];
+//}
+//
+//- (NSInteger)getCurrentLevel{
+//    return [gameLoader currentLevel];
+//}
+//
+//- (void)updateCurrentLevelView{
+//    NSInteger currentLevel = [self getCurrentLevel];
+//    if(currentLevel == INVALID){
+//        [self.levelIndicator setText:[NSString stringWithFormat:LEVEL_INDICATOR_TEXT, @"NEW"]];
+//    }else{
+//        [self.levelIndicator setText:[NSString stringWithFormat:LEVEL_INDICATOR_TEXT, [NSNumber numberWithInteger:currentLevel]]];
+//    }
+//}
+// 
+//- (void)resetControllerState{
+//    [self removeAllBubbles];
+//    [self.bubbleControllerManager clearAll];
+//}
+//
+//- (void)loadNewLevel{
+//    [self resetControllerState];
+//    [self.gameLoader loadNewLevel];
+//    [self updateCurrentLevelView];
+//}
+//
+//- (void)load{
+//    //Shows level selector popover view. currently selection of level will load the level and wipe whatever is on screen, even if it is an unsaved level. Future work: add warning dialog if level has not been saved.
+//    [levelSelectorPopover presentPopoverFromRect:loadButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+//}
+//
+//- (void)save{
+//    //Saves data model for current level to file.
+//    //Loads blank palette for next level
+//    @try{
+//        [self.gameLoader saveLevel];
+//        [self showAlertWithTitle:@"Save Level" andMessage:SAVE_SUCCESSFUL_MSG];
+//        [self updateCurrentLevelView];
+//        [levelSelector updateLevelOptions];
+//    }@catch(NSException *e){
+//        [self showAlertWithTitle:@"Save Level" andMessage:SAVE_UNSUCCESSFUL_MSG];
+//    }
+//}
+//
+//- (void)reset{
+//    [self resetControllerState];
+//    [self.gameLoader reset];
+//}
+//
+//- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+//                                                    message:message
+//                                                   delegate:nil
+//                                          cancelButtonTitle:@"OK"
+//                                          otherButtonTitles:nil];
+//    [alert show];
+//}
+//
+//- (void)showConfirmationWithTitle:(NSString *)title andMessage:(NSString *)message{
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
+//                                                    message:message
+//                                                   delegate:self
+//                                          cancelButtonTitle:@"Cancel"
+//                                          otherButtonTitles:@"Proceed",nil];
+//    [alert show];
+//}
+//
+//#pragma mark - alert view delegate methods
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    if(buttonIndex != 0 & selectorToExecute != nil){
+//        IMP implementation = [self methodForSelector:selectorToExecute];
+//        void (*func)() = (void *)implementation;
+//        func();
+//    }
+//}
+//
 
-- (void)reset{
-    [self resetControllerState];
-    [self.gameLoader reset];
-}
-
-- (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-}
-
-- (void)showConfirmationWithTitle:(NSString *)title andMessage:(NSString *)message{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Proceed",nil];
-    [alert show];
-}
-
-#pragma mark - alert view delegate methods
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex != 0 & selectorToExecute != nil){
-        IMP implementation = [self methodForSelector:selectorToExecute];
-        void (*func)() = (void *)implementation;
-        func();
-    }
-}
-*/
 @end
