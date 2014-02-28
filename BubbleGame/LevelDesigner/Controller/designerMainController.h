@@ -22,7 +22,7 @@
 // Constants for the three game objects to be implemented
 typedef enum {kGameBubbleBasic} GameBubbleType;
 
-@interface GameBubble : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, BubbleControllerDelegate, LevelSelectorDelegate>
+@interface designerMainController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, BubbleControllerDelegate, LevelSelectorDelegate>
 
 @property (strong, nonatomic) NSDictionary *paletteImages;
 @property (strong, nonatomic) NSDictionary *paletteButtons;

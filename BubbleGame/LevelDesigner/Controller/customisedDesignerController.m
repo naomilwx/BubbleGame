@@ -6,7 +6,7 @@
 //
 //
 
-#import "GameBubbleImplementation.h"
+#import "customisedDesignerController.h"
 #import "BubbleController.h"
 #import "GameEngineInitDelegate.h"
 #import "GameLogic.h"
@@ -16,13 +16,13 @@
 #define EXCLUDED_TYPES @[[NSNumber numberWithInt:ERASER]]
 #define NUM_PALETTE_SELECTION 9
 
-@interface GameBubbleImplementation ()
+@interface customisedDesignerController ()
 
 @property (nonatomic) GamePaletteSelection selectedType;
 
 @end
 
-@implementation GameBubbleImplementation
+@implementation customisedDesignerController
 
 @synthesize orangeButton;
 @synthesize blueButton;
@@ -52,9 +52,6 @@
         [items setObject:[UIImage imageNamed:@"eraser-1"] forKey:[NSNumber numberWithInt:ERASER]];
         self.paletteImages = items;
     }
-}
-- (IBAction)test:(id)sender {
-    NSLog(@"clicked");
 }
 
 - (void)initialisePaletteButtonsMapping{

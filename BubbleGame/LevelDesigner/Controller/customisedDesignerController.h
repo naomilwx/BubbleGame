@@ -6,9 +6,9 @@
 //
 //
 
-#import "GameBubble.h"
+#import "designerMainController.h"
 
-@interface GameBubbleImplementation : GameBubble
+@interface customisedDesignerController : designerMainController
 
 @property (strong, nonatomic) IBOutlet UIImageView *orangeButton;
 @property (strong, nonatomic) IBOutlet UIImageView *blueButton;

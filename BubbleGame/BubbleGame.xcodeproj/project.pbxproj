@@ -26,8 +26,8 @@
 		C2058A0318B67C4B003AC20C /* bubble-green.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589D618B67C4B003AC20C /* bubble-green.png */; };
 		C2058A0418B67C4B003AC20C /* bubble-orange.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589D718B67C4B003AC20C /* bubble-orange.png */; };
 		C2058A0518B67C4B003AC20C /* bubble-red.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589D818B67C4B003AC20C /* bubble-red.png */; };
-		C2058A0618B67C4B003AC20C /* GameBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589DD18B67C4B003AC20C /* GameBubble.m */; };
-		C2058A0718B67C4B003AC20C /* GameBubbleImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589DF18B67C4B003AC20C /* GameBubbleImplementation.m */; };
+		C2058A0618B67C4B003AC20C /* designerMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589DD18B67C4B003AC20C /* designerMainController.m */; };
+		C2058A0718B67C4B003AC20C /* customisedDesignerController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589DF18B67C4B003AC20C /* customisedDesignerController.m */; };
 		C2058A0818B67C4B003AC20C /* LevelSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589E118B67C4B003AC20C /* LevelSelector.m */; };
 		C2058A0A18B67C4B003AC20C /* eraser-1.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589E518B67C4B003AC20C /* eraser-1.png */; };
 		C2058A0B18B67C4B003AC20C /* eraser-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C20589E618B67C4B003AC20C /* eraser-2.jpg */; };
@@ -111,10 +111,10 @@
 		C20589D718B67C4B003AC20C /* bubble-orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-orange.png"; path = "../LevelDesigner/bubble-orange.png"; sourceTree = "<group>"; };
 		C20589D818B67C4B003AC20C /* bubble-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-red.png"; path = "../LevelDesigner/bubble-red.png"; sourceTree = "<group>"; };
 		C20589DB18B67C4B003AC20C /* BubbleControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BubbleControllerDelegate.h; path = LevelDesigner/Controller/BubbleControllerDelegate.h; sourceTree = SOURCE_ROOT; };
-		C20589DC18B67C4B003AC20C /* GameBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBubble.h; path = LevelDesigner/Controller/GameBubble.h; sourceTree = SOURCE_ROOT; };
-		C20589DD18B67C4B003AC20C /* GameBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBubble.m; path = LevelDesigner/Controller/GameBubble.m; sourceTree = SOURCE_ROOT; };
-		C20589DE18B67C4B003AC20C /* GameBubbleImplementation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameBubbleImplementation.h; path = LevelDesigner/Controller/GameBubbleImplementation.h; sourceTree = SOURCE_ROOT; };
-		C20589DF18B67C4B003AC20C /* GameBubbleImplementation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameBubbleImplementation.m; path = LevelDesigner/Controller/GameBubbleImplementation.m; sourceTree = SOURCE_ROOT; };
+		C20589DC18B67C4B003AC20C /* designerMainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = designerMainController.h; path = LevelDesigner/Controller/designerMainController.h; sourceTree = SOURCE_ROOT; };
+		C20589DD18B67C4B003AC20C /* designerMainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = designerMainController.m; path = LevelDesigner/Controller/designerMainController.m; sourceTree = SOURCE_ROOT; };
+		C20589DE18B67C4B003AC20C /* customisedDesignerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = customisedDesignerController.h; path = LevelDesigner/Controller/customisedDesignerController.h; sourceTree = SOURCE_ROOT; };
+		C20589DF18B67C4B003AC20C /* customisedDesignerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = customisedDesignerController.m; path = LevelDesigner/Controller/customisedDesignerController.m; sourceTree = SOURCE_ROOT; };
 		C20589E018B67C4B003AC20C /* LevelSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelector.h; path = LevelDesigner/Controller/LevelSelector.h; sourceTree = SOURCE_ROOT; };
 		C20589E118B67C4B003AC20C /* LevelSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LevelSelector.m; path = LevelDesigner/Controller/LevelSelector.m; sourceTree = SOURCE_ROOT; };
 		C20589E218B67C4B003AC20C /* LevelSelectorDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelSelectorDelegate.h; path = LevelDesigner/Controller/LevelSelectorDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -323,10 +323,10 @@
 				C20589DB18B67C4B003AC20C /* BubbleControllerDelegate.h */,
 				C20589EC18B67C4B003AC20C /* BubbleController.h */,
 				C20589ED18B67C4B003AC20C /* BubbleController.m */,
-				C20589DC18B67C4B003AC20C /* GameBubble.h */,
-				C20589DD18B67C4B003AC20C /* GameBubble.m */,
-				C20589DE18B67C4B003AC20C /* GameBubbleImplementation.h */,
-				C20589DF18B67C4B003AC20C /* GameBubbleImplementation.m */,
+				C20589DC18B67C4B003AC20C /* designerMainController.h */,
+				C20589DD18B67C4B003AC20C /* designerMainController.m */,
+				C20589DE18B67C4B003AC20C /* customisedDesignerController.h */,
+				C20589DF18B67C4B003AC20C /* customisedDesignerController.m */,
 				C20589E018B67C4B003AC20C /* LevelSelector.h */,
 				C20589E118B67C4B003AC20C /* LevelSelector.m */,
 				C20589E218B67C4B003AC20C /* LevelSelectorDelegate.h */,
@@ -603,7 +603,7 @@
 				C2058A8418B682EE003AC20C /* BubbleView.m in Sources */,
 				C2058A1518B67C4B003AC20C /* BubbleCell.m in Sources */,
 				C2058A1218B67C4B003AC20C /* DataManager.m in Sources */,
-				C2058A0718B67C4B003AC20C /* GameBubbleImplementation.m in Sources */,
+				C2058A0718B67C4B003AC20C /* customisedDesignerController.m in Sources */,
 				C229890A18BDFCF300FEED38 /* CGPointExtension.m in Sources */,
 				C2817A0218BAF3B6007527FA /* GameLogic.m in Sources */,
 				C2058A7218B67F44003AC20C /* BubbleEngine.m in Sources */,
@@ -620,7 +620,7 @@
 				C2908B1618BF883300499B4C /* PathPlotter.m in Sources */,
 				C267044818B8AB8800DC6448 /* BubbleLoader.m in Sources */,
 				C28179FA18B8D278007527FA /* TaggedObject.m in Sources */,
-				C2058A0618B67C4B003AC20C /* GameBubble.m in Sources */,
+				C2058A0618B67C4B003AC20C /* designerMainController.m in Sources */,
 				C2908B1918C02BA300499B4C /* ScoreDisplay.m in Sources */,
 				C2058A8118B67F44003AC20C /* ViewController.m in Sources */,
 				C20589AB18B67B9E003AC20C /* AppDelegate.m in Sources */,

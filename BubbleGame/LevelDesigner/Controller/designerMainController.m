@@ -6,7 +6,7 @@
 //
 //
 
-#import "GameBubble.h"
+#import "designerMainController.h"
 #import <UIKit/UIKit.h>
 #import "BubbleGridLayout.h"
 #import "BubbleCell.h"
@@ -18,7 +18,7 @@
 #define LEVEL_INDICATOR_TEXT @"Level: %@"
 #define DESIGNER_TO_MENU @"designerToMenu"
 
-@interface GameBubble()
+@interface designerMainController()
 
 - (void)save;
 // REQUIRES: game in designer mode
@@ -36,7 +36,7 @@
 
 @end
 
-@implementation GameBubble {
+@implementation designerMainController {
     UIImage *backgroundImage;
     SEL selectorToExecute;
     NSInteger selectedLevel;
