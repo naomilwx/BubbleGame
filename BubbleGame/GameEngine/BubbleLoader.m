@@ -12,6 +12,7 @@
 @implementation BubbleLoader{
     Queue *bubbleQueue;
     NSArray *bubbleTypes;
+    NSInteger bubbleCount;
 }
 
 @synthesize mainFrame;
@@ -23,6 +24,7 @@
         mainFrame = [[UIView alloc] initWithFrame:frame];
         bubbleTypeMappings = mapping;
         bubbleRadius = radius;
+        bubbleCount = 0;
         bubbleTypes = [bubbleTypeMappings allKeys];
         [self loadBubbleQueue];
     }
@@ -55,6 +57,7 @@
 }
 
 - (void)addNextBubbleView{
+    bubbleCount += 1;
     TaggedObject *taggedBubbleView = [self createNextBubbleView];
     BubbleView *bubbleView = [taggedBubbleView object];
     [bubbleQueue enqueue:taggedBubbleView];
