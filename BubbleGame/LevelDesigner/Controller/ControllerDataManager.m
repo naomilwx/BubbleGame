@@ -31,11 +31,17 @@
     return self;
 }
 - (NSArray *)getAllObjects{
-    return [bubbleControllerManager getAllObjects];
+    return [self.bubbleControllerManager getAllObjects];
 }
 
 - (void)clearAll{
-    [bubbleControllerManager clearAll];
+    [self.bubbleControllerManager clearAll];
+}
+
+- (void)addBubbleFromModel:(BubbleModel *)model atIndex:(NSIndexPath *)index{
+    BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self andGridTemplate:gridTemplate];
+    [bubble addBubbleFromModel:model];
+    [self insertBubbleController:bubble AtCollectionViewIndex:index];
 }
 
 #pragma mark - Delegate Methods for BubbleController
@@ -122,6 +128,14 @@
     NSInteger rowPosInGrid = [gridTemplate getRowPositionFromIndex:index.item];
     [self.bubbleControllerManager removeObjectAtRow:rowInGrid andPosition:rowPosInGrid];
 }
+
+- (void)removeAllBubbles{
+    //Gets invokes removeBubble method of all controllers, which removes all bubble models and bubble views
+    NSArray *allBubbles = [self.bubbleControllerManager getAllObjects];
+    for(BubbleController *bubble in allBubbles){
+        [bubble removeBubble];
+    }
+}
 /*
 #pragma mark - functions to handle load/save/reset
 - (void)loadLevelFromTempIfTempFileExists{
@@ -178,14 +192,6 @@
         BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self andGridTemplate:gridTemplate];
         [bubble addBubbleFromModel:model];
         [self insertBubbleController:bubble AtCollectionViewIndex:gridIndex];
-    }
-}
-
-- (void)removeAllBubbles{
-    //Gets invokes removeBubble method of all controllers, which removes all bubble models and bubble views
-    NSArray *allBubbles = [self.bubbleControllerManager getAllObjects];
-    for(BubbleController *bubble in allBubbles){
-        [bubble removeBubble];
     }
 }
 

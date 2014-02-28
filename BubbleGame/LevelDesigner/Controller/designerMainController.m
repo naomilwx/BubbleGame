@@ -11,7 +11,6 @@
 #import "BubbleGridLayout.h"
 #import "BubbleCell.h"
 #import "GameLogic.h"
-#import "BubbleController.h"
 #import "GameEngineInitDelegate.h"
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
@@ -215,6 +214,14 @@
 }
 
 #pragma mark - functions to handle load/save/reset
+- (void)loadBubblesFromModels:(NSDictionary *)bubbleModels{
+    for(NSNumber *ID in bubbleModels){
+        BubbleModel *model = [bubbleModels objectForKey:ID];
+        NSIndexPath *gridIndex = [self.bubbleGrid indexPathForItemAtPoint:[model center]];
+        [self.controllerDataManager addBubbleFromModel:model atIndex:gridIndex];
+    }
+}
+
 - (void)loadLevelFromTempIfTempFileExists{
     NSDictionary *models = [gameLoader loadUnsavedStateFromTempFile];
     if(models != nil){
@@ -262,27 +269,9 @@
     }
 }
 
-- (void)loadBubblesFromModels:(NSDictionary *)bubbleModels{
-    BubbleGridLayout *gridTemplate = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
-    for(NSNumber *ID in bubbleModels){
-        BubbleModel *model = [bubbleModels objectForKey:ID];
-        NSIndexPath *gridIndex = [self.bubbleGrid indexPathForItemAtPoint:[model center]];
-        BubbleController *bubble = [[BubbleController alloc] initWithMasterController:controllerDataManager andGridTemplate:gridTemplate];
-        [bubble addBubbleFromModel:model];
-        [self.controllerDataManager insertBubbleController:bubble AtCollectionViewIndex:gridIndex];
-    }
-}
-
-- (void)removeAllBubbles{
-    //Gets invokes removeBubble method of all controllers, which removes all bubble models and bubble views
-    NSArray *allBubbles = [self.controllerDataManager getAllObjects];
-    for(BubbleController *bubble in allBubbles){
-        [bubble removeBubble];
-    }
-}
 
 - (void)resetControllerState{
-    [self removeAllBubbles];
+    [self.controllerDataManager removeAllBubbles];
     [self.controllerDataManager clearAll];
 }
 

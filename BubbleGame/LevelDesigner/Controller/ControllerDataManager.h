@@ -11,6 +11,7 @@
 #import "GameLevelLoader.h"
 #import "BubbleGridLayout.h"
 #import "BubbleControllerDelegate.h"
+#import "BubbleModel.h"
 
 @interface ControllerDataManager: NSObject <BubbleControllerDelegate>
 
@@ -22,6 +23,8 @@
 
 - (id)initWithView:(UIView *)view andDataModel:(GameLevelLoader *)model andGridTemplate:(BubbleGridLayout *)template;
 
+//- (id)initWithView:(UIView *)view andGridTemplate:(BubbleGridLayout *)template;
+
 - (id)getBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
 
 - (NSInteger)getBubbleTypeForBubbleAtCollectionViewIndex:(NSIndexPath *)index;
@@ -29,6 +32,8 @@
 - (BOOL)modifyBubbleAtCollectionViewIndex:(NSIndexPath *)index ToType:(NSInteger)type;
 //Modifies type of bubble at given index
 //Returns YES if a bubble exists at the given index. NO otherwise
+
+- (void)addBubbleFromModel:(BubbleModel *)model atIndex:(NSIndexPath *)index;
 
 - (void)insertBubbleController:(id)controller AtCollectionViewIndex:(NSIndexPath *)index;
 
@@ -43,4 +48,6 @@
 - (NSArray *)getAllObjects;
 
 - (void)clearAll;
+
+- (void)removeAllBubbles;
 @end
