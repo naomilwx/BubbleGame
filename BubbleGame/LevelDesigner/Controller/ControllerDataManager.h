@@ -12,7 +12,7 @@
 #import "BubbleGridLayout.h"
 #import "BubbleControllerDelegate.h"
 
-@interface BubbleControllerManager : NSObject <BubbleControllerDelegate>
+@interface ControllerDataManager: NSObject <BubbleControllerDelegate>
 
 @property (strong) BubbleManager *bubbleControllerManager;
 @property (strong) GameLevelLoader *gameLoader;
@@ -24,6 +24,10 @@
 
 - (id)getBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
 
+- (NSInteger)getBubbleTypeForBubbleAtCollectionViewIndex:(NSIndexPath *)index;
+
+- (void)modifyBubbleAtCollectionViewIndex:(NSIndexPath *)index ToType:(NSInteger)type;
+
 - (void)insertBubbleController:(id)controller AtCollectionViewIndex:(NSIndexPath *)index;
 
 - (void)removeBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
@@ -32,4 +36,7 @@
 
 - (void)removeBubbleAtCollectionViewIndex:(NSIndexPath *)index;
 
+- (NSArray *)getAllObjects;
+
+- (void)clearAll;
 @end

@@ -120,7 +120,7 @@
     CGPoint point = [gesture locationInView:self.bubbleGrid];
     NSIndexPath *cellIndexPath = [self.bubbleGrid indexPathForItemAtPoint:point];
     if(cellIndexPath){
-        [self removeBubbleAtCollectionViewIndex:cellIndexPath];
+        [self.bubbleControllerManager removeBubbleAtCollectionViewIndex:cellIndexPath];
     }
 }
 - (void)gridPanHandler:(UIGestureRecognizer *)gesture{
@@ -141,7 +141,7 @@
     if(self.selectedType != ERASER){
         [self addOrModifyBubbleAtCollectionViewIndex:index];
     }else{
-        [self removeBubbleAtCollectionViewIndex:index];
+        [self.bubbleControllerManager removeBubbleAtCollectionViewIndex:index];
     }
 }
 
@@ -149,9 +149,9 @@
 
 - (void)addOrModifyBubbleAtCollectionViewIndex:(NSIndexPath *)index{
     //Requires: index path not nil
-    BubbleController *bubble = [self getBubbleControllerAtCollectionViewIndex:index];
+    BubbleController *bubble = [self.bubbleControllerManager getBubbleControllerAtCollectionViewIndex:index];
     if([bubble isEqual:[NSNull null]]){
-        [self addBubbleAtCollectionViewIndex:index withType:self.selectedType];
+        [self.bubbleControllerManager addBubbleAtCollectionViewIndex:index withType:self.selectedType];
     }else{
         [bubble modifyBubbletoType:self.selectedType];
     }

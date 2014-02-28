@@ -73,7 +73,7 @@
 		C2908B1918C02BA300499B4C /* ScoreDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1818C02BA300499B4C /* ScoreDisplay.m */; };
 		C2908B2018C03CE600499B4C /* UIImageView+AnimationCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1F18C03CE600499B4C /* UIImageView+AnimationCompletion.m */; };
 		C2908B2318C0546F00499B4C /* CannonController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B2218C0546F00499B4C /* CannonController.m */; };
-		C2908B2618C0898100499B4C /* BubbleControllerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B2518C0898100499B4C /* BubbleControllerManager.m */; };
+		C2908B2618C0898100499B4C /* ControllerDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B2518C0898100499B4C /* ControllerDataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,8 +195,8 @@
 		C2908B1F18C03CE600499B4C /* UIImageView+AnimationCompletion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AnimationCompletion.m"; sourceTree = "<group>"; };
 		C2908B2118C0546F00499B4C /* CannonController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CannonController.h; sourceTree = "<group>"; };
 		C2908B2218C0546F00499B4C /* CannonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannonController.m; sourceTree = "<group>"; };
-		C2908B2418C0898100499B4C /* BubbleControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleControllerManager.h; sourceTree = "<group>"; };
-		C2908B2518C0898100499B4C /* BubbleControllerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleControllerManager.m; sourceTree = "<group>"; };
+		C2908B2418C0898100499B4C /* ControllerDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerDataManager.h; sourceTree = "<group>"; };
+		C2908B2518C0898100499B4C /* ControllerDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerDataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,8 +333,8 @@
 				C20589E018B67C4B003AC20C /* LevelSelector.h */,
 				C20589E118B67C4B003AC20C /* LevelSelector.m */,
 				C20589E218B67C4B003AC20C /* LevelSelectorDelegate.h */,
-				C2908B2418C0898100499B4C /* BubbleControllerManager.h */,
-				C2908B2518C0898100499B4C /* BubbleControllerManager.m */,
+				C2908B2418C0898100499B4C /* ControllerDataManager.h */,
+				C2908B2518C0898100499B4C /* ControllerDataManager.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -629,7 +629,7 @@
 				C2908B1918C02BA300499B4C /* ScoreDisplay.m in Sources */,
 				C2058A8118B67F44003AC20C /* ViewController.m in Sources */,
 				C20589AB18B67B9E003AC20C /* AppDelegate.m in Sources */,
-				C2908B2618C0898100499B4C /* BubbleControllerManager.m in Sources */,
+				C2908B2618C0898100499B4C /* ControllerDataManager.m in Sources */,
 				C2908B2018C03CE600499B4C /* UIImageView+AnimationCompletion.m in Sources */,
 				C2058A1618B67C4B003AC20C /* BubbleGridLayout.m in Sources */,
 				C20589A718B67B9E003AC20C /* main.m in Sources */,

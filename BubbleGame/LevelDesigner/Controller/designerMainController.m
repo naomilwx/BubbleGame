@@ -72,15 +72,14 @@
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];
     }
-    if(!bubbleControllerManager){
-        bubbleControllerManager = [[BubbleManager alloc] initWithNumofRows:NUM_OF_ROWS andColumns:NUM_CELLS_IN_ROW];
-    }
+
     [self initRequiredUIImages];
     [self loadBackground];
     [self loadPalette];
     [self initialiseCollectionView];
     [self addGestureRecognisersToCollectionView];
     [self.gameArea insertSubview:bubbleGrid belowSubview:backButton];
+    [self initialiseBubbleControllerManager];
     [self initialiseLevelSelectorPopover];
     [self loadLevelFromTempIfTempFileExists];
 }
@@ -91,7 +90,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)initialiseBubbleControllerManager{
+    BubbleGridLayout *gridTemplate = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
+    bubbleControllerManager = [[ControllerDataManager alloc] initWithView:self.gameArea andDataModel:gameLoader andGridTemplate:gridTemplate];
+    [bubbleControllerManager setPaletteImages:self.paletteImages];
+}
 
 - (void)initialiseCollectionView{
     NSInteger frameWidth = self.gameArea.frame.size.width;
@@ -203,81 +206,14 @@
     return [(BubbleGridLayout *)bubbleGrid.collectionViewLayout defaultBubbleCellCount];
 }
 
-#pragma mark - Delegate Methods for BubbleController
-- (void)addToView:(UIView *)view{
-    [self.gameArea addSubview:view];
-}
-
-- (NSInteger)addBubbleModelWithType:(NSInteger)type andWidth:(CGFloat)width andCenter:(CGPoint)center{
-    return [self.gameLoader addBubbleWithType:type andWidth:width andCenter:center];
-}
-
-- (void)modifyBubbleModelTypeTo:(NSInteger)type forBubble:(NSInteger)ID{
-    [self.gameLoader modifyBubbleTypeTo:type forBubble:ID];
-}
-
-- (void)removeBubbleModel:(NSInteger)ID{
-    [self.gameLoader removeBubble:ID];
-}
-
-- (void)modifyBubbleView:(BubbleView *)bubble toType:(NSInteger)type{
-    UIImage *image = [self.paletteImages objectForKey:[NSNumber numberWithInteger:type]];
-    [bubble loadImage:image];
-}
-
-- (BubbleView *)createBubbleViewWithCenter:(CGPoint)center andWidth:(CGFloat)width andType:(NSInteger)type{
-    UIImage *image = [self.paletteImages objectForKey:[NSNumber numberWithInteger:type]];
-    return [BubbleView createWithCenter:center andWidth:width andImage:image];
-}
 
 #pragma mark - operations on bubble in bubble grid for level creator
 - (void)cycleBubbleAtCollectionViewIndex:(NSIndexPath *)index{
-    BubbleController *bubble = [self getBubbleControllerAtCollectionViewIndex:index];
-    if(![bubble isEqual:[NSNull null]]){
-        NSInteger bubbleID = [bubble bubbleModelID];
-        NSInteger bubbleType = [self.gameLoader getBubbleType:bubbleID];
-        bubbleType = [self getNextBubbleTypeFromType:bubbleType];
-        [bubble modifyBubbletoType:bubbleType];
-    }
+    NSInteger previousType = [self.bubbleControllerManager getBubbleTypeForBubbleAtCollectionViewIndex:index];
+    NSInteger newType = [self getNextBubbleTypeFromType:previousType];
+    [self.bubbleControllerManager modifyBubbleAtCollectionViewIndex:index ToType:newType];
 }
 
-- (void)addBubbleAtCollectionViewIndex:(NSIndexPath *)index withType:(NSInteger)type{
-    BubbleGridLayout *gridTemplate = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
-    BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self andGridTemplate:gridTemplate];
-    [bubble addBubbleAtCollectionViewIndex:index withType:type];
-    [self insertBubbleController:bubble AtCollectionViewIndex:index];
-}
-
-- (void)removeBubbleAtCollectionViewIndex:(NSIndexPath *)index{
-    BubbleController *bubble = [self getBubbleControllerAtCollectionViewIndex:index];
-    if(![bubble isEqual:[NSNull null]]){
-        [bubble removeBubble];
-        [self removeBubbleControllerAtCollectionViewIndex:index];
-    }
-}
-
-#pragma mark - update datastructure which holds the individual bubble controllers
-- (BubbleController *)getBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index{
-    BubbleGridLayout *layoutManager = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
-    NSInteger rowInGrid = [layoutManager getRowNumberFromIndex:index.item];
-    NSInteger rowPosInGrid = [layoutManager getRowPositionFromIndex:index.item];
-    return [self.bubbleControllerManager getObjectAtRow:rowInGrid andPosition:rowPosInGrid];
-}
-
-- (void)insertBubbleController:(BubbleController *)controller AtCollectionViewIndex:(NSIndexPath *)index{
-    BubbleGridLayout *layoutManager = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
-    NSInteger rowInGrid = [layoutManager getRowNumberFromIndex:index.item];
-    NSInteger rowPosInGrid = [layoutManager getRowPositionFromIndex:index.item];
-    [self.bubbleControllerManager insertObject:controller AtRow:rowInGrid andPosition:rowPosInGrid];
-}
-
-- (void)removeBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index{
-    BubbleGridLayout *layoutManager = (BubbleGridLayout *)self.bubbleGrid.collectionViewLayout;
-    NSInteger rowInGrid = [layoutManager getRowNumberFromIndex:index.item];
-    NSInteger rowPosInGrid = [layoutManager getRowPositionFromIndex:index.item];
-    [self.bubbleControllerManager removeObjectAtRow:rowInGrid andPosition:rowPosInGrid];
-    
-}
 #pragma mark - functions to handle load/save/reset
 - (void)loadLevelFromTempIfTempFileExists{
     NSDictionary *models = [gameLoader loadUnsavedStateFromTempFile];
@@ -331,9 +267,9 @@
     for(NSNumber *ID in bubbleModels){
         BubbleModel *model = [bubbleModels objectForKey:ID];
         NSIndexPath *gridIndex = [self.bubbleGrid indexPathForItemAtPoint:[model center]];
-        BubbleController *bubble = [[BubbleController alloc] initWithMasterController:self andGridTemplate:gridTemplate];
+        BubbleController *bubble = [[BubbleController alloc] initWithMasterController:bubbleControllerManager andGridTemplate:gridTemplate];
         [bubble addBubbleFromModel:model];
-        [self insertBubbleController:bubble AtCollectionViewIndex:gridIndex];
+        [self.bubbleControllerManager insertBubbleController:bubble AtCollectionViewIndex:gridIndex];
     }
 }
 

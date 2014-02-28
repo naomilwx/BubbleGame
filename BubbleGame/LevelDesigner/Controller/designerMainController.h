@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "BubbleView.h"
-#import "BubbleControllerDelegate.h"
+#import "ControllerDataManager.h"
 #import "BubbleManager.h"
 #import "GameLevelLoader.h"
 #import "LevelSelector.h"
@@ -20,12 +20,11 @@
 #define TRANSLUCENT_ALPHA 0.35
 
 
-@interface designerMainController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, BubbleControllerDelegate, LevelSelectorDelegate>
+@interface designerMainController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, LevelSelectorDelegate>
 
 @property (strong, nonatomic) NSDictionary *paletteImages;
 @property (strong, nonatomic) NSDictionary *paletteButtons;
 @property (strong) GameLevelLoader *gameLoader;
-@property (strong) BubbleManager *bubbleControllerManager;
 @property (strong, nonatomic) IBOutlet UIView *gameArea;
 @property (strong, nonatomic) IBOutlet UIView *palette;
 @property (strong, nonatomic) IBOutlet UIImageView *background;
@@ -35,6 +34,7 @@
 @property (strong, nonatomic) UIPopoverController *levelSelectorPopover;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong) ControllerDataManager *bubbleControllerManager;
 
 - (void)tapHandler:(UIGestureRecognizer *)gesture;
 // MODIFIES: bubble model (color)
@@ -71,17 +71,7 @@
 //Requires: image and view not null
 //Effect: Makes given image the image of view
 
-- (id)getBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
-
-- (void)insertBubbleController:(id)controller AtCollectionViewIndex:(NSIndexPath *)index;
-
-- (void)removeBubbleControllerAtCollectionViewIndex:(NSIndexPath *)index;
-
 - (void)cycleBubbleAtCollectionViewIndex:(NSIndexPath *)index;
-
-- (void)addBubbleAtCollectionViewIndex:(NSIndexPath *)index withType:(NSInteger)type;
-
-- (void)removeBubbleAtCollectionViewIndex:(NSIndexPath *)index;
 
 - (NSInteger)getNextBubbleTypeFromType:(NSInteger)type;
 

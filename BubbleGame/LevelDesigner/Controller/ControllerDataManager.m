@@ -6,11 +6,11 @@
 //  Copyright (c) 2014 nus.cs3217. All rights reserved.
 //
 
-#import "BubbleControllerManager.h"
+#import "ControllerDataManager.h"
 #import "BubbleController.h"
 #import "GameLogic.h"
 
-@implementation BubbleControllerManager
+@implementation ControllerDataManager
 
 @synthesize bubbleControllerManager;
 @synthesize gameLoader;
@@ -26,6 +26,13 @@
         gridTemplate = template;
     }
     return self;
+}
+- (NSArray *)getAllObjects{
+    return [bubbleControllerManager getAllObjects];
+}
+
+- (void)clearAll{
+    [bubbleControllerManager clearAll];
 }
 
 #pragma mark - Delegate Methods for BubbleController
@@ -69,6 +76,23 @@
         [bubble removeBubble];
         [self removeBubbleControllerAtCollectionViewIndex:index];
     }
+}
+
+- (void)modifyBubbleAtCollectionViewIndex:(NSIndexPath *)index ToType:(NSInteger)type{
+    BubbleController *bubble = [self getBubbleControllerAtCollectionViewIndex:index];
+    if(![bubble isEqual:[NSNull null]]){
+        [bubble modifyBubbletoType:type];
+    }
+}
+
+- (NSInteger)getBubbleTypeForBubbleAtCollectionViewIndex:(NSIndexPath *)index{
+    BubbleController *bubble = [self getBubbleControllerAtCollectionViewIndex:index];
+    NSInteger bubbleType = INVALID;
+    if(![bubble isEqual:[NSNull null]]){
+        NSInteger bubbleID = [bubble bubbleModelID];
+        bubbleType = [self.gameLoader getBubbleType:bubbleID];
+    }
+    return bubbleType;
 }
 
 #pragma mark - update datastructure which holds the individual bubble controllers
