@@ -24,7 +24,6 @@
 
 @property (strong, nonatomic) NSDictionary *paletteImages;
 @property (strong, nonatomic) NSDictionary *paletteButtons;
-//@property (strong) GameLevelLoader *gameLoader;
 @property (strong, nonatomic) IBOutlet UIView *gameArea;
 @property (strong, nonatomic) IBOutlet UIView *palette;
 @property (strong, nonatomic) IBOutlet UIImageView *background;

@@ -184,20 +184,24 @@
     return [gameLoader saveLevel];
 }
 
-- (void)loadNewLevel{
-    [gameLoader loadNewLevel];
-}
-
-- (void)resetGameLoader{
-    //TEMP
-    [gameLoader reset];
-}
-
 - (NSArray *)getAvailableLevels{
     return [gameLoader getAvailableLevels];
 }
+
 //
-//#pragma mark - functions to handle load/save/reset
+#pragma mark - functions to handle load/save/reset
+- (void)resetLevel{
+    [self removeAllBubbles];
+    [self clearAll];
+    [gameLoader resetLevel];
+}
+
+- (void)loadNewLevel{
+    [self removeAllBubbles];
+    [self clearAll];
+    [gameLoader loadNewLevel];
+}
+
 //- (void)loadLevelFromTempIfTempFileExists{
 //    NSDictionary *models = [gameLoader loadUnsavedStateFromTempFile];
 //    if(models != nil){

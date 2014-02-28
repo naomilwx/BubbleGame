@@ -68,9 +68,9 @@
 
 - (NSInteger)saveLevel;
 
-- (void)loadNewLevel;
+- (void)resetLevel;
 
-- (void)resetGameLoader;
+- (void)loadNewLevel;
 
 - (NSArray *)getAvailableLevels;
 @end

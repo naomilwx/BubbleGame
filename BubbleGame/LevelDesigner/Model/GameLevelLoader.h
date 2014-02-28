@@ -37,7 +37,7 @@
 
 - (void)loadNewLevel;
 
-- (void)reset;
+- (void)resetLevel;
 
 - (void)saveUnsavedStateToTempFile;
 

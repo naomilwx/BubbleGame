@@ -48,7 +48,6 @@
 @synthesize bubbleGrid;
 @synthesize paletteImages;
 @synthesize paletteButtons;
-//@synthesize gameLoader;
 @synthesize controllerDataManager;
 @synthesize loadButton;
 @synthesize levelIndicator;
@@ -64,14 +63,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    @try{
-//        if(!gameLoader){
-//            gameLoader = [[GameLevelLoader alloc] init];
-//        }
-//    }@catch(NSException *e){
-//        [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];
-//    }
-
     [self initRequiredUIImages];
     [self loadBackground];
     [self loadPalette];
@@ -270,13 +261,8 @@
     }
 }
 
-- (void)resetControllerState{
-    [self.controllerDataManager removeAllBubbles];
-    [self.controllerDataManager clearAll];
-}
 
 - (void)loadNewLevel{
-    [self resetControllerState];
     [self.controllerDataManager loadNewLevel];
     [self updateCurrentLevelView];
 }
@@ -300,9 +286,7 @@
 }
 
 - (void)reset{
-    //TODO:
-    [self resetControllerState];
-    [self.controllerDataManager resetGameLoader];
+    [self.controllerDataManager resetLevel];
 }
 
 - (void)showAlertWithTitle:(NSString *)title andMessage:(NSString *)message{

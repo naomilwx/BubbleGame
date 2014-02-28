@@ -65,7 +65,7 @@
         hasUnsavedBubbles = NO;
         return [currentState getAllBubbles];
     }else{
-        [self reset];
+        [self resetLevel];
         currentLevel = level;
         NSException* exception = [NSException
                                   exceptionWithName:@"Load levels"
@@ -127,7 +127,7 @@
     return nextID;
 }
 
-- (void)reset{
+- (void)resetLevel{
     [currentState reset];
     hasUnsavedBubbles = NO;
 }
@@ -136,6 +136,7 @@
     currentLevel = INVALID;
     [currentState reset];
     [dataManager resetForNewLevel];
+    hasUnsavedBubbles = NO;
 }
 
 @end
