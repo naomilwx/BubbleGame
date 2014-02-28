@@ -292,7 +292,8 @@
 - (void)controlCannonWithGesture:(UIGestureRecognizer *)recogniser showPath:(BOOL)show{
     CGPoint point = [recogniser locationInView:self.gameBackground];
     if(show == YES){
-        [self.plotter addRayFromPoint:[self getStartingBubbleCenter] andPoint:point toView:self.gameBackground];
+        CGPoint vector = getUnitPositionVector([self getLaunchBaseCoordinates], point);
+        [self.plotter addRayFromPoint:[self getStartingBubbleCenter] withVector:vector toView:self.gameBackground];
     }
     if(!cannonLaunching){
         [self rotateCannonInDirection:point];

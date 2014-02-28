@@ -28,8 +28,7 @@
     return self;
 }
 
-- (NSArray *)getRayFromPoint:(CGPoint)point1 andPoint:(CGPoint)point2{
-    CGPoint posVector = getUnitPositionVector(point1, point2);
+- (NSArray *)getRayFromPoint:(CGPoint)point1 withVector:(CGPoint)posVector{
     NSMutableArray *ray = [[NSMutableArray alloc] init];
     CGPoint vectorToAdd = scaleVector(posVector, self.plotterInterval);
     if(getMagnitude(vectorToAdd) != 0){
@@ -44,9 +43,9 @@
     return ray;
 }
 
-- (void)addRayFromPoint:(CGPoint)point1 andPoint:(CGPoint)point2 toView:(UIView *)view{
+- (void)addRayFromPoint:(CGPoint)point1 withVector:(CGPoint)vector toView:(UIView *)view{
     [self removePreviousRay];
-    NSArray *ray = [self getRayFromPoint:point1 andPoint:point2];
+    NSArray *ray = [self getRayFromPoint:point1 withVector:vector];
     for(BubbleView *rayPoint in ray){
         [view addSubview:rayPoint];
     }

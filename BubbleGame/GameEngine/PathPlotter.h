@@ -16,9 +16,9 @@
 
 - (id)initWithFrame:(CGRect)frame andWidth:(CGFloat)width andInterval:(CGFloat)interval;
 
-- (NSArray *)getRayFromPoint:(CGPoint)point1 andPoint:(CGPoint)point2;
+- (NSArray *)getRayFromPoint:(CGPoint)point1 withVector:(CGPoint)posVector;
 
-- (void)addRayFromPoint:(CGPoint)point1 andPoint:(CGPoint)point2 toView:(UIView *)view;
+- (void)addRayFromPoint:(CGPoint)point1 withVector:(CGPoint)vector toView:(UIView *)view;
 
 - (void)removePreviousRay;
 
