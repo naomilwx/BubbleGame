@@ -12,12 +12,13 @@
 #import "BubbleModel.h"
 #import "GameLogic.h"
 #import "CGPointExtension.h"
+#import "UIImageView+AnimationCompletion.h"
 
 #define NUM_OF_CELLS_IN_ROW 12
 #define BUBBLE_LOADER_BUFFER 5
 #define CANNON_SIDE_BUFFER 10
 #define CANNON_HEIGHT 150
-#define CANNON_ANIMATION_DURATION 0.1
+#define CANNON_ANIMATION_DURATION 0.5
 #define RELOAD_DELAY 1
 #define BACK_BUTTON_XPOS 30
 #define BACK_BUTTON_YPOS 980
@@ -336,14 +337,13 @@
 - (void)launchBubbleWithInputPoint:(CGPoint)point{
     cannonLaunching = YES;
     bubbleInCannon = NO;
-    [cannon startAnimating];
-    void (^launchCode)() = ^{
+    void (^launchCode)(BOOL) = ^(BOOL complete){
         cannonLaunching = NO;
         CGPoint displacement = [self calculateLaunchDisplacementForInputPoint:point];
         [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
         [self launchBubbleWithDisplacementVector:displacement];
     };
-    [self executeBlock:launchCode afterDelay:CANNON_ANIMATION_DURATION];
+    [cannon startAnimatingWithCompletionBlock:launchCode];
 }
 
 - (CGPoint)calculateLaunchDisplacementForInputPoint:(CGPoint)point{

@@ -71,6 +71,7 @@
 		C2908B1318BF29C800499B4C /* GameState.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1218BF29C800499B4C /* GameState.m */; };
 		C2908B1618BF883300499B4C /* PathPlotter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1518BF883300499B4C /* PathPlotter.m */; };
 		C2908B1918C02BA300499B4C /* ScoreDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1818C02BA300499B4C /* ScoreDisplay.m */; };
+		C2908B2018C03CE600499B4C /* UIImageView+AnimationCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1F18C03CE600499B4C /* UIImageView+AnimationCompletion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +189,8 @@
 		C2908B1518BF883300499B4C /* PathPlotter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PathPlotter.m; sourceTree = "<group>"; };
 		C2908B1718C02BA300499B4C /* ScoreDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreDisplay.h; sourceTree = "<group>"; };
 		C2908B1818C02BA300499B4C /* ScoreDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreDisplay.m; sourceTree = "<group>"; };
+		C2908B1E18C03CE600499B4C /* UIImageView+AnimationCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AnimationCompletion.h"; sourceTree = "<group>"; };
+		C2908B1F18C03CE600499B4C /* UIImageView+AnimationCompletion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AnimationCompletion.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +475,8 @@
 				C20589EF18B67C4B003AC20C /* BubbleManager.m */,
 				C229890818BDFCF300FEED38 /* CGPointExtension.h */,
 				C229890918BDFCF300FEED38 /* CGPointExtension.m */,
+				C2908B1E18C03CE600499B4C /* UIImageView+AnimationCompletion.h */,
+				C2908B1F18C03CE600499B4C /* UIImageView+AnimationCompletion.m */,
 			);
 			name = DataStructures;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				C2908B1918C02BA300499B4C /* ScoreDisplay.m in Sources */,
 				C2058A8118B67F44003AC20C /* ViewController.m in Sources */,
 				C20589AB18B67B9E003AC20C /* AppDelegate.m in Sources */,
+				C2908B2018C03CE600499B4C /* UIImageView+AnimationCompletion.m in Sources */,
 				C2058A1618B67C4B003AC20C /* BubbleGridLayout.m in Sources */,
 				C20589A718B67B9E003AC20C /* main.m in Sources */,
 				C2058A1418B67C4B003AC20C /* GameDesignerState.m in Sources */,
