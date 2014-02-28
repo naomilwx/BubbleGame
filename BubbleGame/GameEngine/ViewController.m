@@ -274,8 +274,8 @@
     return addVectors(scaledOffset, cannon.center);
 }
 
-- (void)addMobileBubbleToEngine:(BubbleView *)bubble forType:(NSInteger)type{
-    [self.engine addMobileEngine:bubble withType:type];
+- (BubbleEngine *)addMobileBubbleToEngine:(BubbleView *)bubble forType:(NSInteger)type{
+    return [self.engine addMobileEngine:bubble withType:type];
 }
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser{
@@ -340,8 +340,7 @@
     void (^launchCode)(BOOL) = ^(BOOL complete){
         cannonLaunching = NO;
         CGPoint displacement = [self calculateLaunchDisplacementForInputPoint:point];
-        [self addMobileBubbleToEngine:[taggedCannonBubble object] forType:[[taggedCannonBubble tag] integerValue]];
-        [self launchBubbleWithDisplacementVector:displacement];
+        [self launchBubbleandReloadCannonWithDisplacementVector:displacement];
     };
     [cannon startAnimatingWithCompletionBlock:launchCode];
 }
@@ -357,9 +356,9 @@
     return displacement;
 }
 
-- (void)launchBubbleWithDisplacementVector:(CGPoint)vector{
+- (void)launchBubbleandReloadCannonWithDisplacementVector:(CGPoint)vector{
     //Sets displacement vector for bubble in its corresponding BubbleEngine instance
-    [engine setDisplacementVectorForBubble:vector];
+    [self.engine addMobileEngine:[taggedCannonBubble object] withType:[[taggedCannonBubble tag] integerValue] andInitialUnitDisplacement:vector];
     [self executeBlock:^{[self loadNextBubble];}
             afterDelay:RELOAD_DELAY];
 }

@@ -78,10 +78,17 @@
     [displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
-- (void)addMobileEngine:(id)bubble withType:(NSInteger)type{
+- (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type{
     BubbleEngine *bubbleEngine = [self createBubbleEngineWithView:(id)bubble andType:type];
     [mobileBubbles addObject:bubbleEngine];
     [bubbleGameState increaseLaunchedBubblesCount];
+    return bubbleEngine;
+}
+
+- (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type andInitialUnitDisplacement:(CGPoint)vector{
+    BubbleEngine *bubbleEngine = [self addMobileEngine:bubble withType:type];
+    [self setDisplacementVectorForBubbleEngine:bubbleEngine withUnitDisplacement:vector];
+    return bubbleEngine;
 }
 
 - (BubbleEngine *)createBubbleEngineWithView:(id)bubble andType:(NSInteger)type{
@@ -106,8 +113,13 @@
     [self checkGridBubbles];
 }
 
-- (void)setDisplacementVectorForBubble:(CGPoint)vector{
+- (void)setDisplacementVectorForNewestBubble:(CGPoint)vector{
     BubbleEngine *bubbleEngine = [mobileBubbles lastObject];
+    CGPoint displacement = CGPointMake(vector.x * defaultSpeed, vector.y * defaultSpeed);
+    [bubbleEngine setDisplacementVector:displacement];
+}
+
+- (void)setDisplacementVectorForBubbleEngine:(BubbleEngine *)bubbleEngine withUnitDisplacement:(CGPoint)vector{
     CGPoint displacement = CGPointMake(vector.x * defaultSpeed, vector.y * defaultSpeed);
     [bubbleEngine setDisplacementVector:displacement];
 }

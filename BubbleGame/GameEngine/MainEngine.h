@@ -24,9 +24,13 @@
 
 - (void)checkGridBubbles;
 
-- (void)addMobileEngine:(id)bubble withType:(NSInteger)type;
+- (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type;
 
-- (void)setDisplacementVectorForBubble:(CGPoint)vector;
+- (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type andInitialUnitDisplacement:(CGPoint)vector;
+
+- (void)setDisplacementVectorForNewestBubble:(CGPoint)vector;
+
+- (void)setDisplacementVectorForBubbleEngine:(BubbleEngine *)bubbleEngine withUnitDisplacement:(CGPoint)vector;
 
 - (void)addGridEngine:(id)bubble withType:(NSInteger)type andCenter:(CGPoint)center;
 
@@ -38,6 +42,7 @@
 - (void)removeBubblesIfNecessary:(NSSet *)matchingCluster onInsertionOf:(id)object;
 
 - (NSArray *)removeAllNeighboursForBubble:(BubbleEngine *)bubbleEngine;
+
 - (void)removeAllBubbleOfType:(NSInteger)type;
 
 - (NSArray *)removeAllBubblesInRow:(NSInteger)row;
