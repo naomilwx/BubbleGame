@@ -15,29 +15,16 @@
 #import "UIImageView+AnimationCompletion.h"
 
 #define NUM_OF_CELLS_IN_ROW 12
-#define BUBBLE_LOADER_BUFFER 5
-#define CANNON_SIDE_BUFFER 10
-#define CANNON_HEIGHT 150
-#define CANNON_ANIMATION_DURATION 0.5
-#define RELOAD_DELAY 1
 #define BACK_BUTTON_XPOS 30
 #define BACK_BUTTON_YPOS 980
 #define BACK_BUTTON_WIDTH 45
 #define BACK_BUTTON_HEIGHT 30
 #define BACK_TO_MAIN_MENU @"gameToMenu"
 #define BACK_TO_DESIGNER @"gameToDesigner"
-#define PLOTTER_WIDTH 10
-#define PLOTTER_INTERVAL 100
 
 @implementation ViewController{
-    NSMutableArray *cannonAnimation;
-    UIImageView *cannon;
-    TaggedObject *taggedCannonBubble;
-    CGPoint cannonDefaultCenter;
     NSDictionary *originalBubbleModels;
     NSInteger previousScreen;
-    BOOL bubbleInCannon;
-    BOOL cannonLaunching;
 }
 
 @synthesize gameBackground;
@@ -46,14 +33,12 @@
 @synthesize launchableBubbleMappings;
 @synthesize engine;
 @synthesize bubbleGridTemplate;
-@synthesize bubbleLoader;
 @synthesize backButton;
-@synthesize plotter;
+@synthesize cannonController;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     [self setUpGameEnvironment];
-    [self loadPathPlotter];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -64,42 +49,19 @@
     [self loadBackground];
     [self initialiseBubbleGrid];
     [self loadBackButton];
-    [self loadCannon];
     [self loadBubbleMappings];
     [self loadEngine];
     [self setUpBubbles];
     [self addGestureRecognisers];
+    [self loadCannonController];
 }
 
 - (void)setUpBubbles{
-    [self loadBubbleLoader];
     [self loadGridBubblesFromModel];
-    [self loadNextBubble];
 }
 
-- (void)loadBubbleLoader{
-    CGFloat height = self.defaultBubbleRadius * 2 + BUBBLE_LOADER_BUFFER;
-    CGFloat width = self.defaultBubbleRadius * 2 * BUBBLE_QUEUE_SIZE + BUBBLE_LOADER_BUFFER;
-    CGFloat xPos = self.gameBackground.center.x + CANNON_HEIGHT + self.defaultBubbleRadius * 2;
-    CGFloat yPos = self.gameBackground.frame.size.height - height;
-    CGRect loaderFrame = CGRectMake(xPos, yPos, width, height);
-    bubbleLoader = [[BubbleLoader alloc] initWithFrame:loaderFrame andTypeMapping:launchableBubbleMappings andBubbleRadius:self.defaultBubbleRadius];
-    [self.gameBackground addSubview:[bubbleLoader mainFrame]];
-}
-
-- (void)loadCannon{
-    [self loadCannonImages];
-    [self loadCannonBody];
-    [self setUpCannonAnimation];
-    [self loadCannonBase];
-    cannonLaunching = NO;
-}
-
-- (void)loadPathPlotter{
-    if(!plotter){
-        CGRect frame = CGRectMake(self.gameBackground.frame.origin.x, self.gameBackground.frame.origin.y, self.gameBackground.frame.size.width, self.gameBackground.frame.size.height);
-        plotter = [[PathPlotter alloc] initWithFrame:frame andWidth:PLOTTER_WIDTH andInterval:PLOTTER_INTERVAL];
-    }
+- (void)loadCannonController{
+    cannonController = [[CannonController alloc] initWithGameView:self.gameBackground andEngine:engine andBubbleMappings:launchableBubbleMappings andBubbleRadius:self.defaultBubbleRadius];
 }
 - (void)loadBackButton{
     CGRect frame = CGRectMake(BACK_BUTTON_XPOS, BACK_BUTTON_YPOS, BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
@@ -110,55 +72,6 @@
      forControlEvents:UIControlEventTouchDown];
     [self.gameBackground addSubview:backButton];
 }
-
-- (void)loadCannonBody{
-    CGFloat width = self.defaultBubbleRadius * 2 + CANNON_SIDE_BUFFER * 2;
-    CGFloat xPos = self.gameBackground.center.x - width / 2;
-    CGFloat yPos = self.gameBackground.frame.size.height - CANNON_HEIGHT;
-    CGRect baseFrame = CGRectMake(xPos, yPos, width, CANNON_HEIGHT);
-    cannon = [[UIImageView alloc] initWithFrame:baseFrame];
-    [cannon setImage:[cannonAnimation objectAtIndex:0]];
-    cannonDefaultCenter = cannon.center;
-    [self.gameBackground addSubview:cannon];
-}
-
-- (void)setUpCannonAnimation{
-    [cannon setAnimationImages:cannonAnimation];
-    [cannon setAnimationRepeatCount:1];
-    [cannon setAnimationDuration:CANNON_ANIMATION_DURATION];
-}
-
-- (void)loadCannonImages{
-    if(!cannonAnimation){
-        cannonAnimation = [[NSMutableArray alloc] init];
-        UIImage *cannonImage = [UIImage imageNamed:@"cannon"];
-        CGFloat imageWidth = cannonImage.size.width;
-        CGFloat imageHeight = cannonImage.size.height;
-        NSInteger spritesRow = 2;
-        NSInteger spritesCol = 6;
-        for(NSInteger i = 0; i < spritesRow; i++){
-            CGFloat xPos = 0;
-            CGFloat yPos = i * imageHeight / spritesRow;
-            for(NSInteger j  = 0; j < spritesCol ; j++){
-                CGImageRef imageRef = CGImageCreateWithImageInRect(cannonImage.CGImage, CGRectMake(xPos, yPos, imageWidth / spritesCol, imageHeight / spritesRow));
-                [cannonAnimation addObject:[UIImage imageWithCGImage:imageRef]];
-                xPos += imageWidth / spritesCol;
-            }
-        }
-    }
-}
-
-- (void)loadCannonBase{
-    CGFloat width = self.defaultBubbleRadius * 2 + CANNON_SIDE_BUFFER * 2;
-    CGFloat height = self.defaultBubbleRadius;
-    CGFloat xPos = self.gameBackground.center.x - width / 2;
-    CGFloat yPos = self.gameBackground.frame.size.height - height;
-    CGRect baseFrame = CGRectMake(xPos, yPos, width, height);
-    UIImageView *cannonBase = [[UIImageView alloc] initWithFrame:baseFrame];
-    [cannonBase setImage:[UIImage imageNamed:@"cannon-base"]];
-    [self.gameBackground addSubview:cannonBase];
-}
-
 - (void)loadEngine{
     if(!engine){
         engine = [[MainEngineSpecialised alloc] init];
@@ -242,15 +155,6 @@
     [self.gameBackground addGestureRecognizer:longPressGesture];
 }
 
-- (void)loadNextBubble{
-    //Method to load bubble view for the next bubble to its position at the tip of the cannon
-    taggedCannonBubble = [bubbleLoader getNextBubble];
-    BubbleView *bubbleView = [taggedCannonBubble object];
-    [bubbleView setCenter:[self getStartingBubbleCenter]];
-    [self.gameBackground insertSubview:bubbleView belowSubview:cannon];
-    bubbleInCannon = YES;
-}
-
 - (void)backButtonClicked{
     if(previousScreen == LEVEL_DESIGNER){
         [self performSegueWithIdentifier:BACK_TO_DESIGNER sender:self];
@@ -259,114 +163,22 @@
     }
 }
 
-- (BubbleView *)createAndAddNewBubbleViewWithType:(NSInteger)type{
-    CGPoint bubbleCenter = [self getStartingBubbleCenter];
-    BubbleView *bubbleView = [BubbleView createWithCenter:bubbleCenter andWidth:(self.defaultBubbleRadius * 2) andImage:[self.allBubbleMappings objectForKey:[NSNumber numberWithInteger:type]]];
-    [self.gameBackground addSubview:bubbleView];
-    return bubbleView;
-}
-
-- (CGPoint)getStartingBubbleCenter{
-    CGPoint base = [self getLaunchBaseCoordinates];
-    CGPoint offset = getUnitPositionVector(base, cannon.center);
-    CGFloat scalor = (CANNON_HEIGHT / 2 - self.defaultBubbleRadius);
-    CGPoint scaledOffset = scaleVector(offset, scalor);
-    return addVectors(scaledOffset, cannon.center);
-}
-
 - (BubbleEngine *)addMobileBubbleToEngine:(BubbleView *)bubble forType:(NSInteger)type{
     return [self.engine addMobileEngine:bubble withType:type];
 }
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser{
-    [self controlCannonWithGesture:recogniser showPath:YES];
+    [cannonController controlCannonWithGesture:recogniser showPath:YES];
 }
 
 - (void)longPressHandler:(UIGestureRecognizer *)recogniser{
-    [self controlCannonWithGesture:recogniser showPath:YES];
+    [cannonController controlCannonWithGesture:recogniser showPath:YES];
 }
 
 - (void)tapHandler:(UIGestureRecognizer *)recogniser{
-    [self controlCannonWithGesture:recogniser showPath:NO];
+    [cannonController controlCannonWithGesture:recogniser showPath:NO];
 }
 
-- (void)controlCannonWithGesture:(UIGestureRecognizer *)recogniser showPath:(BOOL)show{
-    CGPoint point = [recogniser locationInView:self.gameBackground];
-    if(show == YES){
-        CGPoint vector = getUnitPositionVector([self getLaunchBaseCoordinates], point);
-        [self.plotter addRayFromPoint:[self getStartingBubbleCenter] withVector:vector toView:self.gameBackground];
-    }
-    if(!cannonLaunching){
-        [self rotateCannonInDirection:point];
-    }
-    if(recogniser.state == UIGestureRecognizerStateEnded && bubbleInCannon){
-        [self.plotter removePreviousRay];
-        [self launchBubbleWithInputPoint:point];
-    }
-}
-
-- (CGPoint)getLaunchBaseCoordinates{
-    return CGPointMake(self.gameBackground.center.x, self.gameBackground.frame.size.height);
-}
-
-- (void)rotateCannonInDirection:(CGPoint)point{
-    CGPoint base = [self getLaunchBaseCoordinates];
-    CGPoint unitOffSet = getUnitPositionVector(base, point);
-    if(unitOffSet.y != 0){
-        [self updateCannonPosition:base withOffset:unitOffSet];
-        CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1; //negative of angle because it is with respecto to normal
-        CGFloat angle = atanf(tanRatio);
-        cannon.transform = CGAffineTransformMakeRotation(angle);
-    }
-}
-
-- (void)updateCannonPosition:(CGPoint)base withOffset:(CGPoint)unitOffSet{
-    CGPoint scaledOffset = scaleVector(unitOffSet, CANNON_HEIGHT/2);
-    CGPoint newCannonCenter = addVectors(base, scaledOffset);
-    [cannon setCenter:newCannonCenter];
-    [self shiftBubbleInCannonWithOffset:unitOffSet];
-}
-
-- (void)shiftBubbleInCannonWithOffset:(CGPoint)unitOffset{
-    if(bubbleInCannon){
-        CGPoint newCenter = [self getStartingBubbleCenter];
-        [[taggedCannonBubble object] setCenter:newCenter];
-    }
-}
-
-- (void)launchBubbleWithInputPoint:(CGPoint)point{
-    cannonLaunching = YES;
-    bubbleInCannon = NO;
-    void (^launchCode)(BOOL) = ^(BOOL complete){
-        cannonLaunching = NO;
-        CGPoint displacement = [self calculateLaunchDisplacementForInputPoint:point];
-        [self launchBubbleandReloadCannonWithDisplacementVector:displacement];
-    };
-    [cannon startAnimatingWithCompletionBlock:launchCode];
-}
-
-- (CGPoint)calculateLaunchDisplacementForInputPoint:(CGPoint)point{
-    CGPoint start;
-    if(CGRectContainsPoint(cannon.frame, point)){
-        start = [self getLaunchBaseCoordinates];
-    }else{
-        start = [self getStartingBubbleCenter];
-    }
-    CGPoint displacement = getUnitPositionVector(start, point);
-    return displacement;
-}
-
-- (void)launchBubbleandReloadCannonWithDisplacementVector:(CGPoint)vector{
-    //Sets displacement vector for bubble in its corresponding BubbleEngine instance
-    [self.engine addMobileEngine:[taggedCannonBubble object] withType:[[taggedCannonBubble tag] integerValue] andInitialUnitDisplacement:vector];
-    [self executeBlock:^{[self loadNextBubble];}
-            afterDelay:RELOAD_DELAY];
-}
-
-- (void)executeBlock:(void (^)(void))block afterDelay:(NSInteger)delay{
-    dispatch_time_t duration = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
-    dispatch_after(duration, dispatch_get_main_queue(), block);
-}
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

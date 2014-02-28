@@ -12,6 +12,7 @@
 #import "BubbleLoader.h"
 #import "GameEngineInitDelegate.h"
 #import "PathPlotter.h"
+#import "CannonController.h"
 
 @interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, GridTemplateDelegate, GameEngineInitDelegate>
 
@@ -22,8 +23,8 @@
 @property (strong) NSDictionary *launchableBubbleMappings;
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngineSpecialised *engine;
-@property (strong) BubbleLoader *bubbleLoader;
-@property (strong) PathPlotter *plotter;
+
+@property (strong) CannonController *cannonController;
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser;
 //Tracks the gesture and changes the bubble's fire angle
@@ -34,6 +35,6 @@
 - (void)longPressHandler:(UIGestureRecognizer *)recogniser;
 //Note: longpressrecogniser is able to track the gesture till finger is lifted
 
-- (void)loadNextBubble;
+//- (void)loadNextBubble;
 
 @end
