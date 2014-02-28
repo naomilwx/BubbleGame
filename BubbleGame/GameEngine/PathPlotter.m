@@ -10,7 +10,9 @@
 #import "CGPointExtension.h"
 #import "BubbleView.h"
 
-@implementation PathPlotter
+@implementation PathPlotter{
+    NSArray *previousPlot;
+}
 
 @synthesize referenceFrame;
 @synthesize plotterInterval;
@@ -21,6 +23,7 @@
         referenceFrame = frame;
         plotterWidth = width;
         plotterInterval = interval;
+        previousPlot = nil;
     }
     return self;
 }
@@ -29,21 +32,33 @@
     CGPoint posVector = getUnitPositionVector(point1, point2);
     NSMutableArray *ray = [[NSMutableArray alloc] init];
     CGPoint vectorToAdd = scaleVector(posVector, self.plotterInterval);
-    CGPoint currentCenter = addVectors(point1, vectorToAdd);
-    BubbleView *currentView = [BubbleView createWithCenter:currentCenter andWidth:self.plotterWidth andColor:[UIColor blackColor]];
-    while(CGRectContainsRect(referenceFrame, currentView.frame)){
-        [ray addObject:currentView];
-        currentCenter = addVectors(currentCenter, vectorToAdd);
-        currentView = [BubbleView createWithCenter:currentCenter andWidth:self.plotterWidth andColor:[UIColor blackColor]];
+    if(getMagnitude(vectorToAdd) != 0){
+        CGPoint currentCenter = addVectors(point1, vectorToAdd);
+        BubbleView *currentView = [BubbleView createWithCenter:currentCenter andWidth:self.plotterWidth andColor:[UIColor blackColor]];
+        while(CGRectContainsRect(referenceFrame, currentView.frame)){
+            [ray addObject:currentView];
+            currentCenter = addVectors(currentCenter, vectorToAdd);
+            currentView = [BubbleView createWithCenter:currentCenter andWidth:self.plotterWidth andColor:[UIColor blackColor]];
+        }
     }
     return ray;
 }
 
 - (void)addRayFromPoint:(CGPoint)point1 andPoint:(CGPoint)point2 toView:(UIView *)view{
+    [self removePreviousRay];
     NSArray *ray = [self getRayFromPoint:point1 andPoint:point2];
     for(BubbleView *rayPoint in ray){
         [view addSubview:rayPoint];
     }
+    previousPlot = ray;
 }
 
+- (void)removePreviousRay{
+    if(previousPlot != nil){
+        for(BubbleView *view in previousPlot){
+            [view removeFromSuperview];
+        }
+        previousPlot = nil;
+    }
+}
 @end

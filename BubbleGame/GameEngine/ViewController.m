@@ -278,33 +278,28 @@
 }
 
 - (void)panHandler:(UIGestureRecognizer *)recogniser{
-    CGPoint point = [recogniser locationInView:self.gameBackground];
-    [self.plotter addRayFromPoint:[self getStartingBubbleCenter] andPoint:point toView:self.gameBackground];
-    if(!cannonLaunching){
-        [self rotateCannonInDirection:point];
-    }
-    if(recogniser.state == UIGestureRecognizerStateEnded && bubbleInCannon){
-        [self launchBubbleWithInputPoint:point];
-    }
+    [self controlCannonWithGesture:recogniser showPath:YES];
 }
 
 - (void)longPressHandler:(UIGestureRecognizer *)recogniser{
+    [self controlCannonWithGesture:recogniser showPath:YES];
+}
+
+- (void)tapHandler:(UIGestureRecognizer *)recogniser{
+    [self controlCannonWithGesture:recogniser showPath:NO];
+}
+
+- (void)controlCannonWithGesture:(UIGestureRecognizer *)recogniser showPath:(BOOL)show{
     CGPoint point = [recogniser locationInView:self.gameBackground];
-    [self.plotter addRayFromPoint:[self getStartingBubbleCenter] andPoint:point toView:self.gameBackground];
+    if(show == YES){
+        [self.plotter addRayFromPoint:[self getStartingBubbleCenter] andPoint:point toView:self.gameBackground];
+    }
     if(!cannonLaunching){
         [self rotateCannonInDirection:point];
     }
     if(recogniser.state == UIGestureRecognizerStateEnded && bubbleInCannon){
+        [self.plotter removePreviousRay];
         [self launchBubbleWithInputPoint:point];
-    }
-}
-
-- (void)tapHandler:(UIGestureRecognizer *)recogniser{
-    if(!cannonLaunching){
-        [self rotateCannonInDirection:[recogniser locationInView:self.gameBackground]];
-    }
-    if(bubbleInCannon){
-        [self launchBubbleWithInputPoint:[recogniser locationInView:self.gameBackground]];
     }
 }
 
@@ -315,10 +310,12 @@
 - (void)rotateCannonInDirection:(CGPoint)point{
     CGPoint base = [self getLaunchBaseCoordinates];
     CGPoint unitOffSet = getUnitPositionVector(base, point);
-    [self updateCannonPosition:base withOffset:unitOffSet];
-    CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1; //negative of angle because it is with respecto to normal
-    CGFloat angle = atanf(tanRatio);
-    cannon.transform = CGAffineTransformMakeRotation(angle);
+    if(unitOffSet.y != 0){
+        [self updateCannonPosition:base withOffset:unitOffSet];
+        CGFloat tanRatio = (unitOffSet.x / unitOffSet.y) * -1; //negative of angle because it is with respecto to normal
+        CGFloat angle = atanf(tanRatio);
+        cannon.transform = CGAffineTransformMakeRotation(angle);
+    }
 }
 
 - (void)updateCannonPosition:(CGPoint)base withOffset:(CGPoint)unitOffSet{
@@ -350,11 +347,9 @@
 
 - (CGPoint)calculateLaunchDisplacementForInputPoint:(CGPoint)point{
     CGPoint start;
-
     if(CGRectContainsPoint(cannon.frame, point)){
         start = [self getLaunchBaseCoordinates];
     }else{
-        
         start = [self getStartingBubbleCenter];
     }
     CGPoint displacement = getUnitPositionVector(start, point);

@@ -24,7 +24,11 @@ CGFloat getMagnitude(CGPoint vector){
 
 CGPoint getUnitVector(CGPoint vector){
     CGFloat magnitude = getMagnitude(vector);
-    return scaleVector(vector, (1 / magnitude));
+    if(magnitude == 0){
+        return CGPointMake(0, 0);
+    }else{
+        return scaleVector(vector, (1 / magnitude));
+    }
 }
 
 CGPoint getUnitPositionVector(CGPoint start, CGPoint end){

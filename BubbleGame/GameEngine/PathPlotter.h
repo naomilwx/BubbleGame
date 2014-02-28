@@ -20,4 +20,6 @@
 
 - (void)addRayFromPoint:(CGPoint)point1 andPoint:(CGPoint)point2 toView:(UIView *)view;
 
+- (void)removePreviousRay;
+
 @end
