@@ -16,6 +16,7 @@
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
 #define SAVE_UNSUCCESSFUL_MSG @"An error occurred while saving. Game level is not saved."
 #define LEVEL_INDICATOR_TEXT @"Level: %@"
+#define DESIGNER_TO_MENU @"designerToMenu"
 
 @interface GameBubble()
 
@@ -37,7 +38,7 @@
 
 @implementation GameBubble {
     UIImage *backgroundImage;
-    SEL blockToExecute;
+    SEL selectorToExecute;
     NSInteger selectedLevel;
 }
 
@@ -136,6 +137,14 @@
     view.clipsToBounds = YES;
     [view setImage:image];
 }
+- (IBAction)backButtonPressed:(id)sender {
+    if([gameLoader hasUnsavedBubbles]){
+        selectorToExecute = @selector(goBackToMainMenu);
+        [self showConfirmationWithTitle:@"Go to Main Menu" andMessage:@"Your unsaved changes will be lost! Are you sure you want to leave this page without saving?"];
+    }else{
+        [self goBackToMainMenu];
+    }
+}
 
 - (IBAction)buttonPressed:(id)sender {
     NSString *label = [[(UIButton *)sender titleLabel] text];
@@ -145,19 +154,23 @@
         [self load];
     }else if([label isEqualToString:GAME_SAVE]){
         if([gameLoader currentLevel] != INVALID){
-            blockToExecute = @selector(save);
+            selectorToExecute = @selector(save);
             [self showConfirmationWithTitle:@"Save Level" andMessage:@"Existing level data will be overwritten. Continue?"];
         }else{
             [self save];
         }
     }else{
         if([gameLoader hasUnsavedBubbles]){
-            blockToExecute = @selector(reset);
+            selectorToExecute = @selector(reset);
             [self showConfirmationWithTitle:@"Reset Level" andMessage:@"Your unsaved changes will be lost! Are you sure you want to reset the game level?"];
         }else{
             [self reset];
         }
     }
+}
+
+- (void)goBackToMainMenu{
+    [self performSegueWithIdentifier:DESIGNER_TO_MENU sender:self];
 }
 
 - (void)toggleUIViewTransparancy:(UIView *)view{
@@ -406,8 +419,8 @@
 
 #pragma mark - alert view delegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex != 0 & blockToExecute != nil){
-        IMP implementation = [self methodForSelector:blockToExecute];
+    if(buttonIndex != 0 & selectorToExecute != nil){
+        IMP implementation = [self methodForSelector:selectorToExecute];
         void (*func)() = (void *)implementation;
         func();
     }
@@ -419,7 +432,7 @@
     selectedLevel = levelIndex;
     [levelSelectorPopover dismissPopoverAnimated:YES];
     if([gameLoader hasUnsavedBubbles]){
-        blockToExecute = @selector(handleLevelSelection);
+        selectorToExecute = @selector(handleLevelSelection);
         [self showConfirmationWithTitle:@"Load Level" andMessage:@"Your current unsaved changes will be lost when level is loaded. Continue?"];
     }else{
         [self handleLevelSelection];

@@ -220,8 +220,8 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
+                                            <action selector="backButtonPressed:" destination="UUD-8A-Hpr" eventType="touchUpInside" id="Db6-gm-6uZ"/>
                                             <action selector="test:" destination="UUD-8A-Hpr" eventType="touchUpInside" id="sUJ-Xf-I5f"/>
-                                            <segue destination="BYZ-38-t0r" kind="modal" id="gZc-6P-YQq"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -246,6 +246,7 @@
                         <outlet property="palette" destination="Zhz-7i-rKi" id="tA3-gn-Jrz"/>
                         <outlet property="redButton" destination="SBB-Kv-jTK" id="KWm-Gd-wdr"/>
                         <outlet property="starButton" destination="8Gr-KC-kIB" id="O0H-ea-q2j"/>
+                        <segue destination="BYZ-38-t0r" kind="modal" identifier="designerToMenu" id="dfM-UT-uMZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yue-sy-5yW" sceneMemberID="firstResponder"/>
@@ -333,8 +334,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8xw-Xh-cie"/>
         <segue reference="f6p-Kj-OjV"/>
-        <segue reference="gZc-6P-YQq"/>
+        <segue reference="dfM-UT-uMZ"/>
+        <segue reference="8xw-Xh-cie"/>
     </inferredMetricsTieBreakers>
 </document>
