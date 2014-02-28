@@ -6,9 +6,9 @@
 //
 //
 
-#import "designerMainController.h"
+#import "DesignerViewController.h"
 
-@interface customisedDesignerController : designerMainController
+@interface CustomDesignerController : DesignerViewController
 
 @property (strong, nonatomic) IBOutlet UIImageView *orangeButton;
 @property (strong, nonatomic) IBOutlet UIImageView *blueButton;

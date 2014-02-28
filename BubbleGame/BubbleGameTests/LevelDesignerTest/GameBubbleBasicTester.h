@@ -6,9 +6,9 @@
 //
 //
 
-#import "customisedDesignerController.h"
+#import "CustomDesignerController.h"
 
-@interface GameBubbleBasicTester : customisedDesignerController
+@interface GameBubbleBasicTester : CustomDesignerController
 
 - (BOOL)hasView:(UIView *)view;
 - (NSInteger)numViewsInView;

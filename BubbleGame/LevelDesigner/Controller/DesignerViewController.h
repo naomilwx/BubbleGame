@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BubbleView.h"
 #import "ControllerDataManager.h"
-#import "BubbleManager.h"
-#import "GameLevelLoader.h"
 #import "LevelSelector.h"
 
 #define GAME_START @"Start"
@@ -20,7 +18,7 @@
 #define TRANSLUCENT_ALPHA 0.35
 
 
-@interface designerMainController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, LevelSelectorDelegate>
+@interface DesignerViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, LevelSelectorDelegate>
 
 @property (strong, nonatomic) NSDictionary *paletteImages;
 @property (strong, nonatomic) NSDictionary *paletteButtons;

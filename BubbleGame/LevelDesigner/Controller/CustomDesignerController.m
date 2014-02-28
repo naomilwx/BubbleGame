@@ -6,7 +6,7 @@
 //
 //
 
-#import "customisedDesignerController.h"
+#import "CustomDesignerController.h"
 #import "BubbleController.h"
 #import "GameLogic.h"
 
@@ -15,13 +15,13 @@
 #define EXCLUDED_TYPES @[[NSNumber numberWithInt:ERASER]]
 #define NUM_PALETTE_SELECTION 9
 
-@interface customisedDesignerController ()
+@interface CustomDesignerController ()
 
 @property (nonatomic) GamePaletteSelection selectedType;
 
 @end
 
-@implementation customisedDesignerController
+@implementation CustomDesignerController
 
 @synthesize orangeButton;
 @synthesize blueButton;
