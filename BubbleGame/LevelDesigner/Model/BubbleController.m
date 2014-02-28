@@ -15,13 +15,13 @@
     BubbleGridLayout *layoutManager;
 }
 
-@synthesize gameBubble;
+@synthesize mainController;
 @synthesize bubbleModelID;
 @synthesize bubbleView;
 
 - (id)initWithMasterController:(UIViewController<BubbleControllerDelegate> *)controller{
     if(self = [super init]){
-        gameBubble = controller;
+        mainController = controller;
         layoutManager = [controller getGridLayout];
     }
     return self;
@@ -33,8 +33,8 @@
     CGFloat width = [bubbleModel width];
     CGPoint center = [bubbleModel center];
     NSInteger type = [bubbleModel bubbleType];
-    self.bubbleView = [self.gameBubble createBubbleViewWithCenter:center andWidth:width andType:type];
-    [self.gameBubble addToView:self.bubbleView];
+    self.bubbleView = [self.mainController createBubbleViewWithCenter:center andWidth:width andType:type];
+    [self.mainController addToView:self.bubbleView];
 }
 
 - (void)addBubbleAtCollectionViewIndex:(NSIndexPath *)index withType:(NSInteger)type{
@@ -42,20 +42,20 @@
         CGFloat width = [layoutManager cellWidth];
         CGPoint center = [layoutManager getCenterForItemAtIndex:index.item];
     
-        self.bubbleView = [self.gameBubble createBubbleViewWithCenter:center andWidth:width andType:type];
-        [self.gameBubble addToView:self.bubbleView];
-        self.bubbleModelID =  [self.gameBubble addBubbleModelWithType:type andWidth:width andCenter:center];
+        self.bubbleView = [self.mainController createBubbleViewWithCenter:center andWidth:width andType:type];
+        [self.mainController addToView:self.bubbleView];
+        self.bubbleModelID =  [self.mainController addBubbleModelWithType:type andWidth:width andCenter:center];
     }
 }
 
 - (void)modifyBubbletoType:(NSInteger)type{
-    [self.gameBubble modifyBubbleView:bubbleView toType:type];
-    [self.gameBubble modifyBubbleModelTypeTo:type forBubble:self.bubbleModelID];
+    [self.mainController modifyBubbleView:bubbleView toType:type];
+    [self.mainController modifyBubbleModelTypeTo:type forBubble:self.bubbleModelID];
 }
 
 - (void)removeBubble{
     [self.bubbleView removeFromSuperview];
-    [self.gameBubble removeBubbleModel:self.bubbleModelID];
+    [self.mainController removeBubbleModel:self.bubbleModelID];
 }
 
 @end

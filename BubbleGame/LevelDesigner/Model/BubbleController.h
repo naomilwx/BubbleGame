@@ -13,7 +13,7 @@
 
 @interface BubbleController : NSObject
 
-@property (weak, readonly) UIViewController<BubbleControllerDelegate>* gameBubble;
+@property (weak, readonly) UIViewController<BubbleControllerDelegate>* mainController;
 
 @property NSInteger bubbleModelID;
 

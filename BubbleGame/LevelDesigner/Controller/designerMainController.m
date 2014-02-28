@@ -137,6 +137,7 @@
     view.clipsToBounds = YES;
     [view setImage:image];
 }
+
 - (IBAction)backButtonPressed:(id)sender {
     if([gameLoader hasUnsavedBubbles]){
         selectorToExecute = @selector(goBackToMainMenu);
