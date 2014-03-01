@@ -59,7 +59,11 @@
 }
 
 - (void)displayHighscore:(NSInteger)highscore{
-    [self.highScoreDisplay setText:[NSString stringWithFormat:HIGH_SCORE_TEXT, highscore]];
+    NSString *display = @"";
+    if(highscore){
+        display = [NSString stringWithFormat:HIGH_SCORE_TEXT, highscore];
+    }
+    [self.highScoreDisplay setText:display];
 }
 
 - (void)configureAndShowScoreDisplay:(UILabel *)display{

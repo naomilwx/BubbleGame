@@ -75,8 +75,11 @@
 - (void)showLoadedLevel{
     CGPoint center = self.gameBackground.center;
     CGRect displayFrame = CGRectMake(center.x, center.y, LEVEL_NOTIFICATION_WIDTH, LEVEL_NOTIFICATION_HEIGHT);
-    [stateDisplay showTextNotification:[NSString stringWithFormat:GAME_LEVEL_DISPLAY, gameLevel] withFrame:displayFrame];
-    [self executeBlock:^{[stateDisplay hideTextNotification];} afterDelay:LEVEL_NOTIFICATION_DISPLAY_DURATION];
+    NSString *invalidLevel = [NSString stringWithFormat:@"%d",INVALID];
+    if(![gameLevel isEqual:invalidLevel]){
+        [stateDisplay showTextNotification:[NSString stringWithFormat:GAME_LEVEL_DISPLAY, gameLevel] withFrame:displayFrame];
+        [self executeBlock:^{[stateDisplay hideTextNotification];} afterDelay:LEVEL_NOTIFICATION_DISPLAY_DURATION];
+    }
 }
 
 - (void)loadScoreDisplay{

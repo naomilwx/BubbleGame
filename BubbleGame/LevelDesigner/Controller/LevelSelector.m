@@ -52,6 +52,9 @@
 #pragma mark - datasource and delegate methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger selectedLevel = [self getSelectedLevelForIndexPath:indexPath];
+    if(selectedLevel == 0){
+        selectedLevel = INVALID;
+    }
     [selectorDelegate selectedLevel:selectedLevel];
 }
 

@@ -51,7 +51,8 @@
 }
 
 - (void)updateStoredHighscore{
-    if(totalScore > previousHighscore){
+    NSString *emptyLevel = [NSString stringWithFormat:@"%d", INVALID];
+    if(totalScore > previousHighscore && ![gameLevel isEqual:emptyLevel]){
         [storer updateAndSaveData:[NSNumber numberWithInteger:totalScore] forLevel:gameLevel];
     }
 }
