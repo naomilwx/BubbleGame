@@ -7,11 +7,23 @@
 //
 
 #import "DesignerMenuController.h"
+#import "GameCommon.h"
+#define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
+#define SAVE_UNSUCCESSFUL_MSG @"An error occurred while saving. Game level is not saved."
+#define LEVEL_INDICATOR_TEXT @"Level: %@"
 
 @implementation DesignerMenuController{
     UIImage *backgroundImage;
     SEL selectorToExecute;
     NSInteger selectedLevel;
+}
+
+- (id)initWithDataController:(ControllerDataManager *)controllerDataManager andView:(UIView *)view{
+    if(self = [super init]){
+        _controllerDataManager = controllerDataManager;
+        _gameArea = view;
+    }
+    return self;
 }
 
 - (IBAction)buttonPressed:(id)sender {
@@ -22,14 +34,14 @@
         [self load];
     }else if([label isEqualToString:GAME_SAVE]){
         if([self.controllerDataManager currentLevel] != INVALID){
-            self.selectorToExecute = @selector(save);
+            selectorToExecute = @selector(save);
             [self showConfirmationWithTitle:@"Save Level" andMessage:@"Existing level data will be overwritten. Continue?"];
         }else{
             [self save];
         }
     }else{
         if([self.controllerDataManager hasUnsavedBubbles]){
-            self.selectorToExecute = @selector(reset);
+            selectorToExecute = @selector(reset);
             [self showConfirmationWithTitle:@"Reset Level" andMessage:@"Your unsaved changes will be lost! Are you sure you want to reset the game level?"];
         }else{
             [self reset];
@@ -71,7 +83,7 @@
 
 - (void)load{
     //Shows level selector popover view. currently selection of level will load the level and wipe whatever is on screen, even if it is an unsaved level. Future work: add warning dialog if level has not been saved.
-    [self.levelSelectorPopover presentPopoverFromRect:self.loadButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+    [self.levelSelectorPopover presentPopoverFromRect:self.loadButton.frame inView:self.gameArea permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 }
 
 - (void)save{
@@ -110,8 +122,8 @@
 
 #pragma mark - alert view delegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(buttonIndex != 0 & self.selectorToExecute != nil){
-        IMP implementation = [self methodForSelector:self.selectorToExecute];
+    if(buttonIndex != 0 & selectorToExecute != nil){
+        IMP implementation = [self methodForSelector:selectorToExecute];
         void (*func)() = (void *)implementation;
         func();
     }
@@ -120,20 +132,20 @@
 #pragma mark - delegate methods for LevelSelectorDelegate
 
 - (void)selectedLevel:(NSInteger)levelIndex{
-    self.selectedLevel = levelIndex;
+    selectedLevel = levelIndex;
     [self.levelSelectorPopover dismissPopoverAnimated:YES];
     if([self.controllerDataManager hasUnsavedBubbles]){
-        self.selectorToExecute = @selector(handleLevelSelection);
+        selectorToExecute = @selector(handleLevelSelection);
         [self showConfirmationWithTitle:@"Load Level" andMessage:@"Your current unsaved changes will be lost when level is loaded. Continue?"];
     }else{
         [self handleLevelSelection];
     }
 }
 - (void)handleLevelSelection{
-    if(self.selectedLevel == INVALID){
+    if(selectedLevel == INVALID){
         [self loadNewLevel];
     }else{
-        [self loadGameLevel:self.selectedLevel];
+        [self loadGameLevel:selectedLevel];
     }
     [self updateCurrentLevelView];
 }

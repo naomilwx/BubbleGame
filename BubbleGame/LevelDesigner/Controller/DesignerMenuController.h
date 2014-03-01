@@ -7,6 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "LevelSelector.h"
+#import "ControllerDataManager.h"
+
+#define GAME_START @"Start"
+#define GAME_LOAD @"Load"
+#define GAME_SAVE @"Save"
+#define GAME_RESET @"Reset"
 
 @interface DesignerMenuController : NSObject
 
@@ -14,6 +21,10 @@
 @property (strong, nonatomic) LevelSelector *levelSelector;
 @property (strong, nonatomic) UIPopoverController *levelSelectorPopover;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
+@property (strong) ControllerDataManager *controllerDataManager;
+@property (strong) UIView *gameArea;
+
+- (id)initWithDataController:(ControllerDataManager *)controllerDataManager andView:(UIView *)view;
 
 - (void)save;
 // REQUIRES: game in designer mode
