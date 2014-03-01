@@ -35,6 +35,9 @@
         CGPoint currentCenter = addVectors(point1, vectorToAdd);
         BubbleView *currentView = [BubbleView createWithCenter:currentCenter andWidth:self.plotterWidth andColor:[UIColor blackColor]];
         while(CGRectContainsRect(referenceFrame, currentView.frame)){
+            if(self.additionalStopCondition!= nil && self.additionalStopCondition(currentCenter)){
+                break;
+            }
             [ray addObject:currentView];
             currentCenter = addVectors(currentCenter, vectorToAdd);
             currentView = [BubbleView createWithCenter:currentCenter andWidth:self.plotterWidth andColor:[UIColor blackColor]];

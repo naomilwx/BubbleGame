@@ -20,7 +20,7 @@
 #define CANNON_HEIGHT 150
 #define CANNON_ANIMATION_DURATION 0.5
 #define RELOAD_DELAY 1
-#define PLOTTER_WIDTH 10
+#define PLOTTER_WIDTH 20
 #define PLOTTER_INTERVAL 100
 
 @implementation CannonController{
@@ -79,6 +79,10 @@
     if(!plotter){
         CGRect frame = CGRectMake(self.gameView.frame.origin.x, self.gameView.frame.origin.y, self.gameView.frame.size.width, self.gameView.frame.size.height);
         plotter = [[PathPlotter alloc] initWithFrame:frame andWidth:PLOTTER_WIDTH andInterval:PLOTTER_INTERVAL];
+        BOOL (^gridCollision)(CGPoint) = ^BOOL(CGPoint point){
+                                                return [engine hasCollisionWithGridForCenter:point];
+                                        };
+        [plotter setAdditionalStopCondition:gridCollision];
     }
 }
 

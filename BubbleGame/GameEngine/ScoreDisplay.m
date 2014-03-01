@@ -10,7 +10,15 @@
 
 @implementation ScoreDisplay
 
+- (id)initWithGameView:(UIView *)view{
+    if(self = [super init]){
+        _gameView = view;
+    }
+    return self;
+}
+
 - (void)receiveScoreUpdate:(NSInteger)newScore{
+    
 }
 
 @end

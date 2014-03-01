@@ -13,6 +13,8 @@
 @property CGFloat plotterWidth;
 @property CGFloat plotterInterval;
 @property CGRect referenceFrame;
+@property (nonatomic, copy) BOOL (^additionalStopCondition)(CGPoint);
+
 
 - (id)initWithFrame:(CGRect)frame andWidth:(CGFloat)width andInterval:(CGFloat)interval;
 

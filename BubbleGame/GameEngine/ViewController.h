@@ -11,7 +11,6 @@
 #import "GridTemplateDelegate.h"
 #import "BubbleLoader.h"
 #import "GameEngineInitDelegate.h"
-#import "PathPlotter.h"
 #import "CannonController.h"
 
 @interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, GridTemplateDelegate, GameEngineInitDelegate>

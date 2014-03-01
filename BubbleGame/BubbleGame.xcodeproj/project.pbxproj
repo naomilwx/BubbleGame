@@ -74,7 +74,6 @@
 		C2908B2018C03CE600499B4C /* UIImageView+AnimationCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1F18C03CE600499B4C /* UIImageView+AnimationCompletion.m */; };
 		C2908B2318C0546F00499B4C /* CannonController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B2218C0546F00499B4C /* CannonController.m */; };
 		C2908B2618C0898100499B4C /* ControllerDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B2518C0898100499B4C /* ControllerDataManager.m */; };
-		C2908B2F18C190B800499B4C /* DesignerMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B2E18C190B800499B4C /* DesignerMenuController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,8 +197,6 @@
 		C2908B2218C0546F00499B4C /* CannonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannonController.m; sourceTree = "<group>"; };
 		C2908B2418C0898100499B4C /* ControllerDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerDataManager.h; sourceTree = "<group>"; };
 		C2908B2518C0898100499B4C /* ControllerDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerDataManager.m; sourceTree = "<group>"; };
-		C2908B2D18C190B800499B4C /* DesignerMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerMenuController.h; sourceTree = "<group>"; };
-		C2908B2E18C190B800499B4C /* DesignerMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerMenuController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,8 +335,6 @@
 				C20589E218B67C4B003AC20C /* LevelSelectorDelegate.h */,
 				C2908B2418C0898100499B4C /* ControllerDataManager.h */,
 				C2908B2518C0898100499B4C /* ControllerDataManager.m */,
-				C2908B2D18C190B800499B4C /* DesignerMenuController.h */,
-				C2908B2E18C190B800499B4C /* DesignerMenuController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -639,7 +634,6 @@
 				C2058A1618B67C4B003AC20C /* BubbleGridLayout.m in Sources */,
 				C20589A718B67B9E003AC20C /* main.m in Sources */,
 				C2058A1418B67C4B003AC20C /* GameDesignerState.m in Sources */,
-				C2908B2F18C190B800499B4C /* DesignerMenuController.m in Sources */,
 				C2058A7E18B67F44003AC20C /* MainEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
