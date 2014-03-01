@@ -229,6 +229,17 @@
     }
 }
 
+- (void)popBubble:(BubbleEngine *)bubbleEngine{
+    if([bubbleEngine removeBubbleWithAnimationType:POP_ANIMATION] == YES){
+        [bubbleGameState updateTotalScoresForPoppedBubbles:1];
+    }
+}
+
+- (void)dropBubble:(BubbleEngine *)bubbleEngine{
+    if([bubbleEngine removeBubbleWithAnimationType:DROP_ANIMATION] == YES){
+        [bubbleGameState updateTotalScoresForDroppedBubbles:1];
+    }
+}
 - (void)popBubblesInCollection:(id)bubbles withCondition:(BOOL(^)(BubbleEngine *))filter{
     NSInteger numRemoved = [self removeAllInCollection:bubbles removeType:POP_ANIMATION additionalRemoveFilter:filter];
     [bubbleGameState updateTotalScoresForPoppedBubbles:numRemoved];

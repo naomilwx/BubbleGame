@@ -28,6 +28,10 @@
 
 - (void)dropBubblesInCollection:(id)bubbles withCondition:(BOOL(^)(BubbleEngine *))filter;
 
+- (void)popBubble:(BubbleEngine *)bubbleEngine;
+
+- (void)dropBubble:(BubbleEngine *)bubbleEngine;
+
 - (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type;
 
 - (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type andInitialUnitDisplacement:(CGPoint)vector;

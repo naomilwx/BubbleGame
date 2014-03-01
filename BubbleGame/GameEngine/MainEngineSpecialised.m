@@ -24,7 +24,7 @@
         NSInteger specialType = [neighbour bubbleType];
         if(specialType == STAR){
             [self removeAllBubbleOfType:[bubbleEngine bubbleType]];
-            [neighbour removeBubbleWithAnimationType:POP_ANIMATION];
+            [self popBubble:neighbour];
         }else{
             [self applyChainableEffect:neighbour];
         }
@@ -39,7 +39,7 @@
             affectedBubbles = [self removeAllBubblesInRow:[engine gridRow]];
         }else if(chainableType == BOMB){
             affectedBubbles = [self removeAllNeighboursForBubble:engine];
-            [engine removeBubbleWithAnimationType:POP_ANIMATION];
+            [self popBubble:engine];
         }
         if(affectedBubbles != nil){
             for(BubbleEngine *bubble in affectedBubbles){
