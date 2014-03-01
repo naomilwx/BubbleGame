@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "DataManager.h"
 #import "GameStateStub.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 @interface DataManagerTest : XCTestCase
 

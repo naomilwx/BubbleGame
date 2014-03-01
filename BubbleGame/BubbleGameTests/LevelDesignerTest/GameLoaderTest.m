@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "GameLevelLoader.h"
 #import "DataManager.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 @interface GameLoaderTest : XCTestCase
 

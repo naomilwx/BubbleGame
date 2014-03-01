@@ -10,7 +10,7 @@
 #import "BubbleView.h"
 #import "BubbleGridLayout.h"
 #import "BubbleModel.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 #import "CGPointExtension.h"
 #import "UIImageView+AnimationCompletion.h"
 
@@ -93,7 +93,7 @@
 
 - (void)loadBubbleMappings{
     if(!self.allBubbleMappings){
-        self.allBubbleMappings = [GameLogic allBubbleImageMappings];
+        self.allBubbleMappings = [GameCommon allBubbleImageMappings];
         
     }
     if(!self.launchableBubbleMappings){
@@ -104,7 +104,7 @@
 - (NSDictionary *)getLaunchableBubbleMappings{
     NSMutableDictionary *mappings = [[NSMutableDictionary alloc] init];
     for(NSNumber *key in self.allBubbleMappings){
-        if([[GameLogic launchableBubbleTypes] containsObject:key]){
+        if([[GameCommon launchableBubbleTypes] containsObject:key]){
             [mappings setObject:[self.allBubbleMappings objectForKey:key] forKey:key];
         }
     }

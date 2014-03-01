@@ -10,4 +10,7 @@
 
 @interface ScoreDisplay : NSObject
 
+@property (strong) UIView *scoreDisplay;
+
+- (void)receiveScoreUpdate:(NSInteger)newScore;
 @end

@@ -8,7 +8,7 @@
 
 #import "MainViewController.h"
 #import "GameEngineInitDelegate.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 #define TO_GAME_SEGUE @"menuToGame"
 
@@ -36,7 +36,6 @@
     if([[sender.titleLabel text] isEqual:@"Play!"]){
         [levelSelectorPopover presentPopoverFromRect:menuButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     }
-    NSLog(@"sender %@", [[sender titleLabel] text]);
 }
 
 - (void)loadBackground{
@@ -93,7 +92,7 @@
 - (void)selectedPreloadedLevel:(NSInteger)levelIndex{
     [levelSelectorPopover dismissPopoverAnimated:YES];
     @try{
-        NSString *levelName = [[GameLogic preloadedLevelMappings] objectForKey:[NSNumber numberWithInteger:levelIndex]];
+        NSString *levelName = [[GameCommon preloadedLevelMappings] objectForKey:[NSNumber numberWithInteger:levelIndex]];
         NSDictionary *bubbles = [dataManager loadPreloadedLevel:levelName];
     dataToGame = bubbles;
         [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];

@@ -7,7 +7,7 @@
 //
 
 #import "GameBubbleBasicTester.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 @interface GameBubbleBasicTester ()
 

@@ -10,4 +10,7 @@
 
 @implementation ScoreDisplay
 
+- (void)receiveScoreUpdate:(NSInteger)newScore{
+}
+
 @end

@@ -122,8 +122,10 @@
 
 - (id)removeObjectAndPruneClusterAtRow:(NSInteger)row andPosition:(NSInteger)pos{
     BubbleEngine *removedObject = [self removeObjectAtRow:row andPosition:pos];
-    NSInteger type = [removedObject bubbleType];
-    [self pruneClustersForType:type];
+    if(removedObject){
+        NSInteger type = [removedObject bubbleType];
+        [self pruneClustersForType:type];
+    }
     return removedObject;
 }
 

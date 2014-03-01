@@ -35,7 +35,7 @@ typedef enum GamePalette{
     BOMB = 8
 } GamePaletteSelection; //Order in level designer storyboard must be as defined here
 
-@interface GameLogic : NSObject
+@interface GameCommon : NSObject
 
 + (NSDictionary *)allBubbleImageMappings;
 

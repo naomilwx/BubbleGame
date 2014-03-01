@@ -7,7 +7,7 @@
 //
 
 #import "DataManager.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 #define GAME_FILE_PREFIX @"%@/gamebubble_%@"
 #define GAME_LEVEL_FILE @"%@/gamebubble_levels"

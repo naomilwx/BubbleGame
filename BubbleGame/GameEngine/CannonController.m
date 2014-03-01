@@ -10,7 +10,7 @@
 #import "BubbleView.h"
 #import "BubbleGridLayout.h"
 #import "BubbleModel.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 #import "TaggedObject.h"
 #import "CGPointExtension.h"
 #import "UIImageView+AnimationCompletion.h"

@@ -7,7 +7,7 @@
 //
 
 #import "MainEngineSpecialised.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 @implementation MainEngineSpecialised
 
@@ -51,7 +51,7 @@
 - (NSArray *)getAllNeighbouringSpecialBubbles:(BubbleEngine *)bubbleEngine{
     NSArray *neighbourList = [self.bubbleGameState getNeighboursForObjectAtRow:bubbleEngine.gridRow andPosition:bubbleEngine.gridCol];
     NSMutableArray *arr = [[NSMutableArray alloc] init];
-    NSSet *specialBubbles = [GameLogic specialBubbleTypes];
+    NSSet *specialBubbles = [GameCommon specialBubbleTypes];
     for(BubbleEngine *engine in neighbourList){
         if([specialBubbles containsObject:[NSNumber numberWithInteger:[engine bubbleType]]]){
             [arr addObject:engine];

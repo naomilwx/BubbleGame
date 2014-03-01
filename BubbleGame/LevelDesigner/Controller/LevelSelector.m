@@ -7,7 +7,7 @@
 //
 
 #import "LevelSelector.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 #define ROW_WIDTH 150
 #define LEVEL_TEXT @"Level %@"

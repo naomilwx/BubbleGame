@@ -10,7 +10,7 @@
 #import "GameDesignerState.h"
 #import "BubbleModel.h"
 #import "DataManager.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 //TODO: warn user if level has not been saved
 @implementation GameLevelLoader{
     GameDesignerState *currentState;

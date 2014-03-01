@@ -9,7 +9,7 @@
 #import "DesignerViewController.h"
 #import <UIKit/UIKit.h>
 #import "BubbleCell.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 #import "GameEngineInitDelegate.h"
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
@@ -144,6 +144,14 @@
     [view setImage:image];
 }
 
+- (void)toggleUIViewTransparancy:(UIView *)view{
+    if([view alpha] == 1){
+        [view setAlpha:TRANSLUCENT_ALPHA];
+    }else{
+        [view setAlpha:1];
+    }
+}
+
 - (IBAction)backButtonPressed:(id)sender {
     if([self.controllerDataManager hasUnsavedBubbles]){
         selectorToExecute = @selector(goBackToMainMenu);
@@ -176,13 +184,6 @@
     }
 }
 
-- (void)toggleUIViewTransparancy:(UIView *)view{
-    if([view alpha] == 1){
-        [view setAlpha:TRANSLUCENT_ALPHA];
-    }else{
-        [view setAlpha:1];
-    }
-}
 #pragma mark - Segue
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

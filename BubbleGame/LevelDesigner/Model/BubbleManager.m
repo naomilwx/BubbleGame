@@ -7,7 +7,7 @@
 //
 
 #import "BubbleManager.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 @implementation BubbleManager{
     NSMutableDictionary *createdHangingBubbles; //mapping of bubble grid position to bubble ID in model and representation in view

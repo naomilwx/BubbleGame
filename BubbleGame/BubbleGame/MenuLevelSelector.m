@@ -7,7 +7,7 @@
 //
 
 #import "MenuLevelSelector.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 #define FIRST_SECTION_TITLE @"Default Levels"
 #define SECOND_SECTION_TITLE @"Designed Levels"
@@ -22,7 +22,7 @@
     if(self = [super initWithStyle:style]){
         selectorDelegate = del;
         levelOptions = [self.selectorDelegate getAvailableLevels];
-        preloadedMappings = [GameLogic preloadedLevelMappings];
+        preloadedMappings = [GameCommon preloadedLevelMappings];
     }
     
     return self;

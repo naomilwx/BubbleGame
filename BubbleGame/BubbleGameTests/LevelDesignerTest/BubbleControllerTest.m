@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "BubbleController.h"
 #import "GameBubbleBasicTester.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 @interface BubbleControllerTest : XCTestCase
 

@@ -8,7 +8,7 @@
 
 #import "CustomDesignerController.h"
 #import "BubbleController.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 #define SAVE_SUCCESSFUL_MSG @"Game level saved successfully"
 #define SAVE_UNSUCCESSFUL_MSG @"An error occurred while saving. Game level is not saved."
@@ -47,7 +47,7 @@
 
 - (void)loadPaletteImageMappings{
     if(!self.paletteImages){
-        NSMutableDictionary *items = [[NSMutableDictionary alloc] initWithDictionary:[GameLogic allBubbleImageMappings]];
+        NSMutableDictionary *items = [[NSMutableDictionary alloc] initWithDictionary:[GameCommon allBubbleImageMappings]];
         [items setObject:[UIImage imageNamed:@"eraser-1"] forKey:[NSNumber numberWithInt:ERASER]];
         self.paletteImages = items;
     }

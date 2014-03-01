@@ -7,7 +7,7 @@
 //
 
 #import "BubbleLoader.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 @implementation BubbleLoader{
     Queue *bubbleQueue;

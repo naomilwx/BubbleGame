@@ -7,7 +7,7 @@
 //
 
 #import "GameDesignerState.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 #import "BubbleModel.h"
 #define INITIAL_BUBBLE_ID 0
 

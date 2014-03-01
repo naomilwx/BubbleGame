@@ -8,7 +8,7 @@
 
 #import "ControllerDataManager.h"
 #import "BubbleController.h"
-#import "GameLogic.h"
+#import "GameCommon.h"
 
 @implementation ControllerDataManager
 

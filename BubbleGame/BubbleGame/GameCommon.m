@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 nus.cs3217. All rights reserved.
 //
 
-#import "GameLogic.h"
+#import "GameCommon.h"
 
-@implementation GameLogic
+@implementation GameCommon
 
 + (NSDictionary *)allBubbleImageMappings{
     NSDictionary *allBubbleImageMappings = @{[NSNumber numberWithInt:ORANGE]: [UIImage imageNamed:@"bubble-orange"],
