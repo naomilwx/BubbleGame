@@ -23,6 +23,8 @@
 @property (weak) id<GridTemplateDelegate> gridTemplateDelegate;
 @property (strong) NSString *gameLevel;
 
+- (id)initWithGameLevel:(NSString *)level;
+
 - (void)checkGridBubbles;
 
 - (void)popBubblesInCollection:(id)bubbles withCondition:(BOOL(^)(BubbleEngine *))filter;
@@ -57,5 +59,7 @@
 - (NSArray *)removeAllBubblesInRow:(NSInteger)row;
 
 - (void)handleMatchingCluster:(NSSet *)matchingCluster;
+
+- (NSInteger)getPreviousHighscore;
 
 @end

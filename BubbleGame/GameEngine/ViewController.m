@@ -82,6 +82,7 @@
 - (void)loadScoreDisplay{
     CGRect scoreFrame = CGRectMake(BACK_BUTTON_XPOS + BACK_BUTTON_WIDTH + SCORE_SIDE_BUFFER, BACK_BUTTON_YPOS - SCORE_BOTTOM_BUFFER, SCORE_WIDTH, SCORE_HEIGHT);
     stateDisplay = [[StateDisplay alloc] initWithGameView:self.gameBackground andDisplayFrame:scoreFrame];
+    [stateDisplay displayHighscore:[engine getPreviousHighscore]];
 }
 
 - (void)loadCannonController{
@@ -100,11 +101,10 @@
 
 - (void)loadEngine{
     if(!engine){
-        engine = [[MainEngineSpecialised alloc] init];
+        engine = [[MainEngineSpecialised alloc] initWithGameLevel:gameLevel];
         [engine setFrameHeight:gameBackground.frame.size.height];
         [engine setFrameWidth:gameBackground.frame.size.width];
         [engine setGridTemplateDelegate:self];
-        [engine setGameLevel:gameLevel];
     }
 }
 

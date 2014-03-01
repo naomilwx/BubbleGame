@@ -19,6 +19,7 @@
     NSInteger totalBubbles;
     NSInteger numOfLaunchedBubbles;
     NSInteger previousHighscore;
+    BOOL gameWin;//temp
 }
 
 @synthesize gridBubbles;
@@ -34,6 +35,8 @@
         numOfLaunchedBubbles = 0;
         gameLevel = level;
         storer = [[GameStateStorer alloc] init];
+        [self getStoredHighscoreFromFile];
+        gameWin = NO;
     }
     return self;
 }
@@ -60,6 +63,7 @@
 - (void)notifyGameEndStatusWin:(BOOL)win withDisplayMessage:(NSString *)message{
     NSDictionary *notificationMsg = @{ENDGAME_MESSAGE: message,
                               ENDGAME_STATUS: [NSNumber numberWithBool:win]};
+    gameWin = win;
     [self postScoreUpdateNotification:notificationMsg withNotificationName:ENDGAME];
 }
 
@@ -84,6 +88,9 @@
 - (void)postScoreUpdateNotification:(NSDictionary *)message withNotificationName:(NSString *)name{
     NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
     [note postNotificationName:name object:self userInfo:message];
+    if(gameWin == YES){
+        [self updateStoredHighscore];//temp
+    }
 }
 
 - (NSSet *)insertBubble:(BubbleEngine *)bubbleEngine intoGridAtRow:(NSInteger)row andCol:(NSInteger)col{
@@ -113,16 +120,15 @@
 
 - (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col{
     totalBubbles -= 1;
+    [gridBubbles removeObjectAtRow:row andPosition:col];
     if(totalBubbles == 0){
         [self sendRemovedAllGridBubblesGameEndNotification];
     }
-    [gridBubbles removeObjectAtRow:row andPosition:col];
 }
 
 - (void)sendRemovedAllGridBubblesGameEndNotification{
     if(totalScore >= previousHighscore){
         [self notifyGameEndStatusWin:YES withDisplayMessage:ENDGAME_WITH_HIGHSCORE_MSG];
-        [self updateStoredHighscore];
     }else{
         [self notifyGameEndStatusWin:YES withDisplayMessage:ENDGAME_WIN];
     }

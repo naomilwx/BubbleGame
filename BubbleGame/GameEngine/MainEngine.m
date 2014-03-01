@@ -40,10 +40,11 @@
     }
 }
 
-- (id)init{
+- (id)initWithGameLevel:(NSString *)level{
     if(self = [super init]){
         defaultSpeed = DEFAULT_SPEED_FACTOR;
         nextEngineID = DEFAULT_ID;
+        gameLevel = level;
         mobileBubbles = [[NSMutableArray alloc] init];
         mobileBubblesToRemove = [[NSMutableArray alloc] init];
         bubbleGameState = [[GameState alloc] initWithLevel:gameLevel];
@@ -282,4 +283,7 @@
     return NO;
 }
 
+- (NSInteger)getPreviousHighscore{
+    return [bubbleGameState getPreviousHighscore];
+}
 @end

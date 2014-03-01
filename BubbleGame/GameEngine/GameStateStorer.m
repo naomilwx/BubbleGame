@@ -19,7 +19,7 @@
         gameScores = [[NSMutableDictionary alloc] init];
         dataFile = [self getGameDataFile];
         if([[NSFileManager defaultManager] fileExistsAtPath:dataFile]){
-            [self getGameDataFile];
+            [self getDataFromFile];
         }
     }
     return self;
@@ -31,7 +31,7 @@
 }
 
 - (NSString *)getGameDataFile{
-    return [NSString stringWithFormat:[self getRootFilePath], FILE_NAME];
+    return [NSString stringWithFormat:FILE_NAME, [self getRootFilePath]];
 }
 
 - (NSMutableDictionary *)getDataFromFile{

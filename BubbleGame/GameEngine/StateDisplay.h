@@ -12,6 +12,7 @@
 
 @property (strong) UIView *gameView;
 @property (strong) UILabel *scoreDisplay;
+@property (strong) UILabel *highScoreDisplay;
 
 - (id)initWithGameView:(UIView *)view andDisplayFrame:(CGRect)frame;
 
@@ -20,4 +21,6 @@
 - (void)showTextNotification:(NSString *)text withFrame:(CGRect)frame;
 
 - (void)hideTextNotification;
+
+- (void)displayHighscore:(NSInteger)highscore;
 @end

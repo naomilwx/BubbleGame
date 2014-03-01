@@ -14,6 +14,7 @@
 #define SCORE_FONT_SIZE 30
 #define NOTIFICATION_FONT_SIZE 20
 #define SCORE_TEXT @"Score: %d"
+#define HIGH_SCORE_TEXT @"Highscore: %d"
 #define POP_TEXT @"Pop bonus: %d"
 #define DROP_TEXT @"Drop bonus: %d"
 #define NOTIFICATION_HEIGHT 50
@@ -34,6 +35,8 @@
         [self initialiseScoreDisplayWithFrame:frame];
         displayedScore = 0;
         [self setScoreDisplayToScore:displayedScore];
+        CGPoint offset = CGPointMake(0, frame.size.height * -1);
+        [self initialiseHighScoreDisplayWithFrame:frame andOffset:offset];
     }
     return self;
 }
@@ -44,11 +47,25 @@
 
 - (void)initialiseScoreDisplayWithFrame:(CGRect)frame{
     _scoreDisplay = [[UILabel alloc] initWithFrame:frame];
-    _scoreDisplay.font = [UIFont fontWithName:SCORE_FONT size:SCORE_FONT_SIZE];
-    _scoreDisplay.textColor = [UIColor whiteColor];
-    [self.gameView addSubview:_scoreDisplay];
+    [self configureAndShowScoreDisplay:_scoreDisplay];
     NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
     [note addObserver:self selector:@selector(receiveScoreUpdate:) name:SCORE_NOTIFICATION object:nil];
+}
+
+- (void)initialiseHighScoreDisplayWithFrame:(CGRect)frame andOffset:(CGPoint)offset{
+    CGRect newFrame = CGRectMake(frame.origin.x + offset.x, frame.origin.y + offset.y, frame.size.width, frame.size.height);
+    _highScoreDisplay = [[UILabel alloc] initWithFrame:newFrame];
+    [self configureAndShowScoreDisplay:_highScoreDisplay];
+}
+
+- (void)displayHighscore:(NSInteger)highscore{
+    [self.highScoreDisplay setText:[NSString stringWithFormat:HIGH_SCORE_TEXT, highscore]];
+}
+
+- (void)configureAndShowScoreDisplay:(UILabel *)display{
+    display.font = [UIFont fontWithName:SCORE_FONT size:SCORE_FONT_SIZE];
+    display.textColor = [UIColor whiteColor];
+    [self.gameView addSubview:display];
 }
 
 - (void)showTextNotification:(NSString *)text withFrame:(CGRect)frame{
