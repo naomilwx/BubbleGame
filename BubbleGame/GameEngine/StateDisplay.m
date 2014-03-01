@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 nus.cs3217. All rights reserved.
 //
 
-#import "ScoreDisplay.h"
+#import "StateDisplay.h"
 #import "GameCommon.h"
 #import "CGPointExtension.h"
 
@@ -21,7 +21,7 @@
 #define NOTIFICATION_YPOS 300
 #define ANIMATION_DURATION 2
 
-@implementation ScoreDisplay{
+@implementation StateDisplay{
     NSInteger displayedScore;
     NSMutableArray *scoreIncrementDisplays;
 }

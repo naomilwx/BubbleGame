@@ -40,6 +40,7 @@
 @synthesize backButton;
 @synthesize cannonController;
 @synthesize scoreDisplay;
+@synthesize gameLevelText;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -68,7 +69,7 @@
 
 - (void)loadScoreDisplay{
     CGRect scoreFrame = CGRectMake(BACK_BUTTON_XPOS + BACK_BUTTON_WIDTH + SCORE_SIDE_BUFFER, BACK_BUTTON_YPOS - SCORE_BOTTOM_BUFFER, SCORE_WIDTH, SCORE_HEIGHT);
-    scoreDisplay = [[ScoreDisplay alloc] initWithGameView:self.gameBackground andDisplayFrame:scoreFrame];
+    scoreDisplay = [[StateDisplay alloc] initWithGameView:self.gameBackground andDisplayFrame:scoreFrame];
 }
 
 - (void)loadCannonController{
@@ -227,5 +228,9 @@
 
 - (void)setPreviousScreen:(NSInteger)previous{
     previousScreen = previous;
+}
+
+- (void)setGameLevel:(NSString *)text{
+    gameLevelText = text;
 }
 @end

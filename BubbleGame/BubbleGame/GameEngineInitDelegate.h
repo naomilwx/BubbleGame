@@ -14,4 +14,6 @@
 
 - (void)setPreviousScreen:(NSInteger)previous;
 
+- (void)setGameLevel:(NSString *)level;
+
 @end

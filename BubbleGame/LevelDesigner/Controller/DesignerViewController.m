@@ -192,6 +192,7 @@
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
         [controller setOriginalBubbleModels:[self.controllerDataManager getAllBubbleModels]];
         [controller setPreviousScreen:LEVEL_DESIGNER];
+        [controller setGameLevel:self.levelIndicator.text];
     }
 }
 

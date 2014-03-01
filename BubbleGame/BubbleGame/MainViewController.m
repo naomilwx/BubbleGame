@@ -10,11 +10,14 @@
 #import "GameEngineInitDelegate.h"
 #import "GameCommon.h"
 
+#define PRELOADED_LEVEL_TEXT @"Level: %@"
+#define DESIGNER_LEVEL_TEXT @"Level: %d"
 #define TO_GAME_SEGUE @"menuToGame"
 
 @implementation MainViewController{
     UIPopoverController *levelSelectorPopover;
     NSDictionary *dataToGame;
+    NSString *gameLevelText;
 }
 
 @synthesize dataManager;
@@ -60,6 +63,7 @@
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
         [controller setPreviousScreen:MAIN_MENU];
         [controller setOriginalBubbleModels:dataToGame];
+        [controller setGameLevel:gameLevelText];
     }
 }
 
@@ -78,7 +82,8 @@
     [levelSelectorPopover dismissPopoverAnimated:YES];
     @try{
         NSDictionary *bubbles = [dataManager loadDesignedLevel:levelIndex];
-    dataToGame = bubbles;
+        dataToGame = bubbles;
+        gameLevelText = [NSString stringWithFormat:DESIGNER_LEVEL_TEXT, levelIndex];
         [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Load Designer Level" andMessage:[e reason]];
@@ -94,7 +99,8 @@
     @try{
         NSString *levelName = [[GameCommon preloadedLevelMappings] objectForKey:[NSNumber numberWithInteger:levelIndex]];
         NSDictionary *bubbles = [dataManager loadPreloadedLevel:levelName];
-    dataToGame = bubbles;
+        dataToGame = bubbles;
+        gameLevelText = [NSString stringWithFormat:PRELOADED_LEVEL_TEXT, levelName];
         [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Load Preloaded Level" andMessage:[e reason]];

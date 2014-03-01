@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ScoreDisplay : NSObject
+@interface StateDisplay : NSObject
 
 @property (strong) UIView *gameView;
 @property (strong) UILabel *scoreDisplay;

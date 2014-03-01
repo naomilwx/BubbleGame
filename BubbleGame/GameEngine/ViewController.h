@@ -12,18 +12,19 @@
 #import "BubbleLoader.h"
 #import "GameEngineInitDelegate.h"
 #import "CannonController.h"
-#import "ScoreDisplay.h"
+#import "StateDisplay.h"
 
 @interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, GridTemplateDelegate, GameEngineInitDelegate>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *bubbleGridTemplate;
 @property (strong, nonatomic) IBOutlet UIImageView *gameBackground;
-@property (strong) UIButton *backButton;
-@property (strong) NSDictionary *allBubbleMappings;
-@property (strong) NSDictionary *launchableBubbleMappings;
+@property (strong, nonatomic) UIButton *backButton;
+@property (strong, nonatomic) NSDictionary *allBubbleMappings;
+@property (strong, nonatomic) NSDictionary *launchableBubbleMappings;
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngineSpecialised *engine;
-@property (strong) ScoreDisplay *scoreDisplay;
+@property (strong) StateDisplay *scoreDisplay;
+@property (strong, nonatomic) NSString *gameLevelText;
 
 @property (strong) CannonController *cannonController;
 
