@@ -17,4 +17,7 @@
 
 - (void)receiveScoreUpdate:(NSNotification *)notification;
 
+- (void)showTextNotification:(NSString *)text withFrame:(CGRect)frame;
+
+- (void)hideTextNotification;
 @end

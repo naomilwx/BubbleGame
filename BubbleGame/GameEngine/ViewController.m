@@ -23,6 +23,9 @@
 #define SCORE_WIDTH 300
 #define SCORE_SIDE_BUFFER 20
 #define SCORE_BOTTOM_BUFFER 10
+#define LEVEL_NOTIFICATION_WIDTH 500
+#define LEVEL_NOTIFICATION_HEIGHT 50
+#define LEVEL_NOTIFICATION_DISPLAY_DURATION 5
 #define BACK_TO_MAIN_MENU @"gameToMenu"
 #define BACK_TO_DESIGNER @"gameToDesigner"
 
@@ -39,12 +42,14 @@
 @synthesize bubbleGridTemplate;
 @synthesize backButton;
 @synthesize cannonController;
-@synthesize scoreDisplay;
+@synthesize stateDisplay;
 @synthesize gameLevelText;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
     [self setUpGameEnvironment];
+    [self loadScoreDisplay];
+    [self showLoadedLevel];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -60,16 +65,22 @@
     [self setUpBubbles];
     [self addGestureRecognisers];
     [self loadCannonController];
-    [self loadScoreDisplay];
 }
 
 - (void)setUpBubbles{
     [self loadGridBubblesFromModel];
 }
 
+- (void)showLoadedLevel{
+    CGPoint center = self.gameBackground.center;
+    CGRect displayFrame = CGRectMake(center.x, center.y, LEVEL_NOTIFICATION_WIDTH, LEVEL_NOTIFICATION_HEIGHT);
+    [stateDisplay showTextNotification:gameLevelText withFrame:displayFrame];
+    [self executeBlock:^{[stateDisplay hideTextNotification];} afterDelay:LEVEL_NOTIFICATION_DISPLAY_DURATION];
+}
+
 - (void)loadScoreDisplay{
     CGRect scoreFrame = CGRectMake(BACK_BUTTON_XPOS + BACK_BUTTON_WIDTH + SCORE_SIDE_BUFFER, BACK_BUTTON_YPOS - SCORE_BOTTOM_BUFFER, SCORE_WIDTH, SCORE_HEIGHT);
-    scoreDisplay = [[StateDisplay alloc] initWithGameView:self.gameBackground andDisplayFrame:scoreFrame];
+    stateDisplay = [[StateDisplay alloc] initWithGameView:self.gameBackground andDisplayFrame:scoreFrame];
 }
 
 - (void)loadCannonController{
@@ -193,6 +204,10 @@
     [cannonController controlCannonWithGesture:recogniser showPath:NO];
 }
 
+- (void)executeBlock:(void (^)(void))block afterDelay:(NSInteger)delay{
+    dispatch_time_t duration = dispatch_time(DISPATCH_TIME_NOW, delay * NSEC_PER_SEC);
+    dispatch_after(duration, dispatch_get_main_queue(), block);
+}
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{

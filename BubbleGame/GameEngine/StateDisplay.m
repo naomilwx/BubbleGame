@@ -24,6 +24,7 @@
 @implementation StateDisplay{
     NSInteger displayedScore;
     NSMutableArray *scoreIncrementDisplays;
+    UILabel *notificationDisplay;
 }
 
 - (id)initWithGameView:(UIView *)view andDisplayFrame:(CGRect)frame{
@@ -48,6 +49,24 @@
     [self.gameView addSubview:_scoreDisplay];
     NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
     [note addObserver:self selector:@selector(receiveScoreUpdate:) name:SCORE_NOTIFICATION object:nil];
+}
+
+- (void)showTextNotification:(NSString *)text withFrame:(CGRect)frame{
+    notificationDisplay = [[UILabel alloc] initWithFrame:frame];
+    [notificationDisplay setFont:[UIFont fontWithName:SCORE_FONT size:NOTIFICATION_FONT_SIZE]];
+    [notificationDisplay adjustsFontSizeToFitWidth];
+    [notificationDisplay setTextColor:[UIColor whiteColor]];
+    [notificationDisplay setText:text];
+    [self.gameView addSubview:notificationDisplay];
+}
+
+- (void)hideTextNotification{
+    if(notificationDisplay){
+        [self fadeOutAndRemoveView:notificationDisplay
+                    withCompletion:^(BOOL done){
+                        [notificationDisplay removeFromSuperview];}
+                       andDuration:ANIMATION_DURATION];
+    }
 }
 
 - (void)displayAndAnimateScoreUpdate:(NSDictionary *)message{
@@ -77,6 +96,10 @@
 }
 
 - (void)animateScoreUpdate:(UIView *)view{
+    void(^finalAction)(BOOL) = ^(BOOL done){
+        [view removeFromSuperview];
+        [scoreIncrementDisplays removeObject:view];
+    };
     [UIView animateWithDuration:ANIMATION_DURATION
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseIn
@@ -84,20 +107,19 @@
                          view.alpha = 1.0f;
                      }
                      completion:^(BOOL done){
-                         [self fadeOutAndRemoveView:view];
+                         [self fadeOutAndRemoveView:view withCompletion:finalAction andDuration:ANIMATION_DURATION];
                      }];
 }
 
-- (void)fadeOutAndRemoveView:(UIView *)view{
-    [UIView animateWithDuration:ANIMATION_DURATION
+- (void)fadeOutAndRemoveView:(UIView *)view withCompletion:(void (^)(BOOL))completionBlock andDuration:(NSTimeInterval)duration{
+    [UIView animateWithDuration:duration
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          view.alpha = 0.0f;
                      }
                      completion:^(BOOL done){
-                         [view removeFromSuperview];
-                         [scoreIncrementDisplays removeObject:view];
+                         completionBlock(done);
                      }];
 }
 

@@ -23,7 +23,7 @@
 @property (strong, nonatomic) NSDictionary *launchableBubbleMappings;
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngineSpecialised *engine;
-@property (strong) StateDisplay *scoreDisplay;
+@property (strong) StateDisplay *stateDisplay;
 @property (strong, nonatomic) NSString *gameLevelText;
 
 @property (strong) CannonController *cannonController;
@@ -36,7 +36,5 @@
 
 - (void)longPressHandler:(UIGestureRecognizer *)recogniser;
 //Note: longpressrecogniser is able to track the gesture till finger is lifted
-
-//- (void)loadNextBubble;
 
 @end
