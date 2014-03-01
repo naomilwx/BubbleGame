@@ -15,11 +15,13 @@
 @implementation GameState{
     NSInteger totalBubbles;
     NSInteger numOfLaunchedBubbles;
+    NSInteger previousHighscore;
 }
 
 @synthesize gridBubbles;
 @synthesize totalScore;
 @synthesize gameLevel;
+@synthesize storer;
 
 - (id)initWithLevel:(NSString *)level{
     if(self = [super init]){
@@ -28,8 +30,28 @@
         totalScore = 0;
         numOfLaunchedBubbles = 0;
         gameLevel = level;
+        storer = [[GameStateStorer alloc] init];
     }
     return self;
+}
+
+- (void)updateHighscoreFromFile{
+    NSNumber *score = [storer getDataForLevel:gameLevel];
+    if(score){
+        previousHighscore = [score integerValue];
+    }else{
+        previousHighscore = 0;
+    }
+}
+
+- (void)updateStoredHighscore{
+    if(totalScore > previousHighscore){
+        [storer updateAndSaveData:[NSNumber numberWithInteger:totalScore] forLevel:gameLevel];
+    }
+}
+
+- (NSInteger)getPreviousHighscore{
+    return previousHighscore;
 }
 
 - (void)updateTotalScoresForDroppedBubbles:(NSInteger)num{

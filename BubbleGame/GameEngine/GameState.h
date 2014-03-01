@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "BubbleEngineManager.h"
 #import "GridTemplateDelegate.h"
+#import "GameStateStorer.h"
 
 @interface GameState : NSObject
 
 @property (strong) BubbleEngineManager *gridBubbles; //This stores the bubbleView objects encapsulated in BubbleEngine instances.
 @property (readonly) NSInteger totalScore;
 @property (strong) NSString *gameLevel;
+@property (strong) GameStateStorer *storer;
 
 - (id)initWithLevel:(NSString *)level;
 
@@ -41,4 +43,7 @@
 - (void)updateTotalScoresForDroppedBubbles:(NSInteger)num;
 
 - (void)updateTotalScoresForPoppedBubbles:(NSInteger)num;
+
+- (NSInteger)getPreviousHighscore;
+
 @end

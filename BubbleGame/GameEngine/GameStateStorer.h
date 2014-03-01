@@ -10,5 +10,11 @@
 
 @interface GameStateStorer : NSObject
 
+- (NSMutableDictionary *)getDataFromFile;
+
+- (void)updateAndSaveData:(id)data forLevel:(NSString *)level;
+
+- (id)getDataForLevel:(NSString *)level;
+
 
 @end
