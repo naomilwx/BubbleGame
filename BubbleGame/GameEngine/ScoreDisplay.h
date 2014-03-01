@@ -12,9 +12,9 @@
 
 @property (strong) UIView *gameView;
 @property (strong) UILabel *scoreDisplay;
-@property (strong) UILabel *scoreIncrementDisplay;
 
 - (id)initWithGameView:(UIView *)view andDisplayFrame:(CGRect)frame;
 
 - (void)receiveScoreUpdate:(NSNotification *)notification;
+
 @end

@@ -14,6 +14,14 @@ CGPoint addVectors(CGPoint vector1, CGPoint vector2){
     return CGPointMake(x, y);
 }
 
+CGPoint yShift(CGPoint vector, CGFloat amount){
+    return CGPointMake(vector.x, vector.y + amount);
+}
+
+CGPoint xShift(CGPoint vector, CGFloat amount){
+    return CGPointMake(vector.x + amount, vector.y);
+}
+
 CGPoint scaleVector(CGPoint v, CGFloat scale){
     return CGPointMake(v.x * scale, v.y*scale);
 }

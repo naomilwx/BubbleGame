@@ -32,16 +32,23 @@
 
 - (void)updateTotalScoresForDroppedBubbles:(NSInteger)num{
     totalScore += num * DROPPED_SCORE;
-    [self postScoreUpdateNotification];
+    NSDictionary *message = @{SCORE_NOTIFICATION: [NSNumber numberWithInteger:totalScore],
+                              SCORE_CHANGE: [NSNumber numberWithInteger:num*DROPPED_SCORE],
+                              SCORE_CHANGE_TYPE: DROP_NOTIFICATION
+                              };
+    [self postScoreUpdateNotification:message];
 }
 
 - (void)updateTotalScoresForPoppedBubbles:(NSInteger)num{
     totalScore += num * POPPED_SCORE;
-    [self postScoreUpdateNotification];
+    NSDictionary *message = @{SCORE_NOTIFICATION: [NSNumber numberWithInteger:totalScore],
+                              SCORE_CHANGE: [NSNumber numberWithInteger:num*POPPED_SCORE],
+                              SCORE_CHANGE_TYPE: POP_NOTIFICATION
+                              };
+    [self postScoreUpdateNotification:message];
 }
 
-- (void)postScoreUpdateNotification{
-    NSDictionary *message = @{SCORE_NOTIFICATION: [NSNumber numberWithInteger:totalScore]};
+- (void)postScoreUpdateNotification:(NSDictionary *)message{
     NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
     [note postNotificationName:SCORE_NOTIFICATION object:self userInfo:message];
 }

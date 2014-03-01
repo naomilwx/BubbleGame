@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 CGPoint addVectors(CGPoint vector1, CGPoint vector2);
+CGPoint yShift(CGPoint vector, CGFloat amount);
+CGPoint xShift(CGPoint vector, CGFloat amount);
 CGPoint scaleVector(CGPoint v, CGFloat scale);
 CGFloat getMagnitude(CGPoint vector);
 CGPoint getUnitVector(CGPoint vector);

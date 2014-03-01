@@ -52,8 +52,6 @@
 
 - (CGPoint)moveByOffset:(CGPoint)offset{
     CGPoint point = addVectors(self.center, offset);
-//    point.x = point.x + offset.x;
-//    point.y = point.y + offset.y;
     [self setCenter:point];
     return self.center;
 }
