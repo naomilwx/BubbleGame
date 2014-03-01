@@ -11,10 +11,10 @@
 @interface ScoreDisplay : NSObject
 
 @property (strong) UIView *gameView;
-@property (strong) UIView *scoreDisplay;
-@property (strong) UIView *scoreIncrementDisplay;
+@property (strong) UILabel *scoreDisplay;
+@property (strong) UILabel *scoreIncrementDisplay;
 
-- (id)initWithGameView:(UIView *)view;
+- (id)initWithGameView:(UIView *)view andDisplayFrame:(CGRect)frame;
 
-- (void)receiveScoreUpdate:(NSInteger)newScore;
+- (void)receiveScoreUpdate:(NSNotification *)notification;
 @end

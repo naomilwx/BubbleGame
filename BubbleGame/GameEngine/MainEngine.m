@@ -169,7 +169,7 @@
 
 - (void)handleMatchingCluster:(NSSet *)matchingCluster{
     if([matchingCluster count] >= 3){
-        [self removeAllInCollection:matchingCluster removeType:POP_ANIMATION additionalRemoveFilter:nil];
+        [self popBubblesInCollection:matchingCluster withCondition:nil];
     }
 }
 
@@ -184,14 +184,14 @@
                 return YES;
             }
         };
-        [self removeAllInCollection:neighbourList removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
+        [self popBubblesInCollection:neighbourList withCondition:filterCond];
     }
     return neighbourList;
 }
 
 - (void)removeAllBubbleOfType:(NSInteger)type{
     NSSet *bubblesOfType = [bubbleGameState getAllObjectsOfType:type];
-    [self removeAllInCollection:bubblesOfType removeType:POP_ANIMATION additionalRemoveFilter:nil];
+    [self popBubblesInCollection:bubblesOfType withCondition:nil];
 }
 
 - (NSArray *)removeAllBubblesInRow:(NSInteger)row{
@@ -203,7 +203,7 @@
             return YES;
         }
     };
-    [self removeAllInCollection:bubblesInRow removeType:POP_ANIMATION additionalRemoveFilter:filterCond];
+    [self popBubblesInCollection:bubblesInRow withCondition:filterCond];
     return bubblesInRow;
 }
 
@@ -225,7 +225,7 @@
     NSSet *allBubbles = [NSSet setWithArray:[bubbleGameState getAllObjects]];
     NSMutableSet *orphaned = [bubbleGameState getOrphanedBubblesIncludingCluster:allBubbles];
     for(NSMutableSet *set in orphaned){
-        [self removeAllInCollection:set removeType:DROP_ANIMATION additionalRemoveFilter:nil];
+        [self dropBubblesInCollection:set withCondition:nil];
     }
 }
 
@@ -236,7 +236,7 @@
 
 - (void)dropBubblesInCollection:(id)bubbles withCondition:(BOOL(^)(BubbleEngine *))filter{
     NSInteger numRemoved = [self removeAllInCollection:bubbles removeType:DROP_ANIMATION additionalRemoveFilter:filter];
-    [bubbleGameState updateTotalScoresForPoppedBubbles:numRemoved];
+    [bubbleGameState updateTotalScoresForDroppedBubbles:numRemoved];
 }
 
 - (NSInteger)removeAllInCollection:(id)cluster removeType:(NSInteger)animationType additionalRemoveFilter:(BOOL(^)(BubbleEngine *))filter{

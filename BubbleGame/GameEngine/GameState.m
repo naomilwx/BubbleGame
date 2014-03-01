@@ -7,6 +7,8 @@
 //
 
 #import "GameState.h"
+#import "GameCommon.h"
+
 #define DROPPED_SCORE 25
 #define POPPED_SCORE 10
 
@@ -29,13 +31,20 @@
 }
 
 - (void)updateTotalScoresForDroppedBubbles:(NSInteger)num{
-    totalBubbles += num * DROPPED_SCORE;
+    totalScore += num * DROPPED_SCORE;
+    [self postScoreUpdateNotification];
 }
 
 - (void)updateTotalScoresForPoppedBubbles:(NSInteger)num{
-    totalBubbles += num * POPPED_SCORE;
+    totalScore += num * POPPED_SCORE;
+    [self postScoreUpdateNotification];
 }
 
+- (void)postScoreUpdateNotification{
+    NSDictionary *message = @{SCORE_NOTIFICATION: [NSNumber numberWithInteger:totalScore]};
+    NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
+    [note postNotificationName:SCORE_NOTIFICATION object:self userInfo:message];
+}
 
 - (NSSet *)insertBubble:(BubbleEngine *)bubbleEngine intoGridAtRow:(NSInteger)row andCol:(NSInteger)col{
     totalBubbles += 1;

@@ -80,8 +80,8 @@
         CGRect frame = CGRectMake(self.gameView.frame.origin.x, self.gameView.frame.origin.y, self.gameView.frame.size.width, self.gameView.frame.size.height);
         plotter = [[PathPlotter alloc] initWithFrame:frame andWidth:PLOTTER_WIDTH andInterval:PLOTTER_INTERVAL];
         BOOL (^gridCollision)(CGPoint) = ^BOOL(CGPoint point){
-                                                return [engine hasCollisionWithGridForCenter:point];
-                                        };
+            return [engine hasCollisionWithGridForCenter:point];
+        };
         [plotter setAdditionalStopCondition:gridCollision];
     }
 }

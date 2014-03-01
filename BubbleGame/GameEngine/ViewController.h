@@ -12,6 +12,7 @@
 #import "BubbleLoader.h"
 #import "GameEngineInitDelegate.h"
 #import "CannonController.h"
+#import "ScoreDisplay.h"
 
 @interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, GridTemplateDelegate, GameEngineInitDelegate>
 
@@ -22,6 +23,7 @@
 @property (strong) NSDictionary *launchableBubbleMappings;
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngineSpecialised *engine;
+@property (strong) ScoreDisplay *scoreDisplay;
 
 @property (strong) CannonController *cannonController;
 

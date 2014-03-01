@@ -389,11 +389,11 @@
 		C229890B18BE18FF00FEED38 /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				C2058A6718B67F44003AC20C /* MainEngineDelegate.h */,
 				C2058A6518B67F44003AC20C /* MainEngine.h */,
 				C2058A6618B67F44003AC20C /* MainEngine.m */,
 				C229891018BE1F4800FEED38 /* MainEngineSpecialised.h */,
 				C229891118BE1F4800FEED38 /* MainEngineSpecialised.m */,
-				C2058A6718B67F44003AC20C /* MainEngineDelegate.h */,
 				C2058A5218B67F44003AC20C /* BubbleEngine.h */,
 				C2058A5318B67F44003AC20C /* BubbleEngine.m */,
 				C2908B1118BF29C800499B4C /* GameState.h */,

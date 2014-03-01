@@ -19,6 +19,7 @@
 # define BUBBLE_QUEUE_SIZE 2
 # define MAIN_MENU 1
 # define LEVEL_DESIGNER 2
+# define SCORE_NOTIFICATION @"score"
 
 #endif
 

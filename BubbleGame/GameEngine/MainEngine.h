@@ -24,6 +24,10 @@
 
 - (void)checkGridBubbles;
 
+- (void)popBubblesInCollection:(id)bubbles withCondition:(BOOL(^)(BubbleEngine *))filter;
+
+- (void)dropBubblesInCollection:(id)bubbles withCondition:(BOOL(^)(BubbleEngine *))filter;
+
 - (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type;
 
 - (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type andInitialUnitDisplacement:(CGPoint)vector;

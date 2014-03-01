@@ -19,6 +19,10 @@
 #define BACK_BUTTON_YPOS 980
 #define BACK_BUTTON_WIDTH 45
 #define BACK_BUTTON_HEIGHT 30
+#define SCORE_HEIGHT 50
+#define SCORE_WIDTH 90
+#define SCORE_SIDE_BUFFER 20
+#define SCORE_BOTTOM_BUFFER 10
 #define BACK_TO_MAIN_MENU @"gameToMenu"
 #define BACK_TO_DESIGNER @"gameToDesigner"
 
@@ -35,6 +39,7 @@
 @synthesize bubbleGridTemplate;
 @synthesize backButton;
 @synthesize cannonController;
+@synthesize scoreDisplay;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -54,10 +59,16 @@
     [self setUpBubbles];
     [self addGestureRecognisers];
     [self loadCannonController];
+    [self loadScoreDisplay];
 }
 
 - (void)setUpBubbles{
     [self loadGridBubblesFromModel];
+}
+
+- (void)loadScoreDisplay{
+    CGRect scoreFrame = CGRectMake(BACK_BUTTON_XPOS + BACK_BUTTON_WIDTH + SCORE_SIDE_BUFFER, BACK_BUTTON_YPOS - SCORE_BOTTOM_BUFFER, SCORE_WIDTH, SCORE_HEIGHT);
+    scoreDisplay = [[ScoreDisplay alloc] initWithGameView:self.gameBackground andDisplayFrame:scoreFrame];
 }
 
 - (void)loadCannonController{
