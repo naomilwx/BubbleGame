@@ -11,6 +11,9 @@
 
 #define DROPPED_SCORE 25
 #define POPPED_SCORE 10
+#define ENDGAME_WITH_HIGHSCORE_MSG @"Congratulations! You win the game with a highscore of %d"
+#define ENDGAME_WIN @"Congratulations! You have successfully cleared all the bubbles."
+#define ENDGAME_LOSE @"Game over! Try harder next time!"
 
 @implementation GameState{
     NSInteger totalBubbles;
@@ -35,7 +38,7 @@
     return self;
 }
 
-- (void)updateHighscoreFromFile{
+- (void)getStoredHighscoreFromFile{
     NSNumber *score = [storer getDataForLevel:gameLevel];
     if(score){
         previousHighscore = [score integerValue];
@@ -54,13 +57,19 @@
     return previousHighscore;
 }
 
+- (void)notifyGameEndStatusWin:(BOOL)win withDisplayMessage:(NSString *)message{
+    NSDictionary *notificationMsg = @{ENDGAME_MESSAGE: message,
+                              ENDGAME_STATUS: [NSNumber numberWithBool:win]};
+    [self postScoreUpdateNotification:notificationMsg withNotificationName:ENDGAME];
+}
+
 - (void)updateTotalScoresForDroppedBubbles:(NSInteger)num{
     totalScore += num * DROPPED_SCORE;
     NSDictionary *message = @{SCORE_NOTIFICATION: [NSNumber numberWithInteger:totalScore],
                               SCORE_CHANGE: [NSNumber numberWithInteger:num*DROPPED_SCORE],
                               SCORE_CHANGE_TYPE: DROP_NOTIFICATION
                               };
-    [self postScoreUpdateNotification:message];
+    [self postScoreUpdateNotification:message withNotificationName:SCORE_NOTIFICATION];
 }
 
 - (void)updateTotalScoresForPoppedBubbles:(NSInteger)num{
@@ -69,12 +78,12 @@
                               SCORE_CHANGE: [NSNumber numberWithInteger:num*POPPED_SCORE],
                               SCORE_CHANGE_TYPE: POP_NOTIFICATION
                               };
-    [self postScoreUpdateNotification:message];
+    [self postScoreUpdateNotification:message withNotificationName:SCORE_NOTIFICATION];
 }
 
-- (void)postScoreUpdateNotification:(NSDictionary *)message{
+- (void)postScoreUpdateNotification:(NSDictionary *)message withNotificationName:(NSString *)name{
     NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
-    [note postNotificationName:SCORE_NOTIFICATION object:self userInfo:message];
+    [note postNotificationName:name object:self userInfo:message];
 }
 
 - (NSSet *)insertBubble:(BubbleEngine *)bubbleEngine intoGridAtRow:(NSInteger)row andCol:(NSInteger)col{
@@ -104,7 +113,19 @@
 
 - (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col{
     totalBubbles -= 1;
+    if(totalBubbles == 0){
+        [self sendRemovedAllGridBubblesGameEndNotification];
+    }
     [gridBubbles removeObjectAtRow:row andPosition:col];
+}
+
+- (void)sendRemovedAllGridBubblesGameEndNotification{
+    if(totalScore >= previousHighscore){
+        [self notifyGameEndStatusWin:YES withDisplayMessage:ENDGAME_WITH_HIGHSCORE_MSG];
+        [self updateStoredHighscore];
+    }else{
+        [self notifyGameEndStatusWin:YES withDisplayMessage:ENDGAME_WIN];
+    }
 }
 
 - (NSMutableSet *)getOrphanedBubblesIncludingCluster:(id)cluster{
