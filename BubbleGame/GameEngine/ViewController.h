@@ -24,7 +24,7 @@
 @property CGFloat defaultBubbleRadius;
 @property (strong) MainEngineSpecialised *engine;
 @property (strong) StateDisplay *stateDisplay;
-@property (strong, nonatomic) NSString *gameLevelText;
+@property (strong, nonatomic) NSString *gameLevel;
 
 @property (strong) CannonController *cannonController;
 

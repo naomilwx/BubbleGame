@@ -21,6 +21,7 @@
 @property CGFloat frameWidth;
 @property CGFloat frameHeight;
 @property (weak) id<GridTemplateDelegate> gridTemplateDelegate;
+@property (strong) NSString *gameLevel;
 
 - (void)checkGridBubbles;
 

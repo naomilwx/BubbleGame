@@ -74,6 +74,7 @@
 		C2908B2018C03CE600499B4C /* UIImageView+AnimationCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B1F18C03CE600499B4C /* UIImageView+AnimationCompletion.m */; };
 		C2908B2318C0546F00499B4C /* CannonController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B2218C0546F00499B4C /* CannonController.m */; };
 		C2908B2618C0898100499B4C /* ControllerDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B2518C0898100499B4C /* ControllerDataManager.m */; };
+		C2908B3618C1F70100499B4C /* GameStateStorer.m in Sources */ = {isa = PBXBuildFile; fileRef = C2908B3518C1F70100499B4C /* GameStateStorer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -197,6 +198,8 @@
 		C2908B2218C0546F00499B4C /* CannonController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CannonController.m; sourceTree = "<group>"; };
 		C2908B2418C0898100499B4C /* ControllerDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerDataManager.h; sourceTree = "<group>"; };
 		C2908B2518C0898100499B4C /* ControllerDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerDataManager.m; sourceTree = "<group>"; };
+		C2908B3418C1F70100499B4C /* GameStateStorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStateStorer.h; sourceTree = "<group>"; };
+		C2908B3518C1F70100499B4C /* GameStateStorer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStateStorer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +373,7 @@
 		C2058A4D18B67F44003AC20C /* GameEngine */ = {
 			isa = PBXGroup;
 			children = (
+				C2908B3318C1F6E200499B4C /* model */,
 				C229890B18BE18FF00FEED38 /* engine */,
 				C267044518B8A6F000DC6448 /* Controller */,
 				C2058A6818B67F44003AC20C /* view */,
@@ -396,8 +400,6 @@
 				C229891118BE1F4800FEED38 /* MainEngineSpecialised.m */,
 				C2058A5218B67F44003AC20C /* BubbleEngine.h */,
 				C2058A5318B67F44003AC20C /* BubbleEngine.m */,
-				C2908B1118BF29C800499B4C /* GameState.h */,
-				C2908B1218BF29C800499B4C /* GameState.m */,
 			);
 			name = engine;
 			sourceTree = "<group>";
@@ -489,6 +491,17 @@
 				C2908B1F18C03CE600499B4C /* UIImageView+AnimationCompletion.m */,
 			);
 			name = DataStructures;
+			sourceTree = "<group>";
+		};
+		C2908B3318C1F6E200499B4C /* model */ = {
+			isa = PBXGroup;
+			children = (
+				C2908B1118BF29C800499B4C /* GameState.h */,
+				C2908B1218BF29C800499B4C /* GameState.m */,
+				C2908B3418C1F70100499B4C /* GameStateStorer.h */,
+				C2908B3518C1F70100499B4C /* GameStateStorer.m */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -632,6 +645,7 @@
 				C2908B2618C0898100499B4C /* ControllerDataManager.m in Sources */,
 				C2908B2018C03CE600499B4C /* UIImageView+AnimationCompletion.m in Sources */,
 				C2058A1618B67C4B003AC20C /* BubbleGridLayout.m in Sources */,
+				C2908B3618C1F70100499B4C /* GameStateStorer.m in Sources */,
 				C20589A718B67B9E003AC20C /* main.m in Sources */,
 				C2058A1418B67C4B003AC20C /* GameDesignerState.m in Sources */,
 				C2058A7E18B67F44003AC20C /* MainEngine.m in Sources */,

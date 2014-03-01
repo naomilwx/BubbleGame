@@ -19,13 +19,15 @@
 
 @synthesize gridBubbles;
 @synthesize totalScore;
+@synthesize gameLevel;
 
-- (id)init{
+- (id)initWithLevel:(NSString *)level{
     if(self = [super init]){
         gridBubbles = [[BubbleEngineManager alloc] init];
         totalBubbles = 0;
         totalScore = 0;
         numOfLaunchedBubbles = 0;
+        gameLevel = level;
     }
     return self;
 }

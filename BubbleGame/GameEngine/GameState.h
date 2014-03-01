@@ -14,6 +14,9 @@
 
 @property (strong) BubbleEngineManager *gridBubbles; //This stores the bubbleView objects encapsulated in BubbleEngine instances.
 @property (readonly) NSInteger totalScore;
+@property (strong) NSString *gameLevel;
+
+- (id)initWithLevel:(NSString *)level;
 
 - (NSSet *)insertBubble:(BubbleEngine *)bubbleEngine intoGridAtRow:(NSInteger)row andCol:(NSInteger)col;
 

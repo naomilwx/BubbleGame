@@ -28,6 +28,7 @@
 #define LEVEL_NOTIFICATION_DISPLAY_DURATION 5
 #define BACK_TO_MAIN_MENU @"gameToMenu"
 #define BACK_TO_DESIGNER @"gameToDesigner"
+#define GAME_LEVEL_DISPLAY @"Level: %@"
 
 @implementation ViewController{
     NSDictionary *originalBubbleModels;
@@ -43,7 +44,7 @@
 @synthesize backButton;
 @synthesize cannonController;
 @synthesize stateDisplay;
-@synthesize gameLevelText;
+@synthesize gameLevel;
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -74,7 +75,7 @@
 - (void)showLoadedLevel{
     CGPoint center = self.gameBackground.center;
     CGRect displayFrame = CGRectMake(center.x, center.y, LEVEL_NOTIFICATION_WIDTH, LEVEL_NOTIFICATION_HEIGHT);
-    [stateDisplay showTextNotification:gameLevelText withFrame:displayFrame];
+    [stateDisplay showTextNotification:[NSString stringWithFormat:GAME_LEVEL_DISPLAY, gameLevel] withFrame:displayFrame];
     [self executeBlock:^{[stateDisplay hideTextNotification];} afterDelay:LEVEL_NOTIFICATION_DISPLAY_DURATION];
 }
 
@@ -103,6 +104,7 @@
         [engine setFrameHeight:gameBackground.frame.size.height];
         [engine setFrameWidth:gameBackground.frame.size.width];
         [engine setGridTemplateDelegate:self];
+        [engine setGameLevel:gameLevel];
     }
 }
 
@@ -246,6 +248,6 @@
 }
 
 - (void)setGameLevel:(NSString *)text{
-    gameLevelText = text;
+    gameLevel = text;
 }
 @end

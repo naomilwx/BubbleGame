@@ -10,8 +10,6 @@
 #import "GameEngineInitDelegate.h"
 #import "GameCommon.h"
 
-#define PRELOADED_LEVEL_TEXT @"Level: %@"
-#define DESIGNER_LEVEL_TEXT @"Level: %d"
 #define TO_GAME_SEGUE @"menuToGame"
 
 @implementation MainViewController{
@@ -83,7 +81,7 @@
     @try{
         NSDictionary *bubbles = [dataManager loadDesignedLevel:levelIndex];
         dataToGame = bubbles;
-        gameLevelText = [NSString stringWithFormat:DESIGNER_LEVEL_TEXT, levelIndex];
+        gameLevelText = [NSString stringWithFormat:@"%d", levelIndex];
         [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Load Designer Level" andMessage:[e reason]];
@@ -100,7 +98,7 @@
         NSString *levelName = [[GameCommon preloadedLevelMappings] objectForKey:[NSNumber numberWithInteger:levelIndex]];
         NSDictionary *bubbles = [dataManager loadPreloadedLevel:levelName];
         dataToGame = bubbles;
-        gameLevelText = [NSString stringWithFormat:PRELOADED_LEVEL_TEXT, levelName];
+        gameLevelText = levelName;
         [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Load Preloaded Level" andMessage:[e reason]];

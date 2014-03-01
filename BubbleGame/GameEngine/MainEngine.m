@@ -23,11 +23,11 @@
 }
 
 @synthesize defaultSpeed;
-//@synthesize gridBubbles; //This will store all static bubble views
 @synthesize bubbleGameState;
 @synthesize frameHeight;
 @synthesize frameWidth;
 @synthesize gridTemplateDelegate;
+@synthesize gameLevel;
 
 - (void)checkGridBubbles{
     //Checks if stored GridBubbles tally with view, ie all of the BubbleEngine instances have their corresponding views rendered
@@ -46,7 +46,7 @@
         nextEngineID = DEFAULT_ID;
         mobileBubbles = [[NSMutableArray alloc] init];
         mobileBubblesToRemove = [[NSMutableArray alloc] init];
-        bubbleGameState = [[GameState alloc] init];
+        bubbleGameState = [[GameState alloc] initWithLevel:gameLevel];
         [self createDisplayLink];
     }
     return self;
