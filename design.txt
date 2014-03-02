@@ -42,6 +42,7 @@ Implemented Bells & whistles:
 1) Add cannon projected path. An additional view controller (PathPlotter) was created to handle the path rendering
 2) Add game score. The tracking of game score was done in the engine’s GameState instance
 3) Show score increments i.e. (x points added for popping bubbles, y points added for dropping bubbles). Rendering of game notifications is done in the new StateDisplay class. Notifications to be displayed are passed to this class via NSNotificationCenter
+4) Show game high score. Highscores of each level are saved to file using GameStateStorer
 
 Final Reflection
 Previously, the bulk of the level designer logic was handled in a single view controller. This made the code

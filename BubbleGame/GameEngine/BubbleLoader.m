@@ -18,6 +18,7 @@
 @synthesize mainFrame;
 @synthesize bubbleRadius;
 @synthesize bubbleTypeMappings;
+@synthesize maxBubblesToLoad;
 
 - (id)initWithFrame:(CGRect)frame andTypeMapping:(NSDictionary *)mapping andBubbleRadius:(CGFloat)radius{
     if(self = [super init]){

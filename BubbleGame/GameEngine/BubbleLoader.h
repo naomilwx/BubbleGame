@@ -17,7 +17,7 @@
 @property (strong) UIView *mainFrame;
 @property CGFloat bubbleRadius;
 @property (strong) NSDictionary *bubbleTypeMappings;
-
+@property NSInteger maxBubblesToLoad;
 
 - (id)initWithFrame:(CGRect)frame andTypeMapping:(NSDictionary *)mapping andBubbleRadius:(CGFloat)radius;
 

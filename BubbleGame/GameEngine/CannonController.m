@@ -64,6 +64,7 @@
     CGFloat yPos = self.gameView.frame.size.height - height;
     CGRect loaderFrame = CGRectMake(xPos, yPos, width, height);
     bubbleLoader = [[BubbleLoader alloc] initWithFrame:loaderFrame andTypeMapping:launchableBubbleMappings andBubbleRadius:self.defaultBubbleRadius];
+    [bubbleLoader setMaxBubblesToLoad:[engine getMaxLaunchedBubbles]];
     [self.gameView addSubview:[bubbleLoader mainFrame]];
 }
 

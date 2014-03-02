@@ -50,6 +50,10 @@
     return maxNum;
 }
 
+- (NSInteger)getMaxLaunchedBubbles{
+    return maxLaunchedBubbles;
+}
+
 - (void)getStoredHighscoreFromFile{
     NSNumber *score = [storer getDataForLevel:gameLevel];
     if(score){
