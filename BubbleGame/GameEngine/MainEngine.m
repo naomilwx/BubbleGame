@@ -161,14 +161,6 @@
                                           };
         NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
         [notification postNotificationName:ENDGAME object:self userInfo:gameOverMessage];
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Game Over"
-//                                                        message:@"Maximum bubble layers exceeded"
-//                                                       delegate:nil
-//                                              cancelButtonTitle:@"OK"
-//                                              otherButtonTitles:nil]; //TODO
-//        [alert show];
-//        [self reload];
-        
     }
 }
 
@@ -296,4 +288,9 @@
 - (NSInteger)getPreviousHighscore{
     return [bubbleGameState getPreviousHighscore];
 }
+
+- (void)saveGameHighScore{
+    [bubbleGameState updateStoredHighscore];
+}
+
 @end

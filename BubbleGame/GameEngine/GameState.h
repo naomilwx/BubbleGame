@@ -44,6 +44,8 @@
 
 - (void)updateTotalScoresForPoppedBubbles:(NSInteger)num;
 
+- (void)updateStoredHighscore;
+
 - (NSInteger)getPreviousHighscore;
 
 - (void)reload;

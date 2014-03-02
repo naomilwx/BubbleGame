@@ -11,7 +11,7 @@
 
 #define DROPPED_SCORE 25
 #define POPPED_SCORE 10
-#define ENDGAME_WITH_HIGHSCORE_MSG @"Congratulations! You win the game with a highscore of %d"
+#define ENDGAME_WITH_HIGHSCORE_MSG @"Congratulations! You win the game with highscore!"
 #define ENDGAME_WIN @"Congratulations! You have successfully cleared all the bubbles."
 #define ENDGAME_LOSE @"Game over! Try harder next time!"
 
@@ -19,7 +19,6 @@
     NSInteger totalBubbles;
     NSInteger numOfLaunchedBubbles;
     NSInteger previousHighscore;
-    BOOL gameWin;//temp
 }
 
 @synthesize gridBubbles;
@@ -36,7 +35,6 @@
         gameLevel = level;
         storer = [[GameStateStorer alloc] init];
         [self getStoredHighscoreFromFile];
-        gameWin = NO;
     }
     return self;
 }
@@ -64,7 +62,6 @@
 - (void)notifyGameEndStatusWin:(BOOL)win withDisplayMessage:(NSString *)message{
     NSDictionary *notificationMsg = @{ENDGAME_MESSAGE: message,
                               ENDGAME_STATUS: [NSNumber numberWithBool:win]};
-    gameWin = win;
     [self postGameStateNotification:notificationMsg withNotificationName:ENDGAME];
 }
 
@@ -89,9 +86,6 @@
 - (void)postGameStateNotification:(NSDictionary *)message withNotificationName:(NSString *)name{
     NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
     [note postNotificationName:name object:self userInfo:message];
-    if(gameWin == YES){
-        [self updateStoredHighscore];//temp
-    }
 }
 
 - (NSSet *)insertBubble:(BubbleEngine *)bubbleEngine intoGridAtRow:(NSInteger)row andCol:(NSInteger)col{
@@ -202,7 +196,6 @@
     totalBubbles = 0;
     totalScore = 0;
     numOfLaunchedBubbles = 0;
-    gameWin = NO;
 }
 
 @end

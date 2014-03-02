@@ -62,5 +62,7 @@
 
 - (NSInteger)getPreviousHighscore;
 
+- (void)saveGameHighScore;
+
 - (void)reload;
 @end

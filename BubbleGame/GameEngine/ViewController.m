@@ -29,6 +29,8 @@
 #define BACK_TO_MAIN_MENU @"gameToMenu"
 #define BACK_TO_DESIGNER @"gameToDesigner"
 #define GAME_LEVEL_DISPLAY @"Level: %@"
+#define WIN_ALERT_TITLE @"Game Won"
+#define LOSE_ALERT_TITLE @"Game Over"
 
 @implementation ViewController{
     NSDictionary *originalBubbleModels;
@@ -190,6 +192,10 @@
 }
 
 - (void)backButtonClicked{
+    [self goBackToPreviousScreen];
+}
+
+- (void)goBackToPreviousScreen{
     if(previousScreen == LEVEL_DESIGNER){
         [self performSegueWithIdentifier:BACK_TO_DESIGNER sender:self];
     }else if(previousScreen == MAIN_MENU){
@@ -242,17 +248,29 @@
 }
 
 - (void)handleGameWin:(NSDictionary *)message{
-
-}
-
-- (void)handleGameLose:(NSDictionary *)message{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Game Over"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: WIN_ALERT_TITLE
                                                     message:[message objectForKey:ENDGAME_MESSAGE]
-                                                   delegate:nil
+                                                   delegate:self
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil]; //TODO
     [alert show];
+}
+
+- (void)handleGameLose:(NSDictionary *)message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: LOSE_ALERT_TITLE
+                                                    message:[message objectForKey:ENDGAME_MESSAGE]
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
     [self reload];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if([[alertView title] isEqual:WIN_ALERT_TITLE]){
+        [engine saveGameHighScore];
+        [self goBackToPreviousScreen];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
