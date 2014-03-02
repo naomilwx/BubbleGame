@@ -17,6 +17,7 @@
 #define HIGH_SCORE_TEXT @"Highscore: %d"
 #define POP_TEXT @"Pop bonus: %d"
 #define DROP_TEXT @"Drop bonus: %d"
+#define BONUS_TEXT @"Combo bonus: %d"
 #define NOTIFICATION_HEIGHT 50
 #define NOTIFICATION_WIDTH 200
 #define NOTIFICATION_YPOS 300
@@ -95,8 +96,10 @@
     NSInteger change = [[message objectForKey:SCORE_CHANGE] integerValue];
     if([[message objectForKey:SCORE_CHANGE_TYPE] isEqual:POP_NOTIFICATION]){
         text = [NSString stringWithFormat:POP_TEXT, change];
-    }else{
+    }else if([[message objectForKey:SCORE_CHANGE_TYPE] isEqual:DROP_NOTIFICATION]){
         text = [NSString stringWithFormat:DROP_TEXT, change];
+    }else{
+        text = [NSString stringWithFormat:BONUS_TEXT, change];
     }
     UILabel *display = [self createScoreUpdateLabel:text];
     [self animateScoreUpdate:display];

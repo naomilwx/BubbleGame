@@ -10,7 +10,9 @@
 #import "GameCommon.h"
 
 #define DROPPED_SCORE 25
-#define POPPED_SCORE 10
+#define POPPED_SCORE 15
+#define MIN_BUBBLES_FOR_BONUS 3
+#define ADDITIONAL_BONUS 10
 #define ENDGAME_WITH_HIGHSCORE_MSG @"Congratulations! You win the game with highscore!"
 #define ENDGAME_WIN @"Congratulations! You have successfully cleared all the bubbles."
 #define ENDGAME_LOSE @"Game over! Try harder next time!"
@@ -72,6 +74,7 @@
                               SCORE_CHANGE_TYPE: DROP_NOTIFICATION
                               };
     [self postGameStateNotification:message withNotificationName:SCORE_NOTIFICATION];
+    [self checkAndApplyBonus:num];
 }
 
 - (void)updateTotalScoresForPoppedBubbles:(NSInteger)num{
@@ -81,6 +84,20 @@
                               SCORE_CHANGE_TYPE: POP_NOTIFICATION
                               };
     [self postGameStateNotification:message withNotificationName:SCORE_NOTIFICATION];
+    [self checkAndApplyBonus:num];
+}
+
+- (void)checkAndApplyBonus:(NSInteger)numOfBubbles{
+    if(numOfBubbles > MIN_BUBBLES_FOR_BONUS){
+        NSInteger bonus = (numOfBubbles - MIN_BUBBLES_FOR_BONUS) * ADDITIONAL_BONUS;
+        totalScore += bonus;
+        NSDictionary *message = @{SCORE_NOTIFICATION: [NSNumber numberWithInteger:totalScore],
+                                  SCORE_CHANGE: [NSNumber numberWithInteger:bonus],
+                                  SCORE_CHANGE_TYPE: BONUS_NOTIFICATION
+                                  };
+        [self postGameStateNotification:message withNotificationName:SCORE_NOTIFICATION];
+
+    }
 }
 
 - (void)postGameStateNotification:(NSDictionary *)message withNotificationName:(NSString *)name{

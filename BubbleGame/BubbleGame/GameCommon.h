@@ -21,6 +21,7 @@
 #define LEVEL_DESIGNER 2
 #define SCORE_NOTIFICATION @"score"
 #define POP_NOTIFICATION @"pop"
+#define BONUS_NOTIFICATION @"bonus"
 #define DROP_NOTIFICATION @"drop"
 #define SCORE_CHANGE @"amount"
 #define SCORE_CHANGE_TYPE @"type"
