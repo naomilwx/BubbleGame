@@ -8,7 +8,7 @@
 
 #import "CustomDesignerController.h"
 
-@interface GameBubbleBasicTester : CustomDesignerController
+@interface GameBubbleBasicTester : ControllerDataManager
 
 - (BOOL)hasView:(UIView *)view;
 - (NSInteger)numViewsInView;

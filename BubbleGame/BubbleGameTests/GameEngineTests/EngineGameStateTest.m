@@ -7,19 +7,19 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "MainEngine.h"
+#import "GameState.h"
 #import "BubbleEngine.h"
 #import "BubbleGridLayout.h"
 #import "ViewController.h"
 
 #define BUBBLEWIDTH [controller defaultBubbleRadius] * 2
 
-@interface MainEngineTest : XCTestCase
+@interface EngineGameStateTest : XCTestCase
 
 @end
 
-@implementation MainEngineTest{
-    MainEngine *mainEngine;
+@implementation EngineGameStateTest{
+    GameState *mainEngineState;
     BubbleEngineManager *bubbleManager;
 }
 //The purpose of this is to test the implementation of the detection of orphaned bubbles in MainEngine. The rest of the functionalities involve correctly invoking the rest of the modules which will be manually integration tested
@@ -27,9 +27,9 @@ NSInteger num = 0;
 
 - (void)setUp{
     [super setUp];
-    mainEngine = [[MainEngine alloc] init];
+    mainEngineState = [[GameState alloc] init];
     bubbleManager = [[BubbleEngineManager alloc] init];
-    [mainEngine setGridBubbles:bubbleManager];
+    [mainEngineState setGridBubbles:bubbleManager];
 }
 
 - (void)tearDown{
@@ -70,7 +70,7 @@ NSInteger num = 0;
     [self createAndInsertBubbleAtRow:3 andPos:3];
     [self createAndInsertBubbleAtRow:2 andPos:3];
     [self createAndInsertBubbleAtRow:1 andPos:3];
-    NSSet *orphaned = [mainEngine getOrphanedBubblesNeighbouringCluster:removed];
+    NSSet *orphaned = [mainEngineState getOrphanedBubblesNeighbouringCluster:removed];
     XCTAssertNotNil(orphaned);
     XCTAssertTrue([orphaned count] == 1);
     XCTAssertTrue([[[orphaned allObjects] objectAtIndex:0] count] == 7);
@@ -88,7 +88,7 @@ NSInteger num = 0;
     [self createAndInsertBubbleAtRow:3 andPos:3];
     [self createAndInsertBubbleAtRow:2 andPos:3];
     [self createAndInsertBubbleAtRow:1 andPos:3];
-    NSSet *orphaned = [mainEngine getOrphanedBubblesNeighbouringCluster:removed];
+    NSSet *orphaned = [mainEngineState getOrphanedBubblesNeighbouringCluster:removed];
     XCTAssertNotNil(orphaned);
     XCTAssertTrue([orphaned count] == 2);
     NSArray *allOrphaned = [orphaned allObjects];
@@ -107,7 +107,7 @@ NSInteger num = 0;
     [self createAndInsertBubbleAtRow:0 andPos:7];
     [self createAndInsertBubbleAtRow:2 andPos:6];
     [self createAndInsertBubbleAtRow:2 andPos:7];
-    NSSet *orphaned = [mainEngine getOrphanedBubblesNeighbouringCluster:removed];
+    NSSet *orphaned = [mainEngineState getOrphanedBubblesNeighbouringCluster:removed];
     XCTAssertNotNil(orphaned);
     XCTAssertTrue([orphaned count] == 0);
 }
@@ -119,7 +119,7 @@ NSInteger num = 0;
 - (NSSet *)singleOrphanedTestAtRow:(NSInteger)row andPos:(NSInteger)pos withRemoved:(NSSet *)removed{
     [bubbleManager clearAll];
     [self createAndInsertBubbleAtRow:row andPos:pos];
-    NSSet *orphaned = [mainEngine getOrphanedBubblesNeighbouringCluster:removed];
+    NSSet *orphaned = [mainEngineState getOrphanedBubblesNeighbouringCluster:removed];
     XCTAssertNotNil(orphaned);
     return orphaned;
 }

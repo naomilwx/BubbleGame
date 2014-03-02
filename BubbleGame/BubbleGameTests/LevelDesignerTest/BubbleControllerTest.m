@@ -19,6 +19,7 @@
 
 @implementation BubbleControllerTest{
     GameBubbleBasicTester *gameBubble;
+    BubbleGridLayout *layout;
 }
 
 int numOfCells = (2*NUM_CELLS_IN_ROW-1) * (NUM_OF_ROWS/2) + (NUM_OF_ROWS%2)*NUM_CELLS_IN_ROW;
@@ -26,7 +27,7 @@ int numOfCells = (2*NUM_CELLS_IN_ROW-1) * (NUM_OF_ROWS/2) + (NUM_OF_ROWS%2)*NUM_
 - (void)setUp{
     [super setUp];
     gameBubble = [[GameBubbleBasicTester alloc] init];
-
+    layout = [[BubbleGridLayout alloc] initWithFrameWidth:[[UIScreen mainScreen] bounds].size.width andNumOfCellsInRow:NUM_CELLS_IN_ROW andNumOfRows:NUM_OF_ROWS];
 }
 
 - (void)tearDown{
@@ -42,7 +43,7 @@ int numOfCells = (2*NUM_CELLS_IN_ROW-1) * (NUM_OF_ROWS/2) + (NUM_OF_ROWS%2)*NUM_
     int count = 0;
     for(NSNumber *num in indexes){
         NSIndexPath *path = [NSIndexPath indexPathForItem:[num integerValue] inSection:0];
-        BubbleController *bubble =[[BubbleController alloc] initWithMasterController:gameBubble];
+        BubbleController *bubble =[[BubbleController alloc] initWithMasterController:gameBubble andGridTemplate:layout];
         int type = arc4random_uniform(NUM_OF_PALETTE_BUBBLE_TYPES);
         XCTAssertNoThrow([bubble addBubbleAtCollectionViewIndex:path withType:type]);
         XCTAssertTrue([gameBubble hasView:[bubble bubbleView]]);
@@ -55,7 +56,7 @@ int numOfCells = (2*NUM_CELLS_IN_ROW-1) * (NUM_OF_ROWS/2) + (NUM_OF_ROWS%2)*NUM_
 }
 
 - (void)testModifyBubble{
-    BubbleController *bubble =[[BubbleController alloc] initWithMasterController:gameBubble];
+    BubbleController *bubble =[[BubbleController alloc] initWithMasterController:gameBubble andGridTemplate:layout];
     int type = arc4random_uniform(NUM_OF_PALETTE_BUBBLE_TYPES);
     NSIndexPath *path = [NSIndexPath indexPathForItem:arc4random_uniform(numOfCells) inSection:0];
     XCTAssertNoThrow([bubble addBubbleAtCollectionViewIndex:path withType:type]);
@@ -76,7 +77,7 @@ int numOfCells = (2*NUM_CELLS_IN_ROW-1) * (NUM_OF_ROWS/2) + (NUM_OF_ROWS%2)*NUM_
     }
     for(NSNumber *num in indexes){
         NSIndexPath *path = [NSIndexPath indexPathForItem:[num integerValue] inSection:0];
-        BubbleController *bubble =[[BubbleController alloc] initWithMasterController:gameBubble];
+        BubbleController *bubble =[[BubbleController alloc] initWithMasterController:gameBubble andGridTemplate:layout];
         [bubbles addObject:bubble];
         int type = arc4random_uniform(NUM_OF_PALETTE_BUBBLE_TYPES);
         XCTAssertNoThrow([bubble addBubbleAtCollectionViewIndex:path withType:type]);
@@ -102,10 +103,10 @@ int numOfCells = (2*NUM_CELLS_IN_ROW-1) * (NUM_OF_ROWS/2) + (NUM_OF_ROWS%2)*NUM_
     BubbleModel *model2 = [[BubbleModel alloc] initWithType:0 andWidth:50 andCenter:CGPointMake(10, 20) andID:2];
     //Initially there should be no bubbles in view
     XCTAssertTrue([gameBubble numViewsInView] == 0);
-    BubbleController *bubbleToAdd = [[BubbleController alloc] initWithMasterController:gameBubble];
+    BubbleController *bubbleToAdd = [[BubbleController alloc] initWithMasterController:gameBubble andGridTemplate:layout];
     [bubbleToAdd addBubbleFromModel:model1];
     XCTAssertTrue([gameBubble numViewsInView] == 1);
-    bubbleToAdd = [[BubbleController alloc] initWithMasterController:gameBubble];
+    bubbleToAdd = [[BubbleController alloc] initWithMasterController:gameBubble andGridTemplate:layout];
     [bubbleToAdd addBubbleFromModel:model2];
     XCTAssertTrue([gameBubble numViewsInView] == 2);
 }

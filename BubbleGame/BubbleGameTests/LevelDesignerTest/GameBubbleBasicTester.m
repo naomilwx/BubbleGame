@@ -18,7 +18,7 @@
 }
 
 @synthesize gameLoader;
-@synthesize controllerDataManager;
+@synthesize bubbleControllerManager;
 
 - (id)init{
     if(self = [super init]){
@@ -26,7 +26,7 @@
         
         gameLoader = [[GameLevelLoader alloc] init];
         
-        controllerDataManager = [[BubbleManager alloc] initWithNumofRows:NUM_OF_ROWS andColumns:NUM_CELLS_IN_ROW];
+        bubbleControllerManager = [[BubbleManager alloc] initWithNumofRows:NUM_OF_ROWS andColumns:NUM_CELLS_IN_ROW];
 
     }
     return self;
