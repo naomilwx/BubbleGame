@@ -1,0 +1,10 @@
+Integration
+
+Implementing Special Bubbles - level designer
+Adding support for the special bubbles was easily one in the level designer. The difference between the additional bubbles and existing bubbles is their displayed image for each respective BubbleView instance and their bubble types stored in the BubbleModel. Support for this is easily done by adding new enum types to for the additional bubbles. 
+
+In my design, I subclassed DesignerViewController (the main view controller of the level designer) with CustomDesignerController to allow the bubble types in the game to be easily customised. A mapping of the bubble types to their respective display images and button in the story board. Hence all that is needed to add on new bubble types is to include the respective images, buttons in the storyboard and add the new mappings in CustomDesignerController.
+
+Implementing Special Bubbles - Game Engine
+Additional functions in the MainEngine are needed to support the behaviour of the additional bubble types. These involve implementing different ways of gathering bubble clusters to delete. This is easily done as the underlying generic depth first search function has already been implemented in BubbleEngineManager - the data structure storing all the in-game grid bubble representations. To allow the special behaviours to be more easily customised in future, support for the special behaviours is implemented by subclassing MainEngine.
+ 
