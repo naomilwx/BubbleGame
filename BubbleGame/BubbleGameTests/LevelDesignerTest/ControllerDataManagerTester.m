@@ -6,14 +6,14 @@
 //
 //
 
-#import "GameBubbleBasicTester.h"
+#import "ControllerDataManagerTester.h"
 #import "GameCommon.h"
 
-@interface GameBubbleBasicTester ()
+@interface ControllerDataManagerTester ()
 
 @end
 
-@implementation GameBubbleBasicTester{
+@implementation ControllerDataManagerTester{
     NSMutableArray *bubbleViews;
 }
 

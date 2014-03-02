@@ -20,7 +20,6 @@
 		C20589BB18B67B9E003AC20C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C205899A18B67B9E003AC20C /* Foundation.framework */; };
 		C20589BC18B67B9E003AC20C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C205899E18B67B9E003AC20C /* UIKit.framework */; };
 		C20589C418B67B9E003AC20C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C20589C218B67B9E003AC20C /* InfoPlist.strings */; };
-		C20589C618B67B9E003AC20C /* BubbleGameTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C20589C518B67B9E003AC20C /* BubbleGameTests.m */; };
 		C2058A0018B67C4B003AC20C /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589D218B67C4A003AC20C /* background.png */; };
 		C2058A0218B67C4B003AC20C /* bubble-blue.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589D518B67C4A003AC20C /* bubble-blue.png */; };
 		C2058A0318B67C4B003AC20C /* bubble-green.png in Resources */ = {isa = PBXBuildFile; fileRef = C20589D618B67C4B003AC20C /* bubble-green.png */; };
@@ -59,7 +58,7 @@
 		C229898418BF08CD00FEED38 /* BubbleModelStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229897818BF08CD00FEED38 /* BubbleModelStorageTest.m */; };
 		C229898518BF08CD00FEED38 /* DataManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229897918BF08CD00FEED38 /* DataManagerTest.m */; };
 		C229898618BF08CD00FEED38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C229897A18BF08CD00FEED38 /* InfoPlist.strings */; };
-		C229898718BF08CD00FEED38 /* GameBubbleBasicTester.m in Sources */ = {isa = PBXBuildFile; fileRef = C229897D18BF08CD00FEED38 /* GameBubbleBasicTester.m */; };
+		C229898718BF08CD00FEED38 /* ControllerDataManagerTester.m in Sources */ = {isa = PBXBuildFile; fileRef = C229897D18BF08CD00FEED38 /* ControllerDataManagerTester.m */; };
 		C229898818BF08CD00FEED38 /* GameLoaderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229897E18BF08CD00FEED38 /* GameLoaderTest.m */; };
 		C229898918BF08CD00FEED38 /* GameStateStub.m in Sources */ = {isa = PBXBuildFile; fileRef = C229898018BF08CD00FEED38 /* GameStateStub.m */; };
 		C229898A18BF08CD00FEED38 /* GameStateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C229898118BF08CD00FEED38 /* GameStateTest.m */; };
@@ -106,7 +105,6 @@
 		C20589B918B67B9E003AC20C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C20589C118B67B9E003AC20C /* BubbleGameTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BubbleGameTests-Info.plist"; sourceTree = "<group>"; };
 		C20589C318B67B9E003AC20C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C20589C518B67B9E003AC20C /* BubbleGameTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BubbleGameTests.m; sourceTree = "<group>"; };
 		C20589D218B67C4A003AC20C /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = ../LevelDesigner/background.png; sourceTree = "<group>"; };
 		C20589D518B67C4A003AC20C /* bubble-blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-blue.png"; path = "../LevelDesigner/bubble-blue.png"; sourceTree = "<group>"; };
 		C20589D618B67C4B003AC20C /* bubble-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bubble-green.png"; path = "../LevelDesigner/bubble-green.png"; sourceTree = "<group>"; };
@@ -170,8 +168,8 @@
 		C229897818BF08CD00FEED38 /* BubbleModelStorageTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleModelStorageTest.m; sourceTree = "<group>"; };
 		C229897918BF08CD00FEED38 /* DataManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManagerTest.m; sourceTree = "<group>"; };
 		C229897B18BF08CD00FEED38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C229897C18BF08CD00FEED38 /* GameBubbleBasicTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBubbleBasicTester.h; sourceTree = "<group>"; };
-		C229897D18BF08CD00FEED38 /* GameBubbleBasicTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBubbleBasicTester.m; sourceTree = "<group>"; };
+		C229897C18BF08CD00FEED38 /* ControllerDataManagerTester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerDataManagerTester.h; sourceTree = "<group>"; };
+		C229897D18BF08CD00FEED38 /* ControllerDataManagerTester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerDataManagerTester.m; sourceTree = "<group>"; };
 		C229897E18BF08CD00FEED38 /* GameLoaderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLoaderTest.m; sourceTree = "<group>"; };
 		C229897F18BF08CD00FEED38 /* GameStateStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStateStub.h; sourceTree = "<group>"; };
 		C229898018BF08CD00FEED38 /* GameStateStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStateStub.m; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 			children = (
 				C229897618BF08CD00FEED38 /* LevelDesignerTest */,
 				C229896A18BEF42400FEED38 /* GameEngineTests */,
-				C20589C518B67B9E003AC20C /* BubbleGameTests.m */,
 				C20589C018B67B9E003AC20C /* Supporting Files */,
 			);
 			path = BubbleGameTests;
@@ -432,8 +429,8 @@
 				C229897818BF08CD00FEED38 /* BubbleModelStorageTest.m */,
 				C229897918BF08CD00FEED38 /* DataManagerTest.m */,
 				C229897A18BF08CD00FEED38 /* InfoPlist.strings */,
-				C229897C18BF08CD00FEED38 /* GameBubbleBasicTester.h */,
-				C229897D18BF08CD00FEED38 /* GameBubbleBasicTester.m */,
+				C229897C18BF08CD00FEED38 /* ControllerDataManagerTester.h */,
+				C229897D18BF08CD00FEED38 /* ControllerDataManagerTester.m */,
 				C229897E18BF08CD00FEED38 /* GameLoaderTest.m */,
 				C229897F18BF08CD00FEED38 /* GameStateStub.h */,
 				C229898018BF08CD00FEED38 /* GameStateStub.m */,
@@ -656,8 +653,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C229898718BF08CD00FEED38 /* GameBubbleBasicTester.m in Sources */,
-				C20589C618B67B9E003AC20C /* BubbleGameTests.m in Sources */,
+				C229898718BF08CD00FEED38 /* ControllerDataManagerTester.m in Sources */,
 				C229898518BF08CD00FEED38 /* DataManagerTest.m in Sources */,
 				C229898318BF08CD00FEED38 /* BubbleControllerTest.m in Sources */,
 				C229898818BF08CD00FEED38 /* GameLoaderTest.m in Sources */,

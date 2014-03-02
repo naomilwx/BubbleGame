@@ -1,4 +1,10 @@
 Integration
+The GameEngine builds its own model of the bubbles in the bubble grid based on the dictionary of BubbleModel instances it is passed. This allows the GameEngine to have less dependency on the Game LevelDesigner. Essentially, the GameEngine component is entirely separate from the LevelDesigner.
+
+No assumption is made about the internal storage of the bubble representations between the level designer and the game engine. The level designer organises its representation in a matrix-like data structure, however as this data structure is not passed to the game engine, it would have to reorganise the bubbles passed to it within its own data structure of the bubbles. This duplication of organisational work is the downside to this implementation. 
+
+In a nutshell, the main advantage of the current implementation is the GameEngine and LevelDesigner component are entirely independent of each other. The only thing that has to be maintained for them to work with each other is the format of the data stored in the NSDictionary passed from the LevelDesigner to the GameEngine. We are free to modify the bubble model representation in GameEngine without modifying LevelDesigner. 
+However, the downside is there is some code duplication between GameEngine and LevelDesigner as the GameEngine would have to organise its own data but both components organise the data in a matrix-like structure.
 
 Implementing Special Bubbles - level designer
 Adding support for the special bubbles was easily one in the level designer. The difference between the additional bubbles and existing bubbles is their displayed image for each respective BubbleView instance and their bubble types stored in the BubbleModel. Support for this is easily done by adding new enum types to for the additional bubbles. 
@@ -7,4 +13,9 @@ In my design, I subclassed DesignerViewController (the main view controller of t
 
 Implementing Special Bubbles - Game Engine
 Additional functions in the MainEngine are needed to support the behaviour of the additional bubble types. These involve implementing different ways of gathering bubble clusters to delete. This is easily done as the underlying generic depth first search function has already been implemented in BubbleEngineManager - the data structure storing all the in-game grid bubble representations. To allow the special behaviours to be more easily customised in future, support for the special behaviours is implemented by subclassing MainEngine.
- 
+
+Integration Testing
+The testing of the LevelDesigner and GameEngine has been done in PS3 and PS4 respectively. As no major change was made to their implementation other than some refactoring, the unit tests from PS3 and PS4 can still be used. The some of the unit tests were modified in line with the refactoring done.
+The main thing that would have to be tested is the passing of data from the LevelDesigner to the GameEngine is done correctly and the grid bubbles passed from the LevelDesigner to the GameEngine is rendered correctly in the GameEngine.
+This is done by a visual test. 
+

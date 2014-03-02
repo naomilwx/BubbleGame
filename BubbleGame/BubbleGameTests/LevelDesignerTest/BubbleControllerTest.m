@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "BubbleController.h"
-#import "GameBubbleBasicTester.h"
+#import "ControllerDataManagerTester.h"
 #import "GameCommon.h"
 
 @interface BubbleControllerTest : XCTestCase
@@ -18,7 +18,7 @@
 //The purpose of this test is to ensure that the bubble controller updates the model and the view accordingly with for each operation. The focus is not on the correctness of the update, as the acutal updating is done the delegate, but that the model and the view indeed gets updated
 
 @implementation BubbleControllerTest{
-    GameBubbleBasicTester *gameBubble;
+    ControllerDataManagerTester *gameBubble;
     BubbleGridLayout *layout;
 }
 
@@ -26,7 +26,7 @@ int numOfCells = (2*NUM_CELLS_IN_ROW-1) * (NUM_OF_ROWS/2) + (NUM_OF_ROWS%2)*NUM_
 
 - (void)setUp{
     [super setUp];
-    gameBubble = [[GameBubbleBasicTester alloc] init];
+    gameBubble = [[ControllerDataManagerTester alloc] init];
     layout = [[BubbleGridLayout alloc] initWithFrameWidth:[[UIScreen mainScreen] bounds].size.width andNumOfCellsInRow:NUM_CELLS_IN_ROW andNumOfRows:NUM_OF_ROWS];
 }
 
