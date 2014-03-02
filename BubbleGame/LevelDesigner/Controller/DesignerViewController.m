@@ -197,7 +197,7 @@
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
         [controller setOriginalBubbleModels:[self.controllerDataManager getAllBubbleModels]];
         [controller setPreviousScreen:LEVEL_DESIGNER];
-        [controller setGameLevel:[NSString stringWithFormat:@"%ld",selectedLevel]];
+        [controller setGameLevel:[NSString stringWithFormat:@"%ld",(long)selectedLevel]]; //for portability
     }
 }
 

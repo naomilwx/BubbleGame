@@ -62,7 +62,7 @@
 - (void)displayHighscore:(NSInteger)highscore{
     NSString *display = @"";
     if(highscore){
-        display = [NSString stringWithFormat:HIGH_SCORE_TEXT, highscore];
+        display = [NSString stringWithFormat:HIGH_SCORE_TEXT, (long)highscore];
     }
     [self.highScoreDisplay setText:display];
 }
@@ -95,11 +95,11 @@
     NSString *text;
     NSInteger change = [[message objectForKey:SCORE_CHANGE] integerValue];
     if([[message objectForKey:SCORE_CHANGE_TYPE] isEqual:POP_NOTIFICATION]){
-        text = [NSString stringWithFormat:POP_TEXT, change];
+        text = [NSString stringWithFormat:POP_TEXT, (long)change];
     }else if([[message objectForKey:SCORE_CHANGE_TYPE] isEqual:DROP_NOTIFICATION]){
-        text = [NSString stringWithFormat:DROP_TEXT, change];
+        text = [NSString stringWithFormat:DROP_TEXT, (long)change];
     }else{
-        text = [NSString stringWithFormat:BONUS_TEXT, change];
+        text = [NSString stringWithFormat:BONUS_TEXT, (long)change];
     }
     UILabel *display = [self createScoreUpdateLabel:text];
     [self animateScoreUpdate:display];
@@ -160,7 +160,7 @@
 
 - (void)setScoreDisplayToScore:(NSInteger)score{
     displayedScore = score;
-    [self.scoreDisplay setText:[NSString stringWithFormat:SCORE_TEXT, displayedScore]];
+    [self.scoreDisplay setText:[NSString stringWithFormat:SCORE_TEXT, (long)displayedScore]];
 }
 
 - (void)resetScoreDisplay{

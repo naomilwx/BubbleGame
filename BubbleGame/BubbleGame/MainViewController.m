@@ -81,7 +81,7 @@
     @try{
         NSDictionary *bubbles = [dataManager loadDesignedLevel:levelIndex];
         dataToGame = bubbles;
-        gameLevelText = [NSString stringWithFormat:@"%ld", levelIndex];
+        gameLevelText = [NSString stringWithFormat:@"%ld", (long)levelIndex];
         [self performSegueWithIdentifier:TO_GAME_SEGUE sender:self];
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Load Designer Level" andMessage:[e reason]];
