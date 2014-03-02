@@ -5,7 +5,7 @@ No assumption is made about the internal storage of the bubble representations b
 
 In a nutshell, the main advantage of the current implementation is the GameEngine and LevelDesigner component are entirely independent of each other. The only thing that has to be maintained for them to work with each other is the format of the data stored in the NSDictionary passed from the LevelDesigner to the GameEngine. We are free to modify the bubble model representation in GameEngine without modifying LevelDesigner. 
 However, the downside is there is some code duplication between GameEngine and LevelDesigner as the GameEngine would have to organise its own data but both components organise the data in a matrix-like structure.
-
+_________________________________________________________________
 Implementing Special Bubbles - level designer
 Adding support for the special bubbles was easily one in the level designer. The difference between the additional bubbles and existing bubbles is their displayed image for each respective BubbleView instance and their bubble types stored in the BubbleModel. Support for this is easily done by adding new enum types to for the additional bubbles. 
 
@@ -13,9 +13,35 @@ In my design, I subclassed DesignerViewController (the main view controller of t
 
 Implementing Special Bubbles - Game Engine
 Additional functions in the MainEngine are needed to support the behaviour of the additional bubble types. These involve implementing different ways of gathering bubble clusters to delete. This is easily done as the underlying generic depth first search function has already been implemented in BubbleEngineManager - the data structure storing all the in-game grid bubble representations. To allow the special behaviours to be more easily customised in future, support for the special behaviours is implemented by subclassing MainEngine.
-
+_______________________________________________________________________
 Integration Testing
 The testing of the LevelDesigner and GameEngine has been done in PS3 and PS4 respectively. As no major change was made to their implementation other than some refactoring, the unit tests from PS3 and PS4 can still be used. The some of the unit tests were modified in line with the refactoring done.
 The main thing that would have to be tested is the passing of data from the LevelDesigner to the GameEngine is done correctly and the grid bubbles passed from the LevelDesigner to the GameEngine is rendered correctly in the GameEngine.
 This is done by a visual test. 
 
+Testing Integration between LevelDesigner and GameEngine
+1) Test that bubbles in all parts of the grid can be passed and rendered in GameEngine. Create a level in the LevelDesigner with a fully filled grid. Click start to check that all the bubbles are correctly rendered in the GameEngine
+2) Test that all bubble types can be correctly rendered in the GameEngine. Create a level which has all the available bubble types. Click start to check that all the bubble are correctly rendered
+3) Test that the transition from LevelDesigner->GameEngine->LevelDesigner is correct. If the GameEngine is loaded from the LevelDesigner, then the back button should link back to the LevelDesigner. In addition, if the level loaded from the LevelDesigner has any unsaved changes, then the level with all its unsaved changes will be loaded in the LevelDesigner. Otherwise, a fresh level is loaded.
+4) Try going into the GameEngine with an empty level in the LevelDesigner. The game should not break
+
+Testing Integration between the main menu and GameEngine
+1) Test that all the preloaded levels are loaded correctly
+2) Use the same customised level tests done in the integration testing between LevelDesigner and GameEngine. Check that the levels are loaded correctly.
+3) Test that the back button in the GameEngine goes back to the main menu when the GameEngine is loaded from the main menu
+
+Testing new features in the GameEngine
+-Test cannon rotation + firing. Test that the cannon rotates correctly with the gestures and the bubble is fired in the correct direction
+-Test that the bubble reloaded is correctly (matches the one previously should in the upcoming bubbles preview)
+-Test special bubbles. The search operation to get neighbours/bubbles in the same row/bubbles of types have already been verified by unit tests done in PS4. In addition, a visual test is done to test that the bubble effects are chained correctly.
+	-Lightning bubbles trigger all lightning/bomb bubbles in the row
+	-Bomb bubbles trigger all neighbouring lightning/bomb bubbles
+	-If a fired bubble lands adjacent to multiple special bubbles, all special bubble effects are triggered.
+
+Implemented Bells & whistles:
+1) Add cannon projected path. An additional view controller (PathPlotter) was created to handle the path rendering
+2) Add game score. The tracking of game score was done in the engine’s GameState instance
+3) Show score increments i.e. (x points added for popping bubbles, y points added for dropping bubbles). Rendering of game notifications is done in the new StateDisplay class. Notifications to be displayed are passed to this class via NSNotificationCenter
+
+Final Reflection
+Previously, the bulk of the level designer logic was handled in a single view controller. This made the code

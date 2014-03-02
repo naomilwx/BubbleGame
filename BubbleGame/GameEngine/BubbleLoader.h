@@ -18,6 +18,7 @@
 @property CGFloat bubbleRadius;
 @property (strong) NSDictionary *bubbleTypeMappings;
 
+
 - (id)initWithFrame:(CGRect)frame andTypeMapping:(NSDictionary *)mapping andBubbleRadius:(CGFloat)radius;
 
 - (TaggedObject *)getNextBubble;
