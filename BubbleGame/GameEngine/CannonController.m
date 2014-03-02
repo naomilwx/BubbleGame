@@ -22,9 +22,6 @@
 #define RELOAD_DELAY 1
 #define PLOTTER_WIDTH 20
 #define PLOTTER_INTERVAL 100
-#define REMAINING_SHOTS_DISP_WIDTH 100
-#define REMAINING_SHOTS_DISP_HEIGHT 40
-#define REMAINING_SHOTS_TEXT @"Shots Left:%ld"
 
 @implementation CannonController{
     NSMutableArray *cannonAnimation;
