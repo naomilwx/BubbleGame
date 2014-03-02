@@ -65,7 +65,7 @@
     NSDictionary *notificationMsg = @{ENDGAME_MESSAGE: message,
                               ENDGAME_STATUS: [NSNumber numberWithBool:win]};
     gameWin = win;
-    [self postScoreUpdateNotification:notificationMsg withNotificationName:ENDGAME];
+    [self postGameStateNotification:notificationMsg withNotificationName:ENDGAME];
 }
 
 - (void)updateTotalScoresForDroppedBubbles:(NSInteger)num{
@@ -74,7 +74,7 @@
                               SCORE_CHANGE: [NSNumber numberWithInteger:num*DROPPED_SCORE],
                               SCORE_CHANGE_TYPE: DROP_NOTIFICATION
                               };
-    [self postScoreUpdateNotification:message withNotificationName:SCORE_NOTIFICATION];
+    [self postGameStateNotification:message withNotificationName:SCORE_NOTIFICATION];
 }
 
 - (void)updateTotalScoresForPoppedBubbles:(NSInteger)num{
@@ -83,10 +83,10 @@
                               SCORE_CHANGE: [NSNumber numberWithInteger:num*POPPED_SCORE],
                               SCORE_CHANGE_TYPE: POP_NOTIFICATION
                               };
-    [self postScoreUpdateNotification:message withNotificationName:SCORE_NOTIFICATION];
+    [self postGameStateNotification:message withNotificationName:SCORE_NOTIFICATION];
 }
 
-- (void)postScoreUpdateNotification:(NSDictionary *)message withNotificationName:(NSString *)name{
+- (void)postGameStateNotification:(NSDictionary *)message withNotificationName:(NSString *)name{
     NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
     [note postNotificationName:name object:self userInfo:message];
     if(gameWin == YES){

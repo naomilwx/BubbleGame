@@ -26,4 +26,5 @@
 
 - (void)controlCannonWithGesture:(UIGestureRecognizer *)recogniser showPath:(BOOL)show;
 
+- (void)reload;
 @end

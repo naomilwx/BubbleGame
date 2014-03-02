@@ -51,6 +51,11 @@
     [self setUpGameEnvironment];
     [self loadScoreDisplay];
     [self showLoadedLevel];
+    [self setUpEndGameObservation];
+}
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -63,15 +68,14 @@
     [self loadBackButton];
     [self loadBubbleMappings];
     [self loadEngine];
-    [self setUpBubbles];
+    [self loadGridBubblesFromModel];
     [self addGestureRecognisers];
     [self loadCannonController];
 }
 
-- (void)setUpBubbles{
-    [self loadGridBubblesFromModel];
-}
-
+//- (void)setUpBubbles{
+//    [self loadGridBubblesFromModel];
+//}
 - (void)showLoadedLevel{
     CGPoint center = self.gameBackground.center;
     CGRect displayFrame = CGRectMake(center.x, center.y, LEVEL_NOTIFICATION_WIDTH, LEVEL_NOTIFICATION_HEIGHT);
@@ -215,6 +219,12 @@
 }
 
 #pragma mark - Handle end game
+- (void)reload{
+    [self.engine reload];
+    [self loadGridBubblesFromModel];
+    [self.cannonController reload];
+    [self.stateDisplay resetScoreDisplay];
+}
 
 - (void)setUpEndGameObservation{
     NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
@@ -222,7 +232,27 @@
 }
 
 - (void)receiveGameEndNotification:(NSNotification *)notification{
+    NSDictionary *message = [notification userInfo];
+    if([[message objectForKey:ENDGAME_STATUS] isEqual:[NSNumber numberWithBool:YES]]){
+    //game won
+        [self handleGameWin:message];
+    }else{
+        [self handleGameLose:message];
+    }
+}
 
+- (void)handleGameWin:(NSDictionary *)message{
+
+}
+
+- (void)handleGameLose:(NSDictionary *)message{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Game Over"
+                                                    message:[message objectForKey:ENDGAME_MESSAGE]
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil]; //TODO
+    [alert show];
+    [self reload];
 }
 
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods

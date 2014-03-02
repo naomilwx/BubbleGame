@@ -233,4 +233,16 @@
     dispatch_after(duration, dispatch_get_main_queue(), block);
 }
 
+- (void)removeLoadedBubble{
+    if(taggedCannonBubble){
+        [[taggedCannonBubble object] removeFromSuperview];
+    }
+    taggedCannonBubble = nil;
+}
+
+- (void)reload{
+    [self removeLoadedBubble];
+    [bubbleLoader reset];
+}
+
 @end

@@ -31,6 +31,16 @@
     return self;
 }
 
+- (void)reset{
+    bubbleCount = BUBBLE_QUEUE_SIZE;
+}
+
+- (void)clearAllInQueue{
+    for(TaggedObject *bubble in[bubbleQueue getAllObjects]){
+        [[bubble object] removeFromSuperview];
+    }
+    [bubbleQueue removeAllObjects];
+}
 - (void)loadBubbleQueue{
     bubbleQueue = [Queue queue];
     for(NSInteger i = 0; i < BUBBLE_QUEUE_SIZE; i++){

@@ -156,13 +156,19 @@
         NSSet *matchingCluster = [self insertBubble:object intoGridAtIndexPath:path];
         [self removeBubblesIfNecessary:matchingCluster onInsertionOf:object];
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Game Over"
-                                                        message:@"Maximum bubble layers exceeded"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil]; //TODO
-        [alert show];
-        [self reload];
+        NSDictionary *gameOverMessage = @{ENDGAME_STATUS:[NSNumber numberWithBool:NO],
+                                          ENDGAME_MESSAGE: @"Maximum bubble layers exceeded",
+                                          };
+        NSNotificationCenter *notification = [NSNotificationCenter defaultCenter];
+        [notification postNotificationName:ENDGAME object:self userInfo:gameOverMessage];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Game Over"
+//                                                        message:@"Maximum bubble layers exceeded"
+//                                                       delegate:nil
+//                                              cancelButtonTitle:@"OK"
+//                                              otherButtonTitles:nil]; //TODO
+//        [alert show];
+//        [self reload];
+        
     }
 }
 

@@ -160,4 +160,8 @@
     [self.scoreDisplay setText:[NSString stringWithFormat:SCORE_TEXT, displayedScore]];
 }
 
+- (void)resetScoreDisplay{
+    [self setScoreDisplayToScore:0];
+}
+
 @end

@@ -23,4 +23,7 @@
 - (void)hideTextNotification;
 
 - (void)displayHighscore:(NSInteger)highscore;
+
+- (void)resetScoreDisplay;
+
 @end
