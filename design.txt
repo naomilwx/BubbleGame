@@ -45,4 +45,7 @@ Implemented Bells & whistles:
 4) Show game high score. Highscores of each level are saved to file using GameStateStorer
 
 Final Reflection
-Previously, the bulk of the level designer logic was handled in a single view controller. This made the code
+Previously, the bulk of the level designer logic was handled in a single view controller. This made the code for the view controller very long and hard to maintain. Eventually I found that I had to break up the code in the main controller into other modules in order to facilitate adding new features. Otherwise the code would grow longer and more hackish as more features are added. 
+In general I could have made my code more modular. And the role of each classes could have been better defined. I found that some classes were actually assigned to do multiple roles at the same time, which made extension messy.
+I could have made my design more general instead of only designing for the immediate functionalities needed. That would also have made adding new features easier without having to refactor the code as I went along.
+I should have spent more time designing the architecture. Also, I severely underestimated the time needed for PS5, which lead to the newer features added in PS5 being hastily designed

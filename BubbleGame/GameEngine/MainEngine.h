@@ -67,4 +67,5 @@
 - (void)saveGameHighScore;
 
 - (NSInteger)getMaxLaunchedBubbles;
+
 @end

@@ -138,10 +138,22 @@
 - (void)loadNextBubble{
     //Method to load bubble view for the next bubble to its position at the tip of the cannon
     taggedCannonBubble = [bubbleLoader getNextBubble];
-    BubbleView *bubbleView = [taggedCannonBubble object];
-    [bubbleView setCenter:[self getStartingBubbleCenter]];
-    [self.gameView insertSubview:bubbleView belowSubview:cannon];
-    bubbleInCannon = YES;
+    if(taggedCannonBubble){
+        BubbleView *bubbleView = [taggedCannonBubble object];
+        [bubbleView setCenter:[self getStartingBubbleCenter]];
+        [self.gameView insertSubview:bubbleView belowSubview:cannon];
+        bubbleInCannon = YES;
+    }else{
+        bubbleInCannon = NO;
+//        [self sendOutOfBubblesGameOver];
+    }
+}
+
+- (void)sendOutOfBubblesGameOver{
+    NSDictionary *notificationMsg = @{ENDGAME_MESSAGE: @"No more bubbles to launch!",
+                                      ENDGAME_STATUS: [NSNumber numberWithBool:NO]};
+    NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
+    [note postNotificationName:ENDGAME object:self userInfo:notificationMsg];
 }
 
 - (CGPoint)getStartingBubbleCenter{

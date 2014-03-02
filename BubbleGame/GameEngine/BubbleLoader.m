@@ -51,10 +51,15 @@
 
 - (TaggedObject *)getNextBubble{
     TaggedObject *taggedBubble = [bubbleQueue dequeue];
-    BubbleView *bubble = [taggedBubble object];
-    [self shiftBubblesForward];
-    [self addNextBubbleView];
-    [bubble removeFromSuperview];
+    NSLog(@"max %d %d", maxBubblesToLoad, bubbleCount);
+    if(taggedBubble){
+        BubbleView *bubble = [taggedBubble object];
+        [self shiftBubblesForward];
+//        if(bubbleCount < maxBubblesToLoad){
+            [self addNextBubbleView];
+//        }
+        [bubble removeFromSuperview];
+    }
     return taggedBubble;
 }
 
