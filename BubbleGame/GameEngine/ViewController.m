@@ -26,6 +26,7 @@
 #define LEVEL_NOTIFICATION_WIDTH 500
 #define LEVEL_NOTIFICATION_HEIGHT 50
 #define LEVEL_NOTIFICATION_DISPLAY_DURATION 5
+#define CALLBACK_WAIT_DELAY 5
 #define BACK_TO_MAIN_MENU @"gameToMenu"
 #define BACK_TO_DESIGNER @"gameToDesigner"
 #define GAME_LEVEL_DISPLAY @"Level: %@"
@@ -266,8 +267,14 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if([[alertView title] isEqual:WIN_ALERT_TITLE]){
-        [engine saveGameHighScore];
-        [self goBackToPreviousScreen];
+        if(previousScreen == MAIN_MENU){
+            [self executeBlock:^{
+                [engine saveGameHighScore];
+                [self goBackToPreviousScreen];
+            } afterDelay:CALLBACK_WAIT_DELAY];
+        }else{
+            [self goBackToPreviousScreen];
+        }
     }
 }
 
