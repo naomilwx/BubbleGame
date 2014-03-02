@@ -56,8 +56,9 @@
     [self setUpEndGameObservation];
 }
 
-- (void)dealloc{
+- (void)viewDidDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning{
@@ -75,9 +76,6 @@
     [self loadCannonController];
 }
 
-//- (void)setUpBubbles{
-//    [self loadGridBubblesFromModel];
-//}
 - (void)showLoadedLevel{
     CGPoint center = self.gameBackground.center;
     CGRect displayFrame = CGRectMake(center.x, center.y, LEVEL_NOTIFICATION_WIDTH, LEVEL_NOTIFICATION_HEIGHT);

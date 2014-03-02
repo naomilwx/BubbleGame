@@ -114,10 +114,13 @@
 }
 
 - (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col{
-    totalBubbles -= 1;
-    [gridBubbles removeObjectAtRow:row andPosition:col];
-    if(totalBubbles == 0){
-        [self sendRemovedAllGridBubblesGameEndNotification];
+    id removedObject = [gridBubbles removeObjectAtRow:row andPosition:col];
+    if(removedObject){
+        totalBubbles -= 1;
+        if(totalBubbles == 0){
+            NSLog(@"send");
+            [self sendRemovedAllGridBubblesGameEndNotification];
+        }
     }
 }
 
