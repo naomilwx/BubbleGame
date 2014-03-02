@@ -22,6 +22,9 @@
 #define RELOAD_DELAY 1
 #define PLOTTER_WIDTH 20
 #define PLOTTER_INTERVAL 100
+#define REMAINING_SHOTS_DISP_WIDTH 100
+#define REMAINING_SHOTS_DISP_HEIGHT 40
+#define REMAINING_SHOTS_TEXT @"Shots Left:%ld"
 
 @implementation CannonController{
     NSMutableArray *cannonAnimation;
@@ -30,6 +33,7 @@
     CGPoint cannonDefaultCenter;
     BOOL bubbleInCannon;
     BOOL cannonLaunching;
+    CGRect loaderFrame;
 }
 
 @synthesize defaultBubbleRadius;
@@ -62,9 +66,8 @@
     CGFloat width = self.defaultBubbleRadius * 2 * BUBBLE_QUEUE_SIZE + BUBBLE_LOADER_BUFFER;
     CGFloat xPos = self.gameView.center.x + CANNON_HEIGHT + self.defaultBubbleRadius * 2;
     CGFloat yPos = self.gameView.frame.size.height - height;
-    CGRect loaderFrame = CGRectMake(xPos, yPos, width, height);
+    loaderFrame = CGRectMake(xPos, yPos, width, height);
     bubbleLoader = [[BubbleLoader alloc] initWithFrame:loaderFrame andTypeMapping:launchableBubbleMappings andBubbleRadius:self.defaultBubbleRadius];
-    [bubbleLoader setMaxBubblesToLoad:[engine getMaxLaunchedBubbles]];
     [self.gameView addSubview:[bubbleLoader mainFrame]];
 }
 

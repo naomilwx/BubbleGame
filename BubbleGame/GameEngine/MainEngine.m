@@ -293,8 +293,4 @@
     [bubbleGameState removeGridBubbleAtRow:row andPositions:col];
 }
 
-- (NSInteger)getMaxLaunchedBubbles{
-    return [bubbleGameState getMaxLaunchedBubbles];
-}
-
 @end

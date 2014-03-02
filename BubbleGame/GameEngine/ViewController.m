@@ -204,10 +204,6 @@
     }
 }
 
-- (BubbleEngine *)addMobileBubbleToEngine:(BubbleView *)bubble forType:(NSInteger)type{
-    return [self.engine addMobileEngine:bubble withType:type];
-}
-
 - (void)panHandler:(UIGestureRecognizer *)recogniser{
     [cannonController controlCannonWithGesture:recogniser showPath:YES];
 }

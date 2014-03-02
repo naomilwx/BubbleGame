@@ -18,7 +18,6 @@
 @synthesize mainFrame;
 @synthesize bubbleRadius;
 @synthesize bubbleTypeMappings;
-@synthesize maxBubblesToLoad;
 
 - (id)initWithFrame:(CGRect)frame andTypeMapping:(NSDictionary *)mapping andBubbleRadius:(CGFloat)radius{
     if(self = [super init]){
@@ -51,13 +50,10 @@
 
 - (TaggedObject *)getNextBubble{
     TaggedObject *taggedBubble = [bubbleQueue dequeue];
-    NSLog(@"max %d %d", maxBubblesToLoad, bubbleCount);
     if(taggedBubble){
         BubbleView *bubble = [taggedBubble object];
         [self shiftBubblesForward];
-//        if(bubbleCount < maxBubblesToLoad){
-            [self addNextBubbleView];
-//        }
+        [self addNextBubbleView];
         [bubble removeFromSuperview];
     }
     return taggedBubble;

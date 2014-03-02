@@ -23,7 +23,6 @@
 @implementation GameState{
     NSInteger totalBubbles;
     NSInteger previousHighscore;
-    NSInteger maxLaunchedBubbles;
 }
 
 @synthesize gridBubbles;
@@ -38,21 +37,11 @@
         totalScore = 0;
         gameLevel = level;
         storer = [[GameStateStorer alloc] init];
-        maxLaunchedBubbles = [self determineMaxNumberOfLaunchedBubbles];
         [self getStoredHighscoreFromFile];
     }
     return self;
 }
 
-- (NSInteger)determineMaxNumberOfLaunchedBubbles{
-    NSInteger totalInitialClusters = [gridBubbles getTotalClusterCount];
-    NSInteger maxNum = totalInitialClusters * ALLOWANCE_PER_CLUSTER + BASE_NUM_LAUNCHED_BUBBLES;
-    return maxNum;
-}
-
-- (NSInteger)getMaxLaunchedBubbles{
-    return maxLaunchedBubbles;
-}
 
 - (void)getStoredHighscoreFromFile{
     NSNumber *score = [storer getDataForLevel:gameLevel];
@@ -145,7 +134,6 @@
 
 - (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col{
     id removedObject = [gridBubbles removeObjectAtRow:row andPosition:col];
-    NSLog(@"remove");
     if(removedObject){
         totalBubbles -= 1;
         if(totalBubbles == 0){

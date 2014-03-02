@@ -21,8 +21,6 @@
 
 - (id)initWithLevel:(NSString *)level;
 
-- (NSInteger)getMaxLaunchedBubbles;
-
 - (NSSet *)insertBubble:(BubbleEngine *)bubbleEngine intoGridAtRow:(NSInteger)row andCol:(NSInteger)col;
 
 - (NSArray *)getNeighboursForObjectAtRow:(NSInteger)row andPosition:(NSInteger)pos;

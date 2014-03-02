@@ -36,14 +36,18 @@
         [self initialiseScoreDisplayWithFrame:frame];
         displayedScore = 0;
         [self setScoreDisplayToScore:displayedScore];
-        CGPoint offset = CGPointMake(0, frame.size.height * -1);
-        [self initialiseHighScoreDisplayWithFrame:frame andOffset:offset];
+        [self setUpAdditionalDisplayWithFrame:frame];
     }
     return self;
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)setUpAdditionalDisplayWithFrame:(CGRect)frame{
+    CGPoint offset = CGPointMake(0, frame.size.height * -1);
+    _highScoreDisplay = [self initialiseDisplayWithFrame:frame andOffset:offset];
 }
 
 - (void)initialiseScoreDisplayWithFrame:(CGRect)frame{
@@ -53,10 +57,11 @@
     [note addObserver:self selector:@selector(receiveScoreUpdate:) name:SCORE_NOTIFICATION object:nil];
 }
 
-- (void)initialiseHighScoreDisplayWithFrame:(CGRect)frame andOffset:(CGPoint)offset{
+- (UILabel *)initialiseDisplayWithFrame:(CGRect)frame andOffset:(CGPoint)offset{
     CGRect newFrame = CGRectMake(frame.origin.x + offset.x, frame.origin.y + offset.y, frame.size.width, frame.size.height);
-    _highScoreDisplay = [[UILabel alloc] initWithFrame:newFrame];
-    [self configureAndShowScoreDisplay:_highScoreDisplay];
+    UILabel *display = [[UILabel alloc] initWithFrame:newFrame];
+    [self configureAndShowScoreDisplay:display];
+    return display;
 }
 
 - (void)displayHighscore:(NSInteger)highscore{
