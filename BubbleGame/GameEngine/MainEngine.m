@@ -82,7 +82,6 @@
 - (BubbleEngine *)addMobileEngine:(id)bubble withType:(NSInteger)type{
     BubbleEngine *bubbleEngine = [self createBubbleEngineWithView:(id)bubble andType:type];
     [mobileBubbles addObject:bubbleEngine];
-    [bubbleGameState increaseLaunchedBubblesCount];
     return bubbleEngine;
 }
 
@@ -271,9 +270,6 @@
     return totalRemoved;
 }
 
-- (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col{
-    [bubbleGameState removeGridBubbleAtRow:row andPositions:col];
-}
 
 - (BOOL)hasCollisionWithGridForCenter:(CGPoint)point{
     NSArray *allGridBubbles = [bubbleGameState getAllObjects];
@@ -293,4 +289,7 @@
     [bubbleGameState updateStoredHighscore];
 }
 
+- (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col{
+    [bubbleGameState removeGridBubbleAtRow:row andPositions:col];
+}
 @end

@@ -85,7 +85,7 @@
 }
 
 - (NSInteger)getNextBubbleType{
-    //TODO
+    //For now the bubbles will be random. This is essentially a game of luck and skill, the user will have to figure out how to remove all bubbles on the screen given the next few bubbles in line.
     NSInteger typeIndex = arc4random_uniform(NUM_OF_BUBBLE_COLORS);
     return [[bubbleTypes objectAtIndex:typeIndex] integerValue];
 }

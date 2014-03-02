@@ -39,8 +39,6 @@
 
 - (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col;
 
-- (void)increaseLaunchedBubblesCount;
-
 - (void)updateTotalScoresForDroppedBubbles:(NSInteger)num;
 
 - (void)updateTotalScoresForPoppedBubbles:(NSInteger)num;

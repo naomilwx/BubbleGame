@@ -45,6 +45,8 @@
 
 - (void)addGridEngine:(id)bubble withType:(NSInteger)type andCenter:(CGPoint)center;
 
+- (void)reload;
+
 - (NSMutableSet *)getOrphanedBubblesNeighbouringCluster:(NSSet *)cluster;
 //Legacy for old tests
 
@@ -64,5 +66,4 @@
 
 - (void)saveGameHighScore;
 
-- (void)reload;
 @end

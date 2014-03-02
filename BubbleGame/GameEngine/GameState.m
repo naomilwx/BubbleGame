@@ -16,10 +16,12 @@
 #define ENDGAME_WITH_HIGHSCORE_MSG @"Congratulations! You win the game with highscore!"
 #define ENDGAME_WIN @"Congratulations! You have successfully cleared all the bubbles."
 #define ENDGAME_LOSE @"Game over! Try harder next time!"
+#define OUT_OF_BUBBLES_MSG @"No more bubbles to fire!"
+#define BASE_NUM_LAUNCHED_BUBBLES 10
+#define ALLOWANCE_PER_CLUSTER 2
 
 @implementation GameState{
     NSInteger totalBubbles;
-    NSInteger numOfLaunchedBubbles;
     NSInteger previousHighscore;
     NSInteger maxLaunchedBubbles;
 }
@@ -34,16 +36,18 @@
         gridBubbles = [[BubbleEngineManager alloc] init];
         totalBubbles = 0;
         totalScore = 0;
-        numOfLaunchedBubbles = 0;
         gameLevel = level;
         storer = [[GameStateStorer alloc] init];
+        maxLaunchedBubbles = [self determineMaxNumberOfLaunchedBubbles];
         [self getStoredHighscoreFromFile];
     }
     return self;
 }
 
-- (void)determineMaxNumberOfLaunchedBubbles{
-
+- (NSInteger)determineMaxNumberOfLaunchedBubbles{
+    NSInteger totalInitialClusters = [gridBubbles getTotalClusterCount];
+    NSInteger maxNum = totalInitialClusters * ALLOWANCE_PER_CLUSTER + BASE_NUM_LAUNCHED_BUBBLES;
+    return maxNum;
 }
 
 - (void)getStoredHighscoreFromFile{
@@ -211,15 +215,10 @@
                                       visitedItems:visited];
 }
 
-- (void)increaseLaunchedBubblesCount{
-    numOfLaunchedBubbles += 1;
-}
-
 - (void)reload{
     [gridBubbles clearAll];
     totalBubbles = 0;
     totalScore = 0;
-    numOfLaunchedBubbles = 0;
 }
 
 @end
