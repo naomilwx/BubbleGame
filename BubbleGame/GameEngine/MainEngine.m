@@ -144,7 +144,11 @@
     [mobileBubblesToRemove addObject:object];
     NSIndexPath *path = [gridTemplateDelegate indexPathForItemAtPoint:[object center]];
     if(!path){
-        path = [gridTemplateDelegate indexPathForItemAtPoint:[object getBacktrackedCenter]];
+        CGPoint backtrack = [object getBacktrackedCenter];
+        if(backtrack.x > 0 || backtrack.y > 0){
+            //Check that backtrack is a possible previous bubble center coordinate in the game area.
+            path = [gridTemplateDelegate indexPathForItemAtPoint:[object getBacktrackedCenter]];
+        }
     }
     if(path){
         CGPoint gridCenter = [gridTemplateDelegate getCenterForItemAtIndexPath:path];
