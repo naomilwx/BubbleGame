@@ -37,4 +37,5 @@
 - (void)longPressHandler:(UIGestureRecognizer *)recogniser;
 //Note: longpressrecogniser is able to track the gesture till finger is lifted
 
+- (void)receiveGameEndNotification:(NSNotification *)notification;
 @end

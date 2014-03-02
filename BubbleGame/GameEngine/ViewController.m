@@ -214,6 +214,17 @@
     dispatch_after(duration, dispatch_get_main_queue(), block);
 }
 
+#pragma mark - Handle end game
+
+- (void)setUpEndGameObservation{
+    NSNotificationCenter *note = [NSNotificationCenter defaultCenter];
+    [note addObserver:self selector:@selector(receiveGameEndNotification:) name:ENDGAME object:nil];
+}
+
+- (void)receiveGameEndNotification:(NSNotification *)notification{
+
+}
+
 #pragma mark - UICollectionViewDataSource & UICollectionViewDelegate Methods
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     return nil;
