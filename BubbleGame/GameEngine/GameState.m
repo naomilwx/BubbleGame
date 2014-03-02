@@ -197,4 +197,12 @@
     numOfLaunchedBubbles += 1;
 }
 
+- (void)reload{
+    [gridBubbles clearAll];
+    totalBubbles = 0;
+    totalScore = 0;
+    numOfLaunchedBubbles = 0;
+    gameWin = NO;
+}
+
 @end

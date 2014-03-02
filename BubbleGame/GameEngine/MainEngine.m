@@ -57,7 +57,7 @@
     [self clearAllExistingBubbles];
     mobileBubbles = [[NSMutableArray alloc] init];
     mobileBubblesToRemove = [[NSMutableArray alloc] init];
-    bubbleGameState = [[GameState alloc] init];
+    [bubbleGameState reload];
 }
 
 - (void)shutdownDisplayLink{

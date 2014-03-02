@@ -220,6 +220,7 @@
 
 - (void)clearAll{
     gridItems = [[NSMutableDictionary alloc] init];
+    clusters = [[NSMutableDictionary alloc] init];
 }
 
 - (NSArray *)getNeighboursForObjectAtRow:(NSInteger)row andPosition:(NSInteger)pos{
