@@ -35,11 +35,6 @@
     }
 }
 
-//- (NSInteger)getSelectedLevelForIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell *cell = [self.tableView.dataSource tableView:self.tableView cellForRowAtIndexPath:indexPath];
-//    return [cell tag];
-//}
-
 #pragma mark - datasource and delegate methods
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger selectedLevel = [self getSelectedLevelForIndexPath:indexPath];
