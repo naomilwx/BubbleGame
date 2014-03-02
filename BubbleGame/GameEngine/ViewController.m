@@ -90,7 +90,9 @@
 - (void)loadScoreDisplay{
     CGRect scoreFrame = CGRectMake(BACK_BUTTON_XPOS + BACK_BUTTON_WIDTH + SCORE_SIDE_BUFFER, BACK_BUTTON_YPOS - SCORE_BOTTOM_BUFFER, SCORE_WIDTH, SCORE_HEIGHT);
     stateDisplay = [[StateDisplay alloc] initWithGameView:self.gameBackground andDisplayFrame:scoreFrame];
-    [stateDisplay displayHighscore:[engine getPreviousHighscore]];
+    if(previousScreen != LEVEL_DESIGNER){
+        [stateDisplay displayHighscore:[engine getPreviousHighscore]];
+    }
 }
 
 - (void)loadCannonController{
