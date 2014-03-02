@@ -37,7 +37,8 @@
 
 @implementation DesignerViewController {
     UIImage *backgroundImage;
-    SEL selectorToExecute;
+//    SEL selectorToExecute;
+    void (^blockToExecute)();
     NSInteger selectedLevel;
 }
 
@@ -92,7 +93,7 @@
             //first load
             controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea  andBubbleGrid:bubbleGrid andImageMappings:self.paletteImages];
             selectedLevel = INVALID;
-            selectorToExecute = nil;
+            blockToExecute = nil;
         }
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];
@@ -155,7 +156,8 @@
 
 - (IBAction)backButtonPressed:(id)sender {
     if([self.controllerDataManager hasUnsavedBubbles]){
-        selectorToExecute = @selector(goBackToMainMenu);
+        __weak id selfRef = self;
+        blockToExecute = ^{[selfRef goBackToMainMenu];};
         [self showConfirmationWithTitle:@"Go to Main Menu" andMessage:@"Your unsaved changes will be lost! Are you sure you want to leave this page without saving?"];
     }else{
         [self goBackToMainMenu];
@@ -170,14 +172,16 @@
         [self load];
     }else if([label isEqualToString:GAME_SAVE]){
         if([self.controllerDataManager currentLevel] != INVALID){
-            selectorToExecute = @selector(save);
+            __weak id selfRef = self;
+            blockToExecute = ^{[selfRef save];};
             [self showConfirmationWithTitle:@"Save Level" andMessage:@"Existing level data will be overwritten. Continue?"];
         }else{
             [self save];
         }
     }else{
         if([self.controllerDataManager hasUnsavedBubbles]){
-            selectorToExecute = @selector(reset);
+            __weak id selfRef = self;
+            blockToExecute = ^{[selfRef reset];};
             [self showConfirmationWithTitle:@"Reset Level" andMessage:@"Your unsaved changes will be lost! Are you sure you want to reset the game level?"];
         }else{
             [self reset];
@@ -293,12 +297,8 @@
 
 #pragma mark - alert view delegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"proceed");
-    if(buttonIndex != 0 & selectorToExecute != nil){
-        IMP implementation = [self methodForSelector:selectorToExecute];
-        void (*func)() = (void *)implementation;
-        func();
-        NSLog(@"executed");
+    if(buttonIndex != 0 & blockToExecute != nil){
+        blockToExecute();
     }
 }
 
@@ -308,12 +308,14 @@
     selectedLevel = levelIndex;
     [levelSelectorPopover dismissPopoverAnimated:YES];
     if([self.controllerDataManager hasUnsavedBubbles]){
-        selectorToExecute = @selector(handleLevelSelection);
+        __weak id selfRef = self;
+        blockToExecute = ^{[selfRef handleLevelSelection];};
         [self showConfirmationWithTitle:@"Load Level" andMessage:@"Your current unsaved changes will be lost when level is loaded. Continue?"];
     }else{
         [self handleLevelSelection];
     }
 }
+
 - (void)handleLevelSelection{
     if(selectedLevel == INVALID){
         [self loadNewLevel];

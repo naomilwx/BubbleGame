@@ -140,7 +140,6 @@
     if(removedObject){
         totalBubbles -= 1;
         if(totalBubbles == 0){
-            NSLog(@"send");
             [self sendRemovedAllGridBubblesGameEndNotification];
         }
     }
