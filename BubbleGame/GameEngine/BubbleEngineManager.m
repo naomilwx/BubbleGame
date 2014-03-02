@@ -282,7 +282,7 @@
     return returnClusters;
 }
 
-- (NSInteger)getClusterCount{
+- (NSInteger)getTotalClusterCount{
     NSDictionary *allClusters = [self getAllClusters];
     NSInteger totalClusters = 0;
     for(NSNumber *key in allClusters){

@@ -193,7 +193,7 @@
         id<GameEngineInitDelegate> controller = segue.destinationViewController;
         [controller setOriginalBubbleModels:[self.controllerDataManager getAllBubbleModels]];
         [controller setPreviousScreen:LEVEL_DESIGNER];
-        [controller setGameLevel:[NSString stringWithFormat:@"%d",selectedLevel]];
+        [controller setGameLevel:[NSString stringWithFormat:@"%ld",selectedLevel]];
     }
 }
 
@@ -293,10 +293,12 @@
 
 #pragma mark - alert view delegate methods
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    NSLog(@"proceed");
     if(buttonIndex != 0 & selectorToExecute != nil){
         IMP implementation = [self methodForSelector:selectorToExecute];
         void (*func)() = (void *)implementation;
         func();
+        NSLog(@"executed");
     }
 }
 

@@ -13,11 +13,11 @@
 #define SCORE_FONT @"Helvetica-Bold"
 #define SCORE_FONT_SIZE 30
 #define NOTIFICATION_FONT_SIZE 20
-#define SCORE_TEXT @"Score: %d"
-#define HIGH_SCORE_TEXT @"Highscore: %d"
-#define POP_TEXT @"Pop bonus: %d"
-#define DROP_TEXT @"Drop bonus: %d"
-#define BONUS_TEXT @"Combo bonus: %d"
+#define SCORE_TEXT @"Score: %ld"
+#define HIGH_SCORE_TEXT @"Highscore: %ld"
+#define POP_TEXT @"Pop bonus: %ld"
+#define DROP_TEXT @"Drop bonus: %ld"
+#define BONUS_TEXT @"Combo bonus: %ld"
 #define NOTIFICATION_HEIGHT 50
 #define NOTIFICATION_WIDTH 200
 #define NOTIFICATION_YPOS 300

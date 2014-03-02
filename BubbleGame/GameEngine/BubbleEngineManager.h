@@ -36,4 +36,6 @@
 - (void)clearAll;
 //Removes all GameEngine instances stored in the data structure
 
+- (NSInteger)getTotalClusterCount;
+
 @end

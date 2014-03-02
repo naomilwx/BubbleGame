@@ -21,6 +21,7 @@
     NSInteger totalBubbles;
     NSInteger numOfLaunchedBubbles;
     NSInteger previousHighscore;
+    NSInteger maxLaunchedBubbles;
 }
 
 @synthesize gridBubbles;
@@ -39,6 +40,10 @@
         [self getStoredHighscoreFromFile];
     }
     return self;
+}
+
+- (void)determineMaxNumberOfLaunchedBubbles{
+
 }
 
 - (void)getStoredHighscoreFromFile{

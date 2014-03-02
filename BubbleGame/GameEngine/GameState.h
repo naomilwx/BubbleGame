@@ -5,6 +5,7 @@
 //  Created by Naomi Leow on 27/2/14.
 //  Copyright (c) 2014 nus.cs3217. All rights reserved.
 //
+// Class to store the state of the game
 
 #import <Foundation/Foundation.h>
 #import "BubbleEngineManager.h"

@@ -253,7 +253,7 @@
                                                     message:[message objectForKey:ENDGAME_MESSAGE]
                                                    delegate:self
                                           cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil]; //TODO
+                                          otherButtonTitles:nil];
     [alert show];
 }
 

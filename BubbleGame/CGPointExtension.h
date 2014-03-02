@@ -5,6 +5,7 @@
 //  Created by Naomi Leow on 26/2/14.
 //  Copyright (c) 2014 nus.cs3217. All rights reserved.
 //
+// Extension for the iOS implemention of CGPoint to allow easy manupulation of CGPoint objects as required for the purposes of this game
 
 #import <Foundation/Foundation.h>
 
