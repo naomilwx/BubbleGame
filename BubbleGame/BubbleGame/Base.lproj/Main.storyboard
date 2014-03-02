@@ -245,6 +245,7 @@
                         <outlet property="palette" destination="Zhz-7i-rKi" id="tA3-gn-Jrz"/>
                         <outlet property="redButton" destination="SBB-Kv-jTK" id="KWm-Gd-wdr"/>
                         <outlet property="starButton" destination="8Gr-KC-kIB" id="O0H-ea-q2j"/>
+                        <outlet property="startButton" destination="wrv-UE-wca" id="cLE-sr-cHY"/>
                         <segue destination="BYZ-38-t0r" kind="modal" identifier="designerToMenu" id="dfM-UT-uMZ"/>
                     </connections>
                 </viewController>

@@ -59,8 +59,7 @@
     return NO;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     [self initRequiredUIImages];
     [self loadViews];
@@ -70,8 +69,7 @@
     [self restoreViewFromTempFileIfFileExists];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -91,7 +89,10 @@
 - (void)initialiseControllerDataManager{
     @try{
         if(!controllerDataManager){
+            //first load
             controllerDataManager = [[ControllerDataManager alloc] initWithView:self.gameArea  andBubbleGrid:bubbleGrid andImageMappings:self.paletteImages];
+            selectedLevel = INVALID;
+            selectorToExecute = nil;
         }
     }@catch(NSException *e){
         [self showAlertWithTitle:@"Set up" andMessage:@"Failed to load game, your game data may be corrupted"];

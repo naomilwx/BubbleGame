@@ -31,6 +31,7 @@
 @property (strong, nonatomic) UIPopoverController *levelSelectorPopover;
 @property (strong, nonatomic) IBOutlet UIButton *loadButton;
 @property (strong, nonatomic) IBOutlet UIButton *backButton;
+@property (strong, nonatomic) IBOutlet UIButton *startButton;
 @property (strong) ControllerDataManager *controllerDataManager;
 
 - (void)tapHandler:(UIGestureRecognizer *)gesture;
