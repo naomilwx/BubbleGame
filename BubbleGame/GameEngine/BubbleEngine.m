@@ -82,6 +82,12 @@
     return removed;
 }
 
+- (void)removeBubbleView{
+    if(bubbleView){
+        [bubbleView activateForDeletionWithAnimationType:NO_ANIMATION];
+    }
+}
+
 - (BOOL)checkCollisionWithGrid{
     if([mainEngine hasCollisionWithGridForCenter:self.center]){
         displacementVector = CGPointMake(0, 0);

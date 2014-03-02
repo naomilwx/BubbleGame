@@ -227,7 +227,7 @@
 
 #pragma mark - Handle end game
 - (void)reload{
-    [self.engine reload];
+    [engine reload];
     [self loadGridBubblesFromModel];
     [self.cannonController reload];
     [self.stateDisplay resetScoreDisplay];

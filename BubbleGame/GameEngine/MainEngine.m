@@ -54,7 +54,7 @@
 }
 
 - (void)reload{
-    [self clearAllExistingBubbles];
+    [self clearAllExistingBubbleViews];
     mobileBubbles = [[NSMutableArray alloc] init];
     mobileBubblesToRemove = [[NSMutableArray alloc] init];
     [bubbleGameState reload];
@@ -64,13 +64,13 @@
     [displayLink invalidate];
 }
 
-- (void)clearAllExistingBubbles{
+- (void)clearAllExistingBubbleViews{
     NSArray *bubbles = [bubbleGameState getAllObjects];
     for(BubbleEngine *engine in bubbles){
-        [engine removeBubbleWithAnimationType:NO_ANIMATION];
+        [engine removeBubbleView];
     }
     for(BubbleEngine *engine in mobileBubbles){
-        [engine removeBubbleWithAnimationType:NO_ANIMATION];
+        [engine removeBubbleView];
     }
 }
 

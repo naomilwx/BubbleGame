@@ -145,6 +145,7 @@
 
 - (void)removeGridBubbleAtRow:(NSInteger)row andPositions:(NSInteger)col{
     id removedObject = [gridBubbles removeObjectAtRow:row andPosition:col];
+    NSLog(@"remove");
     if(removedObject){
         totalBubbles -= 1;
         if(totalBubbles == 0){

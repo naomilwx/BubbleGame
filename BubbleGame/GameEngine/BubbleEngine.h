@@ -29,6 +29,8 @@
 
 - (void)moveBubble;
 
+- (void)removeBubbleView;
+
 - (BOOL)hasOverlapWithOtherCenter:(CGPoint)point;
 
 - (BOOL)removeBubbleWithAnimationType:(NSInteger)type;
